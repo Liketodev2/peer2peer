@@ -1,0 +1,38 @@
+footer{
+    .form-control {
+        border-radius: 20px;
+    }
+    h3 {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        color: #515151;
+        white-space: nowrap;
+    }
+    ul {
+        li {
+            a{
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 16px;
+                color: #8C8C8C;
+                white-space: nowrap;
+            }
+        }
+    }
+    .social-icon-style {
+        a {
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid;
+            color: #fff;
+            background-color: #000;
+        }
+    }
+}

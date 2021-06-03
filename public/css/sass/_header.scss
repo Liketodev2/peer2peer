@@ -1,0 +1,95 @@
+header {
+    min-height: 74px;
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    .nav-top {
+        .navbar-brand {
+            img {
+                @media (max-width: 1320px) {
+                    zoom: 0.7;
+                }
+                @media (max-width: 768px) {
+                    zoom: 0.5;
+                }
+            }
+        }
+        .navbar-toggler {
+            position: absolute;
+            right: 0;
+            top: 20px;
+        }
+        .header-date_info {
+            font: 18px/27px Poppins;
+            font-weight: 500;
+            letter-spacing: 0;
+            color: #818080;
+        }
+        .nav-item {
+            .nav-link {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                color: #000000;
+                line-height: 16px;
+            }
+            &.active {
+                .nav-link {
+                    color: #000000;
+                    border-bottom: 2px solid #e91414;
+                }
+            }
+            button {
+                min-width: 100px;
+                height: 35px;
+                margin-left: 8px;
+            }
+        }
+    }
+    .nav-bottom {
+        .bg-dark {
+            background-color: #000!important;
+        }
+        .nav-item {
+            .nav-link {
+                font: 18px/27px Poppins;
+                font-weight: 500;
+                letter-spacing: 0;
+                color: #FFFFFF;
+                white-space: nowrap;
+                padding-left: 16px;
+                padding-right: 16px;
+                @media (max-width: 1415px) {
+                    padding-left: 6px;
+                    padding-right: 6px;
+                }
+                @media (max-width: 1200px) {
+                   font-size: 14px;
+                }
+            }
+            &.active {
+                background-color: #e91414;
+            }
+        }
+        .form-inline {
+            position: relative;
+            margin-right: 15px;
+            .form-control {
+                border-radius: 10px;
+                height: 30px;
+                background-color: #000;
+                width: 100%;
+            }
+            .abs {
+                position: absolute;
+                right: 10px;
+                .fa-search:before{
+                    color: white;
+                }
+            }
+            @media (max-width: 1200px) {
+              min-width: 150px;
+            }
+        }
+    }
+}

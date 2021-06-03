@@ -1,0 +1,71 @@
+.asides {
+  width: 290px;
+  background: #F3F3F3 0 0 no-repeat padding-box;
+  //padding: 20px 9px;
+  .title {
+    font: normal normal 600 18px/27px Poppins;
+    color: #000000;
+    margin-bottom: 8px;
+  }
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+.left_aside {
+  ul {
+    list-style: none;
+    li {
+      font: normal normal 500 13px/21px Poppins;
+      position: relative;
+      text-indent: 6px;
+      &:before {
+        content: '';
+        position: absolute;
+        background-color: #000;
+        width: 3px;
+        height: 3px;
+        left: 0;
+        top: 10px;
+        border-radius: 50%;
+      }
+    }
+    &.active {
+      li:before {
+        background-color: red;
+      }
+    }
+  }
+}
+
+.right_aside {
+  ul {
+    list-style: none;
+    li {
+      font: normal normal 500 13px/21px Poppins;
+      position: relative;
+      text-indent: 6px;
+      &:before {
+        content: '';
+        position: absolute;
+        background-color: #000;
+        width: 3px;
+        height: 3px;
+        left: 0;
+        top: 10px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.aside-accordion {
+  .title {
+    font: normal normal 600 14px/21px Poppins;
+    color: #FFFFFF;
+  }
+ .btn-red {
+   border-radius: 0;
+   color: #ffffff;
+ }
+}

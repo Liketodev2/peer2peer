@@ -1,0 +1,354 @@
+.main-content {
+  .article-form {
+    .form-title {
+      background: #E5E5E5 0 0 no-repeat padding-box;
+      border-radius: 10px;
+      font: normal normal 500 18px/27px Poppins;
+      letter-spacing: 0;
+      color: #0019FF;
+      width: 100%;
+      height: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      text-align: center;
+    }
+    label {
+      font: normal normal 500 18px/27px Poppins;
+      color: #000000;
+    }
+    .form-control {
+      font-size: 16px;
+      color: #C1BFBF;
+      border: 1px solid #CFCBCB;
+      border-radius: 10px;
+    }
+    .category_select {
+      background-color: #E91414;
+      font: normal normal 500 16px/25px Poppins;
+      color: #FFFFFF;
+      min-width: 132px;
+      border-radius: 10px;
+      text-align: center;
+      border: 0;
+      outline: none;
+      padding: 0 15px;
+    }
+  }
+  .accordion{
+    .card {
+      margin-bottom: 50px;
+      border: 0;
+      padding: 0;
+      .card-header {
+        background: #E5E5E5 0 0 no-repeat padding-box;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        flex-wrap: wrap;
+        button {
+          font: normal normal 600 25px/38px Poppins;
+          color: #0019FF;
+          @media (max-width: 1199px) {
+            font: normal normal 600 20px/22px Poppins;
+          }
+          @media (max-width: 768px) {
+            font: normal normal 600 17px/20px Poppins;
+            padding: 8px;
+          }
+        }
+        ul {
+          list-style: none;
+          margin-bottom: 0;
+          li {
+            position: relative;
+            a {
+              font: normal normal 400 16px/25px Poppins;
+              color: #444343;
+              padding: 0 8px;
+              @media (max-width: 768px) {
+                font: normal normal 600 14px/22px Poppins;
+              }
+            }
+            &.active {
+              a {
+                color: #E91414;
+              }
+            }
+            &:not(:last-child)::after {
+              content: ' | ';
+              position: absolute;
+              right: 0;
+            }
+          }
+          @media (max-width: 1199px) {
+            padding: 0;
+          }
+        }
+        @media (max-width: 1199px) {
+          padding: 10px 70px 10px 6px;
+          .abs {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+          }
+        }
+      }
+      .card-body {
+        background-color: #F9F9F9;
+        border-radius: 0 0 10px 10px;
+        .row-news {
+          font: normal normal 400 16px/25px Poppins;
+          color: #444343;
+          flex-wrap: wrap;
+          a {
+            font: normal normal 600 16px/25px Poppins;
+            color: #C11414;
+            @media (max-width: 768px) {
+              font: normal normal 600 14px/20px Poppins;
+            }
+          }
+          .flex-1 {
+            padding: 0 5px;
+          /*  overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            height: 25px;*/
+            @media (max-width: 768px) {
+              font: normal normal 400 14px/20px Poppins;
+              padding: 0 10px 0 0;
+              height: 20px;
+              flex: inherit;
+              span {
+                display: none;
+              }
+              &::after {
+                content: ' ,  ';
+              }
+              &:last-child::after {
+                content: ' ';
+              }
+            }
+          }
+        }
+        @media (max-width: 768px) {
+          padding: 10px;
+        }
+      }
+    }
+    .follow-feed_card {
+      .card-header {
+        button {
+          font: normal normal 600 25px/38px Poppins;
+          color: #2A2A2A;
+        }
+        .label {
+          font: normal normal 500 18px/27px Poppins;
+          color: #686767;
+        }
+      }
+    }
+  }
+  .bg-white {
+    a {
+      font: normal normal 600 16px/25px Poppins;
+      color: #040404;
+    }
+  }
+}
+#sub_accordion {
+  .card-header {
+    background: #ffffff 0 0 no-repeat padding-box;
+    button {
+      font: normal normal 600 18px/27px Poppins;
+      color: #0019FF;
+    }
+  }
+  .card-body {
+    background: #ffffff 0 0 no-repeat padding-box;
+    padding: 15px;
+    }
+
+  .title {
+    font: normal normal 600 16px/25px Poppins;
+    color: #C11414;
+  }
+}
+
+.fa-caret-down {
+  font-size: 40px;
+  &.rotate {
+    transform: rotate(90deg);
+  }
+}
+.messages_content {
+  background: #FAFAFA 0 0 no-repeat padding-box;
+  border: 1px solid #C9C9C9;
+  padding: 34px 24px;
+  display: flex;
+  .border-bottom {
+    border-bottom: 0.5px solid #D4D0D0!important;
+  }
+  .left-group {
+    width: 262px;
+    background-color: #ffffff;
+    margin-right: 10px;
+    .search-div {
+      height: 55px;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      .fa-search {
+        color: #B1B1B1;
+      }
+      .form-control {
+        border: 0!important;
+        font: normal normal 400 14px/21px Poppins;
+        color: #B1B1B1;
+      }
+    }
+    .messages_content-item {
+      padding: 15px 30px;
+      .answer {
+        font: normal normal 600 14px/21px Poppins;
+        color: #000000;
+      }
+      .name {
+        font: normal normal 400 14px/21px Poppins;
+        color: #0019FF;
+      }
+      .date {
+        font: normal normal 400 12px/18px Poppins;
+        color: #9A9A9A;
+      }
+      &.active {
+        background-color: #F3F3F3 ;
+      }
+    }
+  }
+  .center-group {
+    background-color: #ffffff;
+    flex: 1;
+    .name {
+      font: normal normal 600 16px/25px Poppins;
+      color: #686767;
+    }
+    .time {
+      font: normal normal 400 14px/21px Poppins;
+      color: #BFBFBF;
+    }
+    .chat-header {
+      border-bottom: 1px solid #D4D0D0;
+      padding: 30px 60px;
+      .name {
+        font: normal normal 600 18px/27px Poppins;
+        color: #686767;
+      }
+      .date {
+        font: normal normal 400 12px/18px Poppins;
+        color: #D4D0D0;
+      }
+    }
+    .chat-content {
+      .bg-light {
+        min-height: 75px;
+        background: #F3F3F3 0 0 no-repeat padding-box!important;
+        border-radius: 0 10px 10px 10px;
+        font: normal normal 400 16px/25px Poppins;
+        color: #686767;
+        padding: 20px 40px;
+      }
+      .bg-dark {
+        min-height: 75px;
+        background: #5A5A5A 0 0 no-repeat padding-box;
+        border-radius: 10px 0 10px 10px;
+        font: normal normal 400 16px/25px Poppins;
+        color: #FFFFFF;
+        padding: 20px 40px;
+      }
+      .chat-textarea {
+        textarea {
+          background: #FFFFFF 0 0 no-repeat padding-box;
+          border: 1px solid #BBBBBB;
+          border-radius: 5px;
+          font: normal normal 400 14px/19px Open Sans;
+          color: #B1B1B1;
+          &:focus {
+            outline: none;
+          }
+        }
+        .btn-red {
+          background: #E91414 0 0 no-repeat padding-box;
+          border-radius: 28px;
+          width: 204px;
+          height: 50px;
+        }
+      }
+    }
+  }
+}
+
+.post-content {
+  background: #F9F9F9 0 0 no-repeat padding-box;
+  border-radius: 10px;
+  .title {
+    font: normal normal 500 25px/38px Poppins;
+    color: #0019FF;
+  }
+  .info-text {
+    font: normal normal 500 16px/25px Poppins;
+    color: #000000;
+  }
+  .post-link {
+    font: normal normal 500 14px/21px Poppins;
+    color: #0019FF;
+  }
+  textarea {
+    background: #FFFFFF 0 0 no-repeat padding-box;
+    border: 1px solid #BBBBBB;
+    border-radius: 5px;
+    font: normal normal 400 14px/19px "Open Sans";
+    color: #B1B1B1;
+  }
+  ul {
+    li {
+      white-space: nowrap;
+      a {
+        font: normal normal 500 17px/26px Poppins;
+        color: #686767;
+      }
+      &.active {
+        a {
+          color: #0019FF;
+        }
+      }
+    }
+  }
+  .btn-red {
+    border-radius: 28px;
+  }
+  .name {
+    font: normal normal 600 16px/25px Poppins;
+    color: #3D3B3B;
+  }
+  .date {
+    font: normal normal 400 14px/21px Poppins;
+    color: #BFBFBF;
+  }
+  .text {
+    font: normal normal 400 14px/21px Poppins;
+    color: #686767;
+    a {
+      font: normal normal 400 16px/25px Poppins;
+      color: #0019FF;
+      white-space: nowrap;
+    }
+  }
+  .color-blue {
+    color: #0019FF;
+  }
+
+}
