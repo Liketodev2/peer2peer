@@ -8,7 +8,7 @@
             <div class="color-gray my-3">
                 Showing 1 - 25 of 11228 results.
             </div>
-            <div class=" ">
+            <div class="">
                 <div class="card-body">
                     <div class="d-flex row-news">
                         <div class="w-40"><a href="#">10 things to know about interest rates</a></div>
@@ -171,9 +171,7 @@
                     </nav>
                 </div>
             </div>
-
         </div>
         @include('areas.feed-right-side')
     </div>
-
 @endsection
