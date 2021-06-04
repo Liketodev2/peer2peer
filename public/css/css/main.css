@@ -105,6 +105,24 @@ button:focus {
     left: 0;
     top: 13px; }
 
+.pagination .page-item {
+  margin: 5px; }
+  .pagination .page-item .page-link {
+    width: 34px;
+    height: 34px;
+    outline: none;
+    border-radius: 3px;
+    font: normal normal 600 16px/25px Poppins;
+    color: #686767;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .pagination .page-item.active .page-link {
+    background: #C11414 0 0 no-repeat padding-box;
+    border: 0;
+    color: white; }
+
 .asides {
   width: 290px;
   background: #F3F3F3 0 0 no-repeat padding-box; }
@@ -709,6 +727,13 @@ footer .social-icon-style a {
       white-space: nowrap; }
   .post-content .color-blue {
     color: #0019FF; }
+
+.search-content .title {
+  font: normal normal 600 25px/38px Poppins;
+  color: #E91414;
+  border-bottom: 1px solid; }
+.search-content .card-body .row-news a {
+  color: #E91414; }
 
 @media screen and (min-width: 1200px) {
   .container-1636 {

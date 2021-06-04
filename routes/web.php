@@ -23,6 +23,9 @@ Route::get('/messages', [App\Http\Controllers\HomeController::class, 'messages']
 Route::get('/category/{id}', [App\Http\Controllers\HomeController::class, 'category'])->name('category');
 Route::get('/feed/{id}', [App\Http\Controllers\HomeController::class, 'feed'])->name('feed');
 
+Route::get('/search', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
+Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+
 Route::get('/my-feeds', [App\Http\Controllers\FeedController::class, 'myFeeds'])->name('my-feeds');
 Route::post('/like', [App\Http\Controllers\FeedController::class, 'likeFeed'])->name('like');
 Route::post('/comment-like', [App\Http\Controllers\FeedController::class, 'commentLikeFeed'])->name('comment-like');

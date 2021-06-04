@@ -107,5 +107,28 @@ button:focus {
     top: 13px;
   }
 }
-
+.pagination {
+    .page-item{
+        margin: 5px;
+        .page-link {
+            width: 34px;
+            height: 34px;
+            outline: none;
+            border-radius: 3px;
+            font: normal normal 600 16px/25px Poppins;
+            color: #686767;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        &.active {
+            .page-link {
+                background: #C11414 0 0 no-repeat padding-box;
+                border: 0;
+                color: white;
+            }
+        }
+    }
+}
 

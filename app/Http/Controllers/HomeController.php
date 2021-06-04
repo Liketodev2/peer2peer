@@ -32,6 +32,18 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function profile()
+    {
+        return view('profile');
+    }
+
+
+    public function search()
+    {
+        return view('search');
+    }
+
+
     public function home()
     {
         $feeds = [];
