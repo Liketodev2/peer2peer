@@ -25,6 +25,7 @@ Route::get('/feed/{id}', [App\Http\Controllers\HomeController::class, 'feed'])->
 
 Route::get('/my-feeds', [App\Http\Controllers\FeedController::class, 'myFeeds'])->name('my-feeds');
 Route::post('/like', [App\Http\Controllers\FeedController::class, 'likeFeed'])->name('like');
+Route::post('/comment-like', [App\Http\Controllers\FeedController::class, 'commentLikeFeed'])->name('comment-like');
 Route::post('/agree', [App\Http\Controllers\FeedController::class, 'agreeFeed'])->name('agree');
 Route::post('/repost', [App\Http\Controllers\FeedController::class, 'repostFeed'])->name('repost');
 Route::post('feed/store', [App\Http\Controllers\FeedController::class, 'store'])->name('feed.store');

@@ -56,4 +56,7 @@ class User extends Authenticatable
     public function feed(){
         return $this->hasMany('App\Models\Feed');
     }
+    public function comment_like(){
+        return $this->hasMany('App\Models\CommentLike');
+    }
 }

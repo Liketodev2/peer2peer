@@ -1,10 +1,21 @@
 @extends('layouts.main')
 <style>
     .comment-replay{
+        border-left: 5px solid #e91414;
+        border-radius: 5px;
+        padding: 20px;
+        margin-left: 20px;
         display: none;
     }
-    .replay{
+    .replay, .comment-like{
         cursor: pointer;
+    }
+    .active-comment{
+        color: #44b144;
+    }
+    .btn-sm{
+        min-width: 18px !important;
+        height: 36px !important;
     }
 </style>
 @section('content')
@@ -58,14 +69,16 @@
                                {{$comment->message}}
                                     {{--<a href="#" class="ml-3">See more</a>--}}
                                 </div>
-                                <div class="d-flex">
-                                    <div class="color-blue replay" data-id="{{$comment->id}}">Replay</div>
-                                    <div class="mx-2"><i class="fas fa-thumbs-up mr-1"></i>4</div>
-                                    <div class="mx-2"><i class="fas fa-thumbs-down mr-1"></i>0</div>
+                                <div class="d-flex comment-like-box" data-id="{{$comment->id}}">
+                                    @auth
+                                        <div class="color-blue replay " data-id="{{$comment->id}}">Replay</div>
+                                    @endauth
+                                    <div style="{{!\Auth::user() ? 'pointer-events:none' : ''}}" class="mx-2 comment-type-like comment-like comment-like-trigger {{\Auth::user() &&\Auth::user()->comment_like()->where('comment_id', $comment->id)->first() && \Auth::user()->comment_like()->where('comment_id', $comment->id)->first()->like == 1 ? 'active-comment' : ''}}" data-comment="{{$comment->id}}" data-is_like="1"><i class="fas fa-thumbs-up mr-1"></i><span class="count-area">{{$comment->comment_like() ? $comment->comment_like()->where('like', 1)->count() : 0}}</span></div>
+                                    <div style="{{!\Auth::user() ? 'pointer-events:none' : ''}}" class="mx-2 comment-type-diss comment-like comment-like-trigger {{\Auth::user() &&\Auth::user()->comment_like()->where('comment_id', $comment->id)->first() && \Auth::user()->comment_like()->where('comment_id', $comment->id)->first()->like == 0 ? 'active-comment' : ''}}" data-comment="{{$comment->id}}" data-is_like="0"><i class="fas fa-thumbs-down mr-1"></i><span class="count-area">{{$comment->comment_like() ? $comment->comment_like()->where('like', 0)->count() : 0}}</span></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="comment-replay" data-id="{{$comment->id}}" style="border-left: 5px solid red; padding: 20px;margin-left: 20px">
+                        <div class="comment-replay" data-id="{{$comment->id}}" >
                             <form action="{{route('feed.comment')}}" method="POST">
                                 @csrf
                                 <div class="d-flex align-items-center my-3">
@@ -98,7 +111,7 @@
                         </div>
                 @endif
                 @endif
-                @if($feed->comment_access == 0)
+                @if($feed->comment_access == 0 && !\Auth::guest())
                     <h5 class="text-info mt-4"><i class="far fa-times-circle"></i> Comments disabled by the author</h5>
                 @endif
             </div>

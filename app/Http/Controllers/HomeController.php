@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Feed;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,8 @@ class HomeController extends Controller
     }
     public function peers()
     {
-        return view('peers');
+        $peers = User::where('type', 10)->get();
+        return view('peers', compact('peers'));
     }
 
     public function messages()

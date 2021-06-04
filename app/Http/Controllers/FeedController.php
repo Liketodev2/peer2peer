@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agree;
 use App\Models\Comment;
+use App\Models\CommentLike;
 use App\Models\Feed;
 use App\Models\Like;
 use App\Models\Repost;
@@ -16,6 +17,51 @@ class FeedController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+
+    public function commentLikeFeed(Request $request){
+
+        $comment_id = $request->comment_id;
+        $is_like = $request->is_like;
+        $update = false;
+
+        $comment = Comment::find($comment_id);
+
+        if(!$comment){
+            return null;
+        }
+
+        $user = Auth::user();
+        $like = $user->comment_like()->where('comment_id', $comment_id)->first();
+
+        if($like){
+            $already_like = $like->like;
+            $update = true;
+
+            if($already_like == $is_like){
+                $like->delete();
+                return null;
+            }
+        }else{
+            $like = new CommentLike();
+        }
+        $like->like = $is_like;
+        $like->user_id = $user->id;
+        $like->comment_id = $comment->id;
+
+        if($update){
+            $like->update();
+        }else{
+            $like->save();
+        }
+
+        return response()->json([
+            'like' => $comment->comment_like() ? $comment->comment_like()->where('like', 1)->count() : 0,
+            'diss' => $comment->comment_like() ? $comment->comment_like()->where('like', 0)->count() : 0
+        ]);
+
+
     }
 
     public function likeFeed(Request $request){

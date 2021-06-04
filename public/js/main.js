@@ -92,6 +92,30 @@ $(document).ready(function() {
         });
     });
 
+    $(document).on('click','.comment-like', function(){
+
+        let comment_id = $(this).data('comment');
+        let is_like = $(this).data('is_like');
+
+        $('.comment-like-box[data-id="'+comment_id+'"] .comment-like-trigger').not($(this)).removeClass('active-comment');
+        $(this).toggleClass('active-comment');
+
+
+        $.ajax({
+            type: "POST",
+            url: "/comment-like",
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: {
+                comment_id : comment_id,
+                is_like : is_like,
+            },
+            success: function(data){
+              $('.comment-like-box[data-id="'+comment_id+'"] .comment-type-like').find('.count-area').html(data.like);
+              $('.comment-like-box[data-id="'+comment_id+'"] .comment-type-diss').find('.count-area').html(data.diss);
+            }
+        });
+    });
+
 });
 $('.replay').on('click', function(){
     let id = $(this).data('id');
