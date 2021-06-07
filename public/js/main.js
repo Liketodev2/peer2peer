@@ -122,3 +122,21 @@ $('.replay').on('click', function(){
     $('.comment-replay[data-id="'+id+'"]').toggle();
 });
 
+$('.follow-btn').on('click', function(){
+
+    $('.follow-check').toggle();
+    let follow_id = $(this).data('follow');
+
+    $.ajax({
+        type: "POST",
+        url: "/follow",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            follow_id : follow_id,
+        },
+        success: function(data){
+
+        }
+    });
+});
+

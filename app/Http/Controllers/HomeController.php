@@ -33,9 +33,22 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function profile()
+    public function profile($id)
     {
-        return view('profile');
+        $user = User::findOrFail($id);
+        $results =  $user->feed();
+        $results_count = $user->feed->count();
+        $results = $results->paginate(25);
+
+
+        return view('profile', compact('user','results','results_count'));
+    }
+
+    public function myProfile()
+    {
+        $user = Auth::user();
+
+        return view('myprofile', compact('user'));
     }
 
 

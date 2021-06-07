@@ -25,7 +25,8 @@ Route::get('/category/{id}', [App\Http\Controllers\HomeController::class, 'categ
 Route::get('/feed/{id}', [App\Http\Controllers\HomeController::class, 'feed'])->name('feed');
 
 Route::get('/search', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
-Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+Route::get('/profile/{id}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+Route::get('/my-profile', [App\Http\Controllers\HomeController::class, 'myProfile'])->name('my-profile');
 
 Route::get('/my-feeds', [App\Http\Controllers\FeedController::class, 'myFeeds'])->name('my-feeds');
 Route::post('/like', [App\Http\Controllers\FeedController::class, 'likeFeed'])->name('like');
@@ -34,6 +35,8 @@ Route::post('/agree', [App\Http\Controllers\FeedController::class, 'agreeFeed'])
 Route::post('/repost', [App\Http\Controllers\FeedController::class, 'repostFeed'])->name('repost');
 Route::post('feed/store', [App\Http\Controllers\FeedController::class, 'store'])->name('feed.store');
 Route::post('feed/comment', [App\Http\Controllers\FeedController::class, 'comment'])->name('feed.comment');
+
+Route::post('/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
 
 Route::get('auth/facebook', [App\Http\Controllers\Auth\FacebookController::class, 'facebookRedirect']);
 Route::get('auth/facebook/callback', [App\Http\Controllers\Auth\FacebookController::class, 'facebookCallback']);

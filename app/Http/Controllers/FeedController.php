@@ -38,7 +38,6 @@ class FeedController extends Controller
         if($like){
             $already_like = $like->like;
             $update = true;
-
             if($already_like == $is_like){
                 $like->delete();
                 return null;

@@ -79,7 +79,7 @@
                             <img src="{{asset('img/profile-user.svg')}}" alt="login">
                         </a>
                         <div class="dropdown-menu px-3" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="{{route('my-profile', \Auth::id())}}">Profile</a>
                             <hr>
                             <a class="dropdown-item" href="#"
                                onclick="event.preventDefault();

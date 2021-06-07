@@ -33,9 +33,9 @@
                 @auth
                     @if($feed->comment_access == 1)
                         <form action="{{route('feed.comment')}}" method="POST">
-                    @csrf
+                         @csrf
                     <div class="d-flex align-items-center my-3">
-                        <img src="{{asset('img/profile-user-gray.svg')}}" alt="" class="mr-3">
+                        <a href="{{route('profile', $feed->user->id)}}"><img src="{{asset('img/profile-user-gray.svg')}}" alt="" class="mr-3"></a>
                         <input type="hidden" name="feed_id" value="{{ $feed->id }}" />
                         <textarea required name="message" id="message" class="p-3 bg-white w-100"  rows="2" placeholder=""></textarea>
                     </div>
@@ -61,7 +61,7 @@
                     @if($feed->comments)
                     @foreach($feed->comments as $comment)
                         <div class="d-flex my-3 align-items-start border-bottom py-4">
-                            <img src="{{asset('img/profile-user-gray.svg')}}" alt="" class="mr-3">
+                            <a href="{{route('profile', $comment->user->id)}}"><img src="{{asset('img/profile-user-gray.svg')}}" alt="" class="mr-3"></a>
                             <div class="pt-3">
                                 <div class="name">{{$comment->user->first_name}} {{$comment->user->last_name}}</div>
                                 <div class="date">{{\Carbon\Carbon::parse($comment->created_at)->diffForHumans(\Illuminate\Support\Carbon::now())}}</div>
