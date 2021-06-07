@@ -112,8 +112,9 @@
                         </li>
                     @endforeach
                 </ul>
-                <form class="form-inline">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search ">
+                <form class="form-inline" action="{{route('search')}}" method="POST">
+                    @csrf
+                    <input class="form-control" type="search" name="search" placeholder="Search" aria-label="Search ">
                     <button class="btn my-sm-0 border-0 abs" type="submit">
                         <i class="fa fa-search"></i>
                     </button>

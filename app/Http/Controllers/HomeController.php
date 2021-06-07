@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -38,9 +39,22 @@ class HomeController extends Controller
     }
 
 
-    public function search()
+    public function search(Request $request)
     {
-        return view('search');
+
+        if(Str::length($request->search) > 2){
+            $results = Feed::where(function($query) use ($request) {
+                $query->where('article', 'like', '%' . $request->search . '%');
+                $query->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+            $results_count = $results->count();
+            $results = $results->paginate(25);
+        }else{
+            return redirect()->back();
+        }
+
+
+        return view('search', compact('results','results_count'));
     }
 
 

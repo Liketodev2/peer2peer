@@ -19,6 +19,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 Route::get('/peers', [App\Http\Controllers\HomeController::class, 'peers'])->name('peers');
+Route::post('/search', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 Route::get('/messages', [App\Http\Controllers\HomeController::class, 'messages'])->name('messages');
 Route::get('/category/{id}', [App\Http\Controllers\HomeController::class, 'category'])->name('category');
 Route::get('/feed/{id}', [App\Http\Controllers\HomeController::class, 'feed'])->name('feed');
