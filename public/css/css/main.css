@@ -728,12 +728,52 @@ footer .social-icon-style a {
   .post-content .color-blue {
     color: #0019FF; }
 
+.profile-content .title,
 .search-content .title {
   font: normal normal 600 25px/38px Poppins;
   color: #E91414;
   border-bottom: 1px solid; }
+.profile-content .card-body .row-news a,
 .search-content .card-body .row-news a {
-  color: #E91414; }
+  color: #E91414;
+  font-weight: 500; }
+
+.profile-content .btn-red {
+  max-width: 90px !important;
+  width: 100%;
+  min-width: 90px;
+  height: 32px; }
+.profile-content .name {
+  font: normal normal 600 18px/27px Poppins;
+  color: #000000; }
+.profile-content .username {
+  font: normal normal 500 16px/25px Poppins;
+  color: #000000; }
+
+.prof-img {
+  background-image: url("../../img/Ellipse37.png");
+  width: 114px;
+  height: 114px;
+  border-radius: 50%; }
+
+.chat-btn {
+  background-image: url("../../img/Group 109.svg");
+  width: 44px;
+  height: 32px; }
+
+.my-profile-content .prof-img {
+  position: relative; }
+  .my-profile-content .prof-img .upload-img {
+    background: rgba(0, 0, 0, 0.62);
+    border-radius: 50%;
+    width: 114px;
+    height: 114px;
+    position: absolute;
+    z-index: 11;
+    display: none;
+    transition: all 0.3s; }
+  .my-profile-content .prof-img:hover .upload-img {
+    display: block; }
 
 @media screen and (min-width: 1200px) {
   .container-1636 {
