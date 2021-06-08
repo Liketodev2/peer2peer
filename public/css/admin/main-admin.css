@@ -1,0 +1,16 @@
+.admin-panel-product-jb{
+    background: #ffffff !important;
+}
+.admin-panel-product-row{
+    background: #ffffff !important;
+    border: 1px solid #f7c201;
+}
+.jumbotron-main-st{
+    width: 150px;
+    object-fit: contain;
+    margin-top: 10px;
+}
+.jumbotron{
+    background: #75797d;
+}
+

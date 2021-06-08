@@ -37,6 +37,7 @@ Route::post('feed/store', [App\Http\Controllers\FeedController::class, 'store'])
 Route::post('feed/comment', [App\Http\Controllers\FeedController::class, 'comment'])->name('feed.comment');
 
 Route::post('/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
+Route::post('/image-upload', [App\Http\Controllers\UserController::class, 'imageUpload'])->name('image-upload');
 
 Route::get('auth/facebook', [App\Http\Controllers\Auth\FacebookController::class, 'facebookRedirect']);
 Route::get('auth/facebook/callback', [App\Http\Controllers\Auth\FacebookController::class, 'facebookCallback']);
@@ -44,3 +45,8 @@ Route::get('auth/facebook/callback', [App\Http\Controllers\Auth\FacebookControll
 Route::get('auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'googleRedirect']);
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'googleCallback']);
 
+Route::prefix('dashboard')->namespace('Admin')->middleware(['admin','auth'])->group(function(){
+
+    Route::get('/index', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+
+});

@@ -140,3 +140,7 @@ $('.follow-btn').on('click', function(){
     });
 });
 
+$('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
+$('#imgupload').change(function(){
+    $(this).closest('form').submit();
+});

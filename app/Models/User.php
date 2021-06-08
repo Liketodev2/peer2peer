@@ -22,7 +22,8 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'type',
-        'company_name'
+        'company_name',
+        'avatar'
     ];
 
     /**
@@ -58,6 +59,13 @@ class User extends Authenticatable
     }
     public function comment_like(){
         return $this->hasMany('App\Models\CommentLike');
+    }
+
+    public function isAdmin() {
+        if($this->is_admin == 1){
+            return true;
+        }
+        return false;
     }
 
 

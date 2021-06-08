@@ -14,6 +14,30 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    public function imageUpload(Request $request){
+
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+       if(Auth::user()->avatar){
+            if(file_exists(public_path('images/'). Auth::user()->avatar)){
+                $unset_link  = public_path('images/'). Auth::user()->avatar;
+                unlink($unset_link);
+            }
+        }
+
+        $imageName = time().'.'.$request->image->extension();
+
+        Auth::user()->update([
+            'avatar' => $imageName
+        ]);
+
+        $request->image->move(public_path('images'), $imageName);
+
+        return redirect()->back();
+    }
+
     public function follow(Request $request){
 
         $follow_id = $request->follow_id;

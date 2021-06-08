@@ -7,7 +7,7 @@
             <div class="">
                 <h1 class="title">Profile</h1>
                 <div class="d-flex align-items-center p-4">
-                    <img class="img-fluid prof-img mr-4" alt="">
+                    <img class="img-fluid prof-img mr-4" alt="" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/profile-user-gray.svg'}})">
                     <div>
                         @if($user->type == 20)
                             <div class="name">{{$user->first_name}}</div>

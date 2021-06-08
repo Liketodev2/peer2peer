@@ -35,6 +35,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto align-items-center">
                     @auth
+                    @if(\Auth::user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('admin.index')}}"><button class="btn-sm btn-primary">Dashboard</button></a>
+                        </li>
+                     @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('peers')}}">Peers</a>
                     </li>
