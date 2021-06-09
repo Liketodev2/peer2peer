@@ -24,6 +24,7 @@
         <main class="flex-1 main-content p-3">
             <div class="post-content p-4">
                 <div class="title">{{$feed->article}}</div>
+                <small><strong>Feed/ID: {{$feed->id}}</strong></small>
                 <div class="info-text">
                     {{$feed->description}}
                 </div>

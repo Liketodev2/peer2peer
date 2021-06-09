@@ -15,62 +15,39 @@
             </div>
         </aside>
         <main class="flex-1 main-content px-lg-4 py-5">
-            <div class="d-flex justify-content-center align-items-center">
+     {{--       <div class="d-flex justify-content-center align-items-center">
                 <div class="mr-3 color-red">Sort by</div>
                 <ul class="d-flex">
                     <li><a href="#">ABC</a></li>
                     <li class="active"><a href="#">Date added</a></li>
                     <li><a href="#">Date created</a></li>
                 </ul>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">CNN [ Very Trustworthy - Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">Frank Smith [ Trustworthy - Change]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">Go News [ Very Trustworthy -Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">Harry Smith [ Very Trustworthy -Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">HSBC [ Very Trustworthy -Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">International [ Very Trustworthy -Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">K-Pop Man [ Very Trustworthy -Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">Mr-Anonymou3x3w0c [ Very Trustworthy -Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">NBC[ Very Trustworthy -Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">Sam Binger [ OK - Change ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">Vice [ Untrustworthy ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
-            <div class="alert bg-light my-2" role="alert">
-                <a href="#">WSJ [ Very trustworthy ]</a>
-                <i class="fa fa-eye color-gray"></i>
-            </div>
+            </div>--}}
+            @foreach($peers as $peer)
+                <div class="alert bg-light my-2 peer-main-block" role="alert" data-id="{{$peer->id}}" style="cursor: pointer">
+                    <a href="{{route('profile', $peer->id)}}">{{$peer->company_name}} [ Very Trustworthy - Change ]</a>
+                    <i class="fa fa-eye color-gray"></i>
+                    <div class="d-none hided-peer">
+                        <div class="d-flex align-items-center">
+                            <div class="info_name">Author:</div>
+                            <div class="info_name-description">{{$peer->company_name}}</div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="info_name">Peer status:</div>
+                            <div class="info_name-description">Very Trust Worthy</div>
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="info_name">Date created:</div>
+                            <div class="info_name-description">{{\Carbon\Carbon::parse($peer->created_at)->format('M d Y')}}</div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="info_name">Followers:</div>
+                            <div class="info_name-description">{{$peer->following()->count()}}</div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </main>
         <aside class="asides right_aside">
             <div class="aside-accordion alert p-0">
@@ -82,65 +59,8 @@
                     <img src="img/x%20(5).svg" alt="" class="ml-3" data-dismiss="alert" aria-label="Close">
                 </div>
                 <div class="collapse multi-collapse show" id="multiCollapseExample1">
-                    <div class="card card-body p-1 bg-transparent border-0">
-                        <div class="d-flex align-items-center">
-                            <div class="info_name">Name:</div>
-                            <div class="info_name-description">CNN Politics</div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="info_name">Feed identifier:</div>
-                            <div class="info_name-description">Hashn2xf043) 9zf9043Jfasdffasdfasf</div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="info_name">Author:</div>
-                            <div class="info_name-description">CNN</div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="info_name">Custom Name:</div>
-                            <div class="info_name-description">not specified</div>
-                            <i class="fa fa-pencil"></i>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="info_name">Status:</div>
-                            <div class="info_name-description">Followed in US Section</div>
-                            <a href="#" class="ml-2"><img src="img/visibility.svg" alt=""></a>
-                            <i class="fas fa-pencil-alt ml-auto"></i>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="info_name">Peer status:</div>
-                            <div class="info_name-description">Very Trust Worthy</div>
-                            <i class="fa fa-pencil"></i>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="info_name">Date created:</div>
-                            <div class="info_name-description">c 2018</div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <div class="info_name">Followers:</div>
-                            <div class="info_name-description">242</div>
-                        </div>
-                        <div class="color-red title my-4">Other Feeds from Author:</div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="">CNN World …</div>
-                            <div class="info_name-description">
-                                <a href="#" class="ml-2"><img src="img/visibility.svg" alt=""></a>
-                                <a href="#" class="ml-2"><img src="img/plus%20(1).svg" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="">CNN World …</div>
-                            <div class="info_name-description">
-                                <a href="#" class="ml-2"><img src="img/visibility.svg" alt=""></a>
-                                <a href="#" class="ml-2"><img src="img/plus%20(1).svg" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="">CNN World …</div>
-                            <div class="info_name-description">
-                                <a href="#" class="ml-2"><img src="img/visibility.svg" alt=""></a>
-                                <a href="#" class="ml-2"><img src="img/plus%20(1).svg" alt=""></a>
-                            </div>
-                        </div>
+                    <div class="card card-body p-1 bg-transparent border-0 put-clicked-content">
+
                     </div>
                 </div>
             </div>

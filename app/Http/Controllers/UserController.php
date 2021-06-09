@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Follow;
 use App\Models\User;
+use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -74,5 +77,27 @@ class UserController extends Controller
 
         return null;
 
+    }
+
+    public function changePassword(Request $request){
+
+
+        $this->validate($request, [
+            'current_password' => 'required',
+            'new_password' => 'required|min:6',
+            'confirm_new_password' => 'required|same:new_password|min:6',
+        ]);
+
+
+        if (Hash::check($request->get('current_password'), Auth::user()->password)) {
+            $user = User::find(Auth::user()->id);
+            $user->password = (new BcryptHasher())->make($request->get('new_password'));
+            if ($user->save()) {
+                return redirect()->back()->with('success', 'Password is changed');
+            }
+        } else {
+            throw ValidationException::withMessages(['current_password' => 'Current password is wrong']);
+            return redirect()->back();
+        }
     }
 }

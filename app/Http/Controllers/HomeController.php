@@ -96,7 +96,8 @@ class HomeController extends Controller
     }
     public function peers()
     {
-        $peers = User::where('type', 10)->get();
+        $peers =  Auth::user()->followers->where('type', 10);
+
         return view('peers', compact('peers'));
     }
 

@@ -84,7 +84,7 @@
             <i class="icon md-more" aria-hidden="true"></i>
         </button>
         <div class="navbar-brand navbar-brand-center " >
-            <a class="text-white" href="/"><span class="navbar-brand-text hidden-xs-down"> <img src="{{asset("img/footer-logo.svg")}}" alt="Peer2peer title" width="100" class="footer-logo img-fluid "></span></a>
+            <a class="text-white" href="/"><span class="navbar-brand-text hidden-xs-down"> <img src="{{asset("img/logo.png")}}" alt="Peer2peer title" width="100" class="footer-logo img-fluid "></span></a>
         </div>
         <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
                 data-toggle="collapse">
@@ -120,7 +120,7 @@
                     <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
                        data-animation="scale-up" role="button">
                 <span class="avatar avatar-online">
-                  <img src="{{asset('images/avatar-admin.png')}}" alt="...">
+                  <img src="{{asset('img/profile-user-gray.svg')}}" alt="...">
                   <i></i>
                 </span>
                     </a>

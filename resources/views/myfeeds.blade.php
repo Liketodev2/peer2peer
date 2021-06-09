@@ -140,7 +140,7 @@
                 </div>
         </main>
         <aside class="asides right_aside">
-            <div class="aside-accordion alert p-0">
+     {{--       <div class="aside-accordion alert p-0">
                 <div class="btn btn-red w-100 d-flex justify-content-between align-items-center">
                     <a class="d-flex justify-content-between align-items-center w-100" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <div class="title">Profile</div>
@@ -158,37 +158,9 @@
                             <div class="info_name">Feed identifier:</div>
                             <div class="info_name-description">Hashn2xf043)</div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <div class="info_name">Email:</div>
-                            <div class="info_name-description">swoeanf@gmail.com</div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <div class="info_name">Followers:</div>
-                            <div class="info_name-description">242</div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <div class="info_name">Following:</div>
-                            <div class="info_name-description">242</div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <div class="info_name">Hometown:</div>
-                            <div class="info_name-description">Cleveland, OH</div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <div class="info_name">Password:</div>
-                            <div class="info_name-description"><a href="#"  data-toggle="modal" data-target="#changePasswordModal">Change Password</a></div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <div class="info_name">Block list:</div>
-                            <div class="info_name-description d-flex justify-content-end">
-                                <a href="#" class="ml-2"><img src="img/visibility.svg" alt=""></a>
-                                <a href="#" class="ml-2"><img src="img/import.png" alt=""></a>
-                                <a href="#" class="ml-2"><img src="img/export.svg" alt=""></a>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </aside>
     </div>
 @endsection

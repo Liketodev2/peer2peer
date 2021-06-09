@@ -38,6 +38,7 @@ Route::post('feed/comment', [App\Http\Controllers\FeedController::class, 'commen
 
 Route::post('/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
 Route::post('/image-upload', [App\Http\Controllers\UserController::class, 'imageUpload'])->name('image-upload');
+Route::post('/change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
 
 Route::get('auth/facebook', [App\Http\Controllers\Auth\FacebookController::class, 'facebookRedirect']);
 Route::get('auth/facebook/callback', [App\Http\Controllers\Auth\FacebookController::class, 'facebookCallback']);

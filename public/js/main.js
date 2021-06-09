@@ -144,3 +144,9 @@ $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
 $('#imgupload').change(function(){
     $(this).closest('form').submit();
 });
+
+$(document).on('click','.peer-main-block' ,function(){
+    let content = $(this).find('.hided-peer').html();
+    $('.put-clicked-content').html('');
+    $('.put-clicked-content').html(content);
+});
