@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('css/secondary/owl.theme.default.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/css/main.css')}}">
+    @stack('styles')
 </head>
 
 <body class="container-1636">
@@ -37,7 +38,7 @@
                     @auth
                     @if(\Auth::user()->isAdmin())
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.index')}}"><button class="btn-sm btn-primary">Dashboard</button></a>
+                            <a class="nav-link" href="{{route('dashboard.index')}}"><button class="btn-sm btn-primary">Dashboard</button></a>
                         </li>
                      @endif
                     <li class="nav-item">
@@ -67,7 +68,7 @@
                                         <div class="abs"><i class="far fa-clock mr-1"></i> 4 hours ago</div>
                                     </div>
                                     <div>
-                                        <a href="/" role="button" class="btn-red px-5">View all in full window</a>
+                                        <a href="{{route('notifications')}}" role="button" class="btn-red px-5">View all in full window</a>
                                     </div>
                                 </div>
                             </main>
@@ -396,6 +397,7 @@
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
 <script src="{{asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
+@stack('scripts')
 
     @if(!$errors->isEmpty())
         <script>

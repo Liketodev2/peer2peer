@@ -54,7 +54,7 @@
     <script src="{{asset('global/vendor/media-match/media.match.min.js')}}"></script>
     <script src="{{asset('global/vendor/respond/respond.min.js')}}"></script>
     <![endif]-->
-    <link rel='stylesheet' href='{{asset('css/admin.css')}}'>
+    <link rel='stylesheet' href='{{asset('css/dashboard.css')}}'>
 
     <!-- Scripts -->
     <script src="{{asset('global/vendor/breakpoints/breakpoints.js')}}"></script>
@@ -125,12 +125,6 @@
                 </span>
                     </a>
                     <div class="dropdown-menu" role="menu">
-                               <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account"
-                                                                                                     aria-hidden="true"></i>
-                                   Profile</a>
-                               <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-card"
-                                                                                                     aria-hidden="true"></i>
-                                   Billing</a>
                         <a class="dropdown-item" href="" role="menuitem"><i class="icon md-settings"
                                                                                                        aria-hidden="true"></i>
                             Settings</a>
@@ -173,10 +167,22 @@
             <div>
                 <ul class="site-menu" data-plugin="menu">
                     <li class="site-menu-category">General</li>
-                    <li class="site-menu-item {{(\Request::route()->getName() == 'admin.index') ? 'active' : ''}}">
-                        <a class="animsition-link" href="{{route('admin.index')}}">
+                    <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.index') ? 'active' : ''}}">
+                        <a class="animsition-link" href="{{route('dashboard.index')}}">
                             <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
                             <span class="site-menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.users.index') ? 'active' : ''}}">
+                        <a class="animsition-link" href="{{route('dashboard.users.index')}}">
+                            <i class="site-menu-icon md-accounts" aria-hidden="true"></i>
+                            <span class="site-menu-title">Users</span>
+                        </a>
+                    </li>
+                    <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.rss.index') ? 'active' : ''}}">
+                        <a class="animsition-link" href="{{route('dashboard.rss.index')}}">
+                            <i class="site-menu-icon md-accounts" aria-hidden="true"></i>
+                            <span class="site-menu-title">Rss</span>
                         </a>
                     </li>
                 </ul>
@@ -277,7 +283,7 @@
 
 
 
-<script src="{{asset('js/admin.js')}}"></script>
+<script src="{{asset('js/dashboard.js')}}"></script>
 
 </body>
 </html>

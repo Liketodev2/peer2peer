@@ -150,3 +150,22 @@ $(document).on('click','.peer-main-block' ,function(){
     $('.put-clicked-content').html('');
     $('.put-clicked-content').html(content);
 });
+
+$(document).on('click','.peer_status_item' ,function(){
+
+    let id = $(this).parent().data('id');
+    let value = $(this).data('value');
+
+    $.ajax({
+        type: "POST",
+        url: "/peer-trust",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            id : id,
+            value: value
+        },
+        success: function(){
+            location.reload();
+        }
+    });
+});

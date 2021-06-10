@@ -16,7 +16,7 @@ module.exports = function(hljs) {
         keywords: {
           keyword:
             'abort abs absolute acc acce accep accept access accessed accessible account acos action activate add ' +
-            'addtime admin administer advanced advise aes_decrypt aes_encrypt after agent aggregate ali alia alias ' +
+            'addtime dashboard administer advanced advise aes_decrypt aes_encrypt after agent aggregate ali alia alias ' +
             'allocate allow alter always analyze ancillary and any anydata anydataset anyschema anytype apply ' +
             'archive archived archivelog are as asc ascii asin assembly assertion associate asynchronous at atan ' +
             'atn2 attr attri attrib attribu attribut attribute attributes audit authenticated authentication authid ' +

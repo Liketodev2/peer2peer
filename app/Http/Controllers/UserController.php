@@ -79,6 +79,18 @@ class UserController extends Controller
 
     }
 
+    public function peers(Request $request)
+    {
+
+        if(isset($request->trust)){
+            $peers =  Auth::user()->followers()->wherePivot('trust', $request->trust)->where('type', 10)->get();
+        }else{
+            $peers =  Auth::user()->followers->where('type', 10);
+        }
+
+        return view('peers', compact('peers'));
+    }
+
     public function changePassword(Request $request){
 
 
@@ -99,5 +111,16 @@ class UserController extends Controller
             throw ValidationException::withMessages(['current_password' => 'Current password is wrong']);
             return redirect()->back();
         }
+    }
+
+    public function peerTrust(Request $request){
+        $task =   Auth::user()->followers()->wherePivot('follow_id', $request->id)->first();
+        $task->pivot->trust = $request->value;
+        $task->pivot->save();
+
+    }
+
+    public function notifications(){
+        return view('notifications');
     }
 }

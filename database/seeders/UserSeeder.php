@@ -66,7 +66,7 @@ class UserSeeder extends Seeder
                 'last_name' => 'Admin',
                 'company_name' => 'Admin',
                 'type' => 10,
-                'email' => 'admin@gmail.com',
+                'email' => 'dashboard@gmail.com',
                 'is_admin' => 1,
                 'password' => bcrypt('123123123'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

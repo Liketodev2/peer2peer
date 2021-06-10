@@ -2,7 +2,7 @@
  * ClockPicker v{package.version} for jQuery (http://weareoutman.github.io/clockpicker/)
  * Copyright 2014 Wang Shenwei.
  * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
- * 
+ *
  * Bootstrap v3.1.1 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -61,7 +61,7 @@
   height: 0;
   border-color: transparent;
   border-style: solid;
-  /* The following are set in WordPress (wp-admin/css/revisions.css) - reset them to initial values */
+  /* The following are set in WordPress (wp-dashboard/css/revisions.css) - reset them to initial values */
   overflow:visible;
   margin:0;
   padding:0;

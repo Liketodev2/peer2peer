@@ -18,4 +18,27 @@ class FunctionController extends Controller
 
        return $feeds;
    }
+
+    public static function trustStatus($i){
+        switch ($i) {
+            case 5:
+                $result = 'Very Trustworthy';
+                break;
+            case 4:
+                $result = 'Trustworthy';
+                break;
+            case 3:
+                $result = 'OK Trust';
+                break;
+            case 2:
+                $result = 'Untrustworthy';
+                break;
+            case 1:
+                $result = 'Not my peer';
+                break;
+            default:
+                $result = 'Choose status';
+        }
+        return $result;
+    }
 }

@@ -94,15 +94,10 @@ class HomeController extends Controller
 
         return view('feed', compact('feed'));
     }
-    public function peers()
-    {
-        $peers =  Auth::user()->followers->where('type', 10);
-
-        return view('peers', compact('peers'));
-    }
 
     public function messages()
     {
         return view('messages');
     }
+
 }

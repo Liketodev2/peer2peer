@@ -1,16 +1,27 @@
 @extends('layouts.main')
+@push('styles')
+    <style>
+        .peer_status_item{
+            cursor: pointer;
+        }
+        .active-peer{
+            font: normal normal 600 14px/21px Poppins !important;
+            color: #0019FF !important;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="d-xl-flex peers_content">
         <aside class="asides left_aside">
             <div class="pb-4 mb-2">
                 <ul class="p-0 m-0 active list-unstyled">
-                    <li class="active"><a href="#">All</a></li>
-                    <li><a href="#">Very Trustworthy [5]</a></li>
-                    <li><a href="#">Trustworthy [4]</a></li>
-                    <li><a href="#">OK Trust [3]</a></li>
-                    <li><a href="#">Untrustworthy [2]</a></li>
-                    <li><a href="#">Not my peer [1]</a></li>
-                    <li><a href="#">BLOCKED [0]</a></li>
+                    <li class="{{!Request::has('trust') ? 'active': ''}}"><a href="{{route('peers')}}">All</a></li>
+                    <li class="{{Request::has('trust') && Request::get('trust') == 5 ? 'active' : ''}}"><a href="{{route('peers',['trust' => 5])}}">Very Trustworthy [5]</a></li>
+                    <li class="{{Request::has('trust') && Request::get('trust') == 4 ? 'active' : ''}}"><a href="{{route('peers',['trust' => 4])}}">Trustworthy [4]</a></li>
+                    <li class="{{Request::has('trust') && Request::get('trust') == 3 ? 'active' : ''}}"><a href="{{route('peers',['trust' => 3])}}">OK Trust [3]</a></li>
+                    <li class="{{Request::has('trust') && Request::get('trust') == 2 ? 'active' : ''}}"><a href="{{route('peers',['trust' => 2])}}">Untrustworthy [2]</a></li>
+                    <li class="{{Request::has('trust') && Request::get('trust') == 1 ? 'active' : ''}}"><a href="{{route('peers',['trust' => 1])}}">Not my peer [1]</a></li>
+               {{--     <li><a href="#">BLOCKED [0]</a></li>--}}
                 </ul>
             </div>
         </aside>
@@ -23,9 +34,10 @@
                     <li><a href="#">Date created</a></li>
                 </ul>
             </div>--}}
+            @if(count($peers) > 0)
             @foreach($peers as $peer)
                 <div class="alert bg-light my-2 peer-main-block" role="alert" data-id="{{$peer->id}}" style="cursor: pointer">
-                    <a href="{{route('profile', $peer->id)}}">{{$peer->company_name}} [ Very Trustworthy - Change ]</a>
+                    <a href="{{route('profile', $peer->id)}}">{{$peer->company_name}}  [{{\App\Http\Controllers\FunctionController::trustStatus(Auth::user()->followers()->wherePivot('follow_id', $peer->id)->first()->pivot->trust)}}] </a>
                     <i class="fa fa-eye color-gray"></i>
                     <div class="d-none hided-peer">
                         <div class="d-flex align-items-center">
@@ -45,9 +57,22 @@
                             <div class="info_name">Followers:</div>
                             <div class="info_name-description">{{$peer->following()->count()}}</div>
                         </div>
+                        <hr>
+                        <div class="parent-peer-block" data-id="{{$peer->id}}">
+                            <div><b>Select status : </b></div>
+                            <div class="info_name-description peer_status_item {{Auth::user()->followers()->wherePivot('follow_id', $peer->id)->first()->pivot->trust == 5 ? 'active-peer' : ''}}" data-value="5">Very Trustworthy [5]</div>
+                            <div class="info_name-description peer_status_item {{Auth::user()->followers()->wherePivot('follow_id', $peer->id)->first()->pivot->trust == 4 ? 'active-peer' : ''}}" data-value="4">Trustworthy [4]</div>
+                            <div class="info_name-description peer_status_item {{Auth::user()->followers()->wherePivot('follow_id', $peer->id)->first()->pivot->trust == 3 ? 'active-peer' : ''}}" data-value="3">OK Trust [3]</div>
+                            <div class="info_name-description peer_status_item {{Auth::user()->followers()->wherePivot('follow_id', $peer->id)->first()->pivot->trust == 2 ? 'active-peer' : ''}}" data-value="2">Untrustworthy [2]</div>
+                            <div class="info_name-description peer_status_item {{Auth::user()->followers()->wherePivot('follow_id', $peer->id)->first()->pivot->trust == 1 ? 'active-peer' : ''}}" data-value="1">Not my peer [1]</div>
+                           {{-- <div class="info_name-description peer_status_item {{Auth::user()->followers()->first()->pivot->trust == 0 ? 'info_name' : ''}}">BLOCKED [0]</div>--}}
+                        </div>
                     </div>
                 </div>
             @endforeach
+            @else
+                <h4>Peers are empty</h4>
+            @endif
         </main>
         <aside class="asides right_aside">
             <div class="aside-accordion alert p-0">

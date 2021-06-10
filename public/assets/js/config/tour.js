@@ -20,7 +20,7 @@
       intro: 'Offcanvas Menu <p class=\'content\'>It is nice custom navigation for desktop users and a seek off-canvas menu for tablet and mobile users</p>'
     }, {
       element: '#toggleFullscreen',
-      intro: 'Full Screen <p class=\'content\'>Click this button you can view the admin template in full screen</p>'
+      intro: 'Full Screen <p class=\'content\'>Click this button you can view the dashboard template in full screen</p>'
     }, {
       element: '#toggleChat',
       position: 'left',

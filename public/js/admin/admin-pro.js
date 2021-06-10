@@ -218,8 +218,8 @@ $(document).ready(function() {
         },
         formatters: {
             "commands": function (column, row) {
-                return "<a href='/admin/user/edit/" + row.id + "'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button></a> " +
-                    "<form  data-form-id='" + row.id + "' style='display: inline-block' onclick='delUser(" + row.id + ")'  method='post' action='/admin/user/delete/" + row.id + "'><input type='hidden' name='id' value='" + row.id + "'><input type='hidden' name='_token' value='" + token + "'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" ><span style='cursor: pointer' class=\"zmdi zmdi-delete\"><input style='display: none' type='button' value='удалить'></span></form>";
+                return "<a href='/dashboard/user/edit/" + row.id + "'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button></a> " +
+                    "<form  data-form-id='" + row.id + "' style='display: inline-block' onclick='delUser(" + row.id + ")'  method='post' action='/dashboard/user/delete/" + row.id + "'><input type='hidden' name='id' value='" + row.id + "'><input type='hidden' name='_token' value='" + token + "'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" ><span style='cursor: pointer' class=\"zmdi zmdi-delete\"><input style='display: none' type='button' value='удалить'></span></form>";
             }
         }
     });
@@ -234,8 +234,8 @@ $(document).ready(function() {
         },
         formatters: {
             "commands": function (column, row) {
-                return "<a href='/admin/advisor/edit/" + row.id + "'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button></a> " +
-                    "<form  data-form-id='" + row.id + "' style='display: inline-block' onclick='delUser(" + row.id + ")'  method='post' action='/admin/advisor/delete/" + row.id + "'><input type='hidden' name='id' value='" + row.id + "'><input type='hidden' name='_token' value='" + token + "'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" ><span style='cursor: pointer' class=\"zmdi zmdi-delete\"><input style='display: none' type='button' value='удалить'></span></form>";
+                return "<a href='/dashboard/advisor/edit/" + row.id + "'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button></a> " +
+                    "<form  data-form-id='" + row.id + "' style='display: inline-block' onclick='delUser(" + row.id + ")'  method='post' action='/dashboard/advisor/delete/" + row.id + "'><input type='hidden' name='id' value='" + row.id + "'><input type='hidden' name='_token' value='" + token + "'><button type=\"button\" class=\"btn btn-icon command-edit waves-effect waves-circle\" ><span style='cursor: pointer' class=\"zmdi zmdi-delete\"><input style='display: none' type='button' value='удалить'></span></form>";
             }
         }
     });
