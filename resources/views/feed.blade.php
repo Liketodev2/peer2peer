@@ -17,6 +17,12 @@
         min-width: 18px !important;
         height: 36px !important;
     }
+    .img-user{
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        object-fit: contain;
+    }
 </style>
 @section('content')
     <div class="d-xl-flex">
@@ -33,10 +39,10 @@
                 </div>
                 @auth
                     @if($feed->comment_access == 1)
-                        <form action="{{route('feed.comment')}}" method="POST">
+                    <form action="{{route('feed.comment')}}" method="POST">
                          @csrf
                     <div class="d-flex align-items-center my-3">
-                        <a href="{{route('profile', $feed->user->id)}}"><img src="{{asset('img/profile-user-gray.svg')}}" alt="" class="mr-3"></a>
+                        <a href="{{route('profile', $feed->user->id)}}"><img src="{{\Auth::user()->avatar ? asset('images').'/'.\Auth::user()->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>
                         <input type="hidden" name="feed_id" value="{{ $feed->id }}" />
                         <textarea required name="message" id="message" class="p-3 bg-white w-100"  rows="2" placeholder=""></textarea>
                     </div>
@@ -62,7 +68,7 @@
                     @if($feed->comments)
                     @foreach($feed->comments as $comment)
                         <div class="d-flex my-3 align-items-start border-bottom py-4">
-                            <a href="{{route('profile', $comment->user->id)}}"><img src="{{asset('img/profile-user-gray.svg')}}" alt="" class="mr-3"></a>
+                            <a href="{{route('profile', $comment->user->id)}}"><img src="{{$comment->user->avatar ? asset('images').'/'.$comment->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>
                             <div class="pt-3">
                                 <div class="name">{{$comment->user->first_name}} {{$comment->user->last_name}}</div>
                                 <div class="date">{{\Carbon\Carbon::parse($comment->created_at)->diffForHumans(\Illuminate\Support\Carbon::now())}}</div>
@@ -83,7 +89,7 @@
                             <form action="{{route('feed.comment')}}" method="POST">
                                 @csrf
                                 <div class="d-flex align-items-center my-3">
-                                    <img src="{{asset('img/profile-user-gray.svg')}}" alt="" class="mr-3">
+                                    <img src="{{\Auth::user()->avatar ? asset('images').'/'.\Auth::user()->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user">
                                     <input type="hidden" name="feed_id" value="{{ $feed->id }}" />
                                     <input type="hidden" name="parent_id" value="{{$comment->id}}">
                                     <textarea required name="message" id="message" class="p-3 bg-white w-100"  rows="2" placeholder=""></textarea>
@@ -94,7 +100,7 @@
                             </form>
                             @foreach($comment->replies as $replay)
                                 <div class="d-flex my-3 align-items-start border-bottom py-4">
-                                    <img src="{{asset('img/profile-user-gray.svg')}}" alt="" class="mr-3">
+                                    <img src="{{$replay->user->avatar ? asset('images').'/'.$replay->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user">
                                     <div class="pt-3">
                                         <div class="name">{{$replay->user->first_name}} {{$replay->user->last_name}}</div>
                                         <div class="date">{{\Carbon\Carbon::parse($replay->created_at)->diffForHumans(\Illuminate\Support\Carbon::now())}}</div>

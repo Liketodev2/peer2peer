@@ -53,5 +53,6 @@ Route::prefix('dashboard')->middleware(['dashboard','auth'])->group(function(){
         Route::get('/index', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard.index');
         Route::resource('users', '\App\Http\Controllers\Admin\UserController', ['as' => 'dashboard']);
         Route::resource('rss', '\App\Http\Controllers\Admin\RssController', ['as' => 'dashboard']);
+        Route::resource('feeds', '\App\Http\Controllers\Admin\FeedController', ['as' => 'dashboard']);
 
 });

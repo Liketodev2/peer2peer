@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\RssFeed;
+use App\Models\Feed;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class RssController extends Controller
+class FeedController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +18,9 @@ class RssController extends Controller
      */
     public function index()
     {
-        $items = RssFeed::paginate(20);
-        $users = User::where('type', 10)->get();
-        $categories = Category::all();
+        $items = Feed::orderBy('created_at','desc')->paginate(20);
 
-        return view('dashboard.rss.index', compact('items','users','categories'));
+        return view('dashboard.feeds.index', compact('items'));
     }
 
     /**
@@ -31,7 +30,9 @@ class RssController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $users = User::where('id','!=', Auth::id())->where('type', 10)->get();
+        return view('dashboard.feeds.create', compact('categories','users'));
     }
 
     /**
@@ -42,19 +43,25 @@ class RssController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'url' => 'required|url',
+            'article' => 'required|max:60',
+            'description' => 'required|max:300',
             'category_id' => 'required',
             'user_id' => 'required',
         ]);
 
-        RssFeed::create([
+        Feed::create([
             'url' => $request->url,
+            'article' => $request->article,
+            'description' => $request->description,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
+            'status' => 1,
+            'comment_access' => 1
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Feed is created');
     }
 
     /**
@@ -76,7 +83,10 @@ class RssController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Feed::findOrFail($id);
+        $categories = Category::all();
+        $users = User::where('id','!=', Auth::id())->where('type', 10)->get();
+        return view('dashboard.feeds.edit', compact('categories','item','users'));
     }
 
     /**
@@ -88,7 +98,25 @@ class RssController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'url' => 'required|url',
+            'article' => 'required|max:60',
+            'description' => 'required|max:300',
+            'category_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        Feed::find($id)->update([
+            'url' => $request->url,
+            'article' => $request->article,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'user_id' => $request->user_id,
+            'status' => 1,
+            'comment_access' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'Feed is updated');
     }
 
     /**
@@ -99,8 +127,6 @@ class RssController extends Controller
      */
     public function destroy($id)
     {
-        $item = RssFeed::find($id);
-        $item->delete();
-        return redirect()->back();
+        //
     }
 }

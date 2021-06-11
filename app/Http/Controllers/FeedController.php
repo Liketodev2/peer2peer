@@ -167,6 +167,7 @@ class FeedController extends Controller
         $request->validate([
             'url' => 'required|url',
             'description' => 'required|max:300',
+            'article' => 'required|max:60',
             'user_name' => 'required|max:60',
             'category_id' => 'required',
         ]);

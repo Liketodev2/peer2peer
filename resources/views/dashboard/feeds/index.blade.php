@@ -6,32 +6,10 @@
                 <div class="card card-shadow col-md-12">
                     <div class="card-block p-20 pt-10">
                         <div class="panel-body">
-                            <div class="row mt-5" >
-                                <div class="col-md-2">
-                                    <img class="img-fluid" src="{{$user->avatar ? asset('images') .'/'.$user->avatar : asset('img/no-image.jpg') }}" alt="">
-                                </div>
-                                <div class="col-md-3">
-                                    <li class="list-group-item"><b>Id: </b>{{$user->id}}</li>
-                                    <li class="list-group-item"><b>First_name:</b> {{$user->first_name}}</li>
-                                    <li class="list-group-item"><b>Last name:</b> {{$user->last_name}}</li>
-                                </div>
-                                <div class="col-md-3">
-                                    <li class="list-group-item"><b>Company name:</b> {{$user->company_name}}</li>
-                                    <li class="list-group-item"><b>Email:</b> {{$user->email}}</li>
-                                    <li class="list-group-item"><b>Type:</b> {{$user->type == 20 ? 'User' : 'Company'}}</li>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" data-plugin="matchHeight" data-by-row="true">
-                <div class="card card-shadow col-md-12">
-                    <div class="card-block p-20 pt-10">
-                        <div class="panel-body">
+                            @include('dashboard.partials.crud-notifications')
+                            <a href="{{route('dashboard.feeds.create')}}"><button class="btn btn-primary">Create</button></a>
                             <div class="row mt-4" >
                                 <div class="col-12 ">
-                                    <h3>Peers</h3>
                                     <table  class="table table-striped" >
                                         <thead class="thead-secondary">
                                         <tr>
@@ -39,16 +17,18 @@
                                             <th>Article</th>
                                             <th>Description</th>
                                             <th>Category</th>
+                                            <th>Creator</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($feeds as $item)
+                                        @foreach($items as $item)
                                             <tr>
                                                 <td>{{$item->id}}</td>
                                                 <td>{{$item->article}}</td>
                                                 <td>{{$item->description}}</td>
                                                 <td>{{$item->category->name}}</td>
+                                                <td>{{$item->user->company_name ? $item->user->company_name : $item->user->first_name .' '. $item->user->last_name}}</td>
                                                 <td>
                                                     <a href="{{route('dashboard.feeds.edit', $item->id)}}"><button class="btn btn-primary btn-sm mb-2 w-60">edit</button></a>
                                                     <button class="btn btn-danger btn-sm admin-remove-btn w-60">delete</button>
@@ -62,7 +42,7 @@
                                         </tbody>
                                     </table>
                                     <div class="d-flex justify-content-start mt-4">
-                                        {{$feeds->links('pagination::bootstrap-4')}}
+                                        {{$items->links('pagination::bootstrap-4')}}
                                     </div>
                                 </div>
                             </div>

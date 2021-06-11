@@ -6,18 +6,11 @@
                 <div class="card card-shadow col-md-12">
                     <div class="card-block p-20 pt-10">
                         <div class="panel-body">
-                            @if( count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach($errors->all() as $error)
-                                            <li>{{$error}}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                            @include('dashboard.partials.crud-notifications')
                             <div class="row mt-4" >
                                 <div class="col-12 mb-4">
-                                    <form>
+                                    <form action="{{route('dashboard.rss.store')}}" method="POST">
+                                        @csrf
                                         <div class="form-group">
                                             <label for="exampleInputLink">Rss Link</label>
                                             <input type="url" class="form-control" id="exampleInputLink" aria-describedby="emailHelp" name="url" placeholder="Enter link">
@@ -44,8 +37,8 @@
                                 </div>
                                 <hr>
                                 <div class="col-12 ">
-                                    <table  class="table table-bordered service-datatable" >
-                                        <thead class="thead-primary">
+                                    <table  class="table table-striped" >
+                                        <thead class="thead-secondary">
                                         <tr>
                                             <th>ID</th>
                                             <th>Link</th>
@@ -62,12 +55,20 @@
                                                 <td>{{$item->user->company_name}}</td>
                                                 <td>{{$item->category->name}}</td>
                                                 <td>
-                                   {{--                 <a href="{{route('dashboard.users.show', $item->id)}}"><button class="btn btn-success btn-sm">show</button></a>--}}
+                                   {{-- <a href="{{route('dashboard.users.show', $item->id)}}"><button class="btn btn-success btn-sm">show</button></a>--}}
+                                                    <button class="btn btn-danger btn-sm admin-remove-btn">delete</button>
+                                                    <form action="{{route('dashboard.rss.destroy',$item->id)}}" method="POST" class="d-none admin-remove-form">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="d-flex justify-content-start mt-4">
+                                        {{$items->links('pagination::bootstrap-4')}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

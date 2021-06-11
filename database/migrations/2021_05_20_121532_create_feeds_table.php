@@ -21,7 +21,7 @@ class CreateFeedsTable extends Migration
             $table->text('description');
             $table->integer('status');
             $table->integer('comment_access')->default(0);
-            $table->string('author_name');
+            $table->string('author_name')->nullable();
             $table->string('url');
             $table->timestamps();
         });

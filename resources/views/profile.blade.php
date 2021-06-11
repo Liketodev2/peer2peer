@@ -1,13 +1,19 @@
 @extends('layouts.main')
+@push('styles')
+    <style>
+        .prof-img{
+            background-size: contain;
+        }
+    </style>
+@endpush
 @section('content')
-
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <div class="flex-1 profile-content p-4">
             <div class="">
                 <h1 class="title">Profile</h1>
                 <div class="d-flex align-items-center p-4">
-                    <img class="img-fluid prof-img mr-4" alt="" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/profile-user-gray.svg'}})">
+                    <img class="img-fluid prof-img mr-4" alt="" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/no-image.jpg'}})">
                     <div>
                         @if($user->type == 20)
                             <div class="name">{{$user->first_name}}</div>

@@ -1,13 +1,19 @@
 @extends('layouts.main')
+@push('styles')
+    <style>
+        .prof-img{
+            background-size: contain;
+        }
+    </style>
+@endpush
 @section('content')
-
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <div class="flex-1 profile-content p-4">
             <div class="my-profile-content">
                 <h1 class="title">My Profile</h1>
                 <div class="d-flex align-items-center p-4">
-                    <div class="mr-4 prof-img" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/profile-user-gray.svg'}})">
+                    <div class="mr-4 prof-img" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/no-image.jpg'}})">
                         <div class="upload-img">
                             <div class="d-flex justify-content-center align-items-center w-100 h-100">
                                 <img id="OpenImgUpload" src="{{asset('img/Group%20103.svg')}}" alt="">

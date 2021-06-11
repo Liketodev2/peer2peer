@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.min.css">
     @stack('styles')
     @stack('partner.styles')
+    <link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
 
 <!-- Fonts -->
     <link rel="stylesheet" href="{{asset('global/fonts/material-design/material-design.min.css')}}">
@@ -179,9 +180,15 @@
                             <span class="site-menu-title">Users</span>
                         </a>
                     </li>
+                    <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.feeds.index') ? 'active' : ''}}">
+                        <a class="animsition-link" href="{{route('dashboard.feeds.index')}}">
+                            <i class="site-menu-icon  md-view-list" aria-hidden="true"></i>
+                            <span class="site-menu-title">Feeds</span>
+                        </a>
+                    </li>
                     <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.rss.index') ? 'active' : ''}}">
                         <a class="animsition-link" href="{{route('dashboard.rss.index')}}">
-                            <i class="site-menu-icon md-accounts" aria-hidden="true"></i>
+                            <i class="site-menu-icon  md-upload" aria-hidden="true"></i>
                             <span class="site-menu-title">Rss</span>
                         </a>
                     </li>
