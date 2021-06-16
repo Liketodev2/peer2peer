@@ -1,25 +1,7 @@
 @extends('layouts.main')
 @section('content')
-    <div class="d-xl-flex my-feed_content">
-        <aside class="asides left_aside">
-            <div class="pb-4 mb-2 py-3">
-                <div class="title px-3">My Feeds</div>
-                <div class="bg-white  px-3">
-                    Swoeanf Photos
-                    Hash2xf043)9432323zf9043 Jasdfasdfasf
-                </div>
-                <ul class="p-0 active list-unstyled">
-                    <li class="active"><a href="#">Followed Feeds</a></li>
-                    <li><a href="#">US</a></li>
-                    <li><a href="#">World</a></li>
-                    <li><a href="#">Politics</a></li>
-                    <li><a href="#">Business/Money</a></li>
-                    <li><a href="#">Life</a></li>
-                    <li><a href="#">Science</a></li>
-                    <li><a href="#">Tech</a></li>
-                </ul>
-            </div>
-        </aside>
+    <div class="d-xl-flex ">
+        @include('areas.feed-left-side')
         <main class="flex-1 main-content">
             @auth
             <div class="col-lg-6 mx-auto">
@@ -31,8 +13,8 @@
 
                     <div class="form-group">
                         <label for="article">Article name</label>
-                        <input type="text" required class="form-control @error('article') is-invalid @enderror" name="article" id="article" aria-describedby="article" >
-                        @error('article')
+                        <input type="text" required class="form-control @error('title') is-invalid @enderror" name="title" id="article" aria-describedby="article" >
+                        @error('title')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
@@ -101,13 +83,20 @@
                             @if($feeds->count() > 0)
                                 @foreach($feeds as $key => $feed_item)
                                     <div class="d-flex row-news">
-                                        <div class=" w-40 text-left"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->article}}</a></div>
-                                        <div class="flex-1 text-center">{{$feed_item->user->company_name ? $feed_item->user->company_name : $feed_item->author_name}}</div>
+                                        <div class=" w-40 text-left"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->title}}</a></div>
+                                        <div class="flex-1 text-center">{{$feed_item->category->name}}</div>
                                         <div class="flex-1 text-right">{{\Carbon\Carbon::parse($feed_item->created_at)->format('D, M d H:i')}}</div>
+                                        <div class="flex-1 text-right">
+                                            <a href="{{route('feed.edit', $feed_item->id)}}"><button class="btn btn-light btn-sm"><i class="fas fa-edit"></i></button></a>
+                                            <button class="btn btn-light btn-sm admin-remove-btn w-60"><i class="fas fa-trash text-danger"></i></button>
+                                            <form action="{{route('feed.delete',$feed_item->id)}}" method="POST" class="d-none admin-remove-form">
+                                                @csrf
+                                            </form>
+                                        </div>
                                     </div>
                                 @endforeach
                             @else
-                                <h4 class="text-danger text-center mt-2">Feeds are empty</h4>
+                                <h6 class="mt-2">Feeds are empty</h6>
                             @endif
                         </div>
                         <div class="d-flex justify-content-center mt-4">
@@ -124,13 +113,13 @@
                             @if($reposts->count() > 0)
                                 @foreach($reposts as $key => $feed_item)
                                     <div class="d-flex row-news">
-                                        <div class=" w-40 text-left"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->article}}</a></div>
-                                        <div class="flex-1 text-center">{{$feed_item->user->company_name ? $feed_item->user->company_name : $feed_item->author_name}}</div>
+                                        <div class=" w-40 text-left"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->title}}</a></div>
+                                        <div class="flex-1 text-center">{{$feed_item->user->company_name ? $feed_item->user->company_name : $feed_item->user->first_name .''.$feed_item->user->last_name}}</div>
                                         <div class="flex-1 text-right">{{\Carbon\Carbon::parse($feed_item->created_at)->format('D, M d H:i')}}</div>
                                     </div>
                                 @endforeach
                             @else
-                                <h4 class="text-danger text-center mt-2">Reposts are empty</h4>
+                                <h6 class="mt-2">Reposts are empty</h6>
                             @endif
                         </div>
                         <div class="d-flex justify-content-center mt-4">
@@ -139,28 +128,6 @@
                     </div>
                 </div>
         </main>
-        <aside class="asides right_aside">
-     {{--       <div class="aside-accordion alert p-0">
-                <div class="btn btn-red w-100 d-flex justify-content-between align-items-center">
-                    <a class="d-flex justify-content-between align-items-center w-100" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                        <div class="title">Profile</div>
-                        <img src="img/Polygon%204.png" width="21" height="12">
-                    </a>
-                    <img src="img/x%20(5).svg" alt="" class="ml-3" data-dismiss="alert" aria-label="Close">
-                </div>
-                <div class="collapse multi-collapse show" id="multiCollapseExample1">
-                    <div class="card card-body">
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <div class="info_name">Feed Name:</div>
-                            <div class="info_name-description">Swoeanf Photos</div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <div class="info_name">Feed identifier:</div>
-                            <div class="info_name-description">Hashn2xf043)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>--}}
-        </aside>
+        @include('areas.feed-right-side')
     </div>
 @endsection

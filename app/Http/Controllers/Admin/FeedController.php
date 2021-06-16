@@ -45,15 +45,15 @@ class FeedController extends Controller
     {
         $request->validate([
             'url' => 'required|url',
-            'article' => 'required|max:60',
-            'description' => 'required|max:300',
+            'title' => 'required|max:120',
+            'description' => 'required|max:600',
             'category_id' => 'required',
             'user_id' => 'required',
         ]);
 
         Feed::create([
             'url' => $request->url,
-            'article' => $request->article,
+            'title' => $request->title,
             'description' => $request->description,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
@@ -100,15 +100,15 @@ class FeedController extends Controller
     {
         $request->validate([
             'url' => 'required|url',
-            'article' => 'required|max:60',
-            'description' => 'required|max:300',
+            'title' => 'required|max:120',
+            'description' => 'required|max:600',
             'category_id' => 'required',
             'user_id' => 'required',
         ]);
 
         Feed::find($id)->update([
             'url' => $request->url,
-            'article' => $request->article,
+            'title' => $request->title,
             'description' => $request->description,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
@@ -127,6 +127,9 @@ class FeedController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Feed::find($id);
+        $item->delete();
+
+        return redirect()->back();
     }
 }

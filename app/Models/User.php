@@ -51,8 +51,11 @@ class User extends Authenticatable
     public function agrees(){
         return $this->hasMany('App\Models\Agree');
     }
-    public function reposts(){
+    public function repost(){
         return $this->hasMany('App\Models\Repost');
+    }
+    public function reposts(){
+        return $this->belongsToMany('App\Models\Feed','reposts','user_id','feed_id');
     }
     public function feed(){
         return $this->hasMany('App\Models\Feed');
@@ -69,14 +72,19 @@ class User extends Authenticatable
     }
 
 
-    public function following()
+    public function followers()
     {
         return $this->belongsToMany(User::class, 'follows','follow_id','user_id')->withPivot('trust');
     }
 
-    public function  followers()
+    public function following()
     {
         return $this->belongsToMany(User::class, 'follows','user_id','follow_id')->withPivot('trust');
     }
 
+    public function follow_action()
+    {
+        return $this->hasMany('App\Models\Follow');
+    }
+    
 }

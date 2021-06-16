@@ -8,7 +8,7 @@
                         <div class="panel-body">
                             <div class="row mt-5" >
                                 <div class="col-md-2">
-                                    <img class="img-fluid" src="{{$user->avatar ? asset('images') .'/'.$user->avatar : asset('img/no-image.jpg') }}" alt="">
+                                    <img class="img-fluid" src="{{$user->avatar ? asset('images') .'/'.$user->avatar : asset('img/profile-user-gray.svg') }}" alt="">
                                 </div>
                                 <div class="col-md-3">
                                     <li class="list-group-item"><b>Id: </b>{{$user->id}}</li>
@@ -46,12 +46,12 @@
                                         @foreach($feeds as $item)
                                             <tr>
                                                 <td>{{$item->id}}</td>
-                                                <td>{{$item->article}}</td>
+                                                <td>{{$item->title}}</td>
                                                 <td>{{$item->description}}</td>
                                                 <td>{{$item->category->name}}</td>
                                                 <td>
-                                                    <a href="{{route('dashboard.feeds.edit', $item->id)}}"><button class="btn btn-primary btn-sm mb-2 w-60">edit</button></a>
-                                                    <button class="btn btn-danger btn-sm admin-remove-btn w-60">delete</button>
+                                                    <a href="{{route('dashboard.feeds.edit', $item->id)}}"><button class="btn btn-light btn-sm mb-2 w-60"><i class="fas fa-edit"></i></button></a>
+                                                    <button class="btn btn-light btn-sm admin-remove-btn w-60"><i class="fas fa-trash text-danger"></i></button>
                                                     <form action="{{route('dashboard.feeds.destroy',$item->id)}}" method="POST" class="d-none admin-remove-form">
                                                         @method('DELETE')
                                                         @csrf

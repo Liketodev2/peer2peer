@@ -56,7 +56,7 @@
                                                 <td>{{$item->category->name}}</td>
                                                 <td>
                                    {{-- <a href="{{route('dashboard.users.show', $item->id)}}"><button class="btn btn-success btn-sm">show</button></a>--}}
-                                                    <button class="btn btn-danger btn-sm admin-remove-btn">delete</button>
+                                                    <button class="btn btn-light w-60 btn-sm admin-remove-btn"><i class="fas fa-trash text-danger"></i></button>
                                                     <form action="{{route('dashboard.rss.destroy',$item->id)}}" method="POST" class="d-none admin-remove-form">
                                                         @method('DELETE')
                                                         @csrf

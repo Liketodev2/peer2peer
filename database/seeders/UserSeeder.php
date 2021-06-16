@@ -51,8 +51,8 @@ class UserSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ],
             [
-                'first_name' => 'First',
-                'last_name' => 'Last',
+                'first_name' => 'Test',
+                'last_name' => 'User',
                 'company_name' => '',
                 'type' => 20,
                 'email' => 'test@gmail.com',

@@ -15,8 +15,10 @@ class CreateRepostsTable extends Migration
     {
         Schema::create('reposts', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('feed_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('feed_id');
+            $table->foreign('feed_id')->references('id')->on('feeds')->onDelete('cascade');
             $table->timestamps();
         });
     }

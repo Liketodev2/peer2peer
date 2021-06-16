@@ -12,7 +12,7 @@
                 <div class="card-body">
                     @foreach($results as $result)
                         <div class="d-flex row-news">
-                            <div class="w-40"><a href="{{route('feed', $result->id)}}">{{$result->article}}</a></div>
+                            <div class="w-40"><a href="{{route('feed', $result->id)}}">{{$result->title}}</a></div>
                             <div class="mx-auto flex-1 d-flex justify-content-center">{{$result->category->name}}</div>
                             <div class="mx-auto flex-1 d-flex pl-4">{{$result->user->type == 10 ? $result->user->company_name : $result->user->first_name .' '. $result->user->last_name}}</div>
                             <div class="mx-auto flex-1 d-flex justify-content-center">{{\Carbon\Carbon::parse($result->created_at)->format('D, M d H:i')}}</div>

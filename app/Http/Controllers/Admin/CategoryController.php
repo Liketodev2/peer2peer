@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Hashing\BcryptHasher;
+use App\Models\Category;
+use App\Models\RssFeed;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $items = User::where('id','!=', Auth::id())->paginate(20);
-        return view('dashboard.users.index', compact('items'));
+
+        $items = Category::all();
+
+        return view('dashboard.categories.index', compact('items'));
     }
 
     /**
@@ -28,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('dashboard.users.create');
+        //
     }
 
     /**
@@ -39,28 +40,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'company_name' => 'required',
-            'type' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|min:6',
+            'name' => 'required',
         ]);
 
-        User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'company_name' => $request->company_name,
-            'type' => $request->type,
-            'category_id' => $request->category_id,
-            'email' => $request->email,
-            'password' => (new BcryptHasher())->make($request->get('password')),
+        Category::create([
+            'name' => $request->name,
         ]);
 
-        return redirect()->back()->with('success', 'User is created');
+        return redirect()->back()->with('success', 'Category is created');
     }
 
     /**
@@ -69,10 +57,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        $feeds = $user->feed()->paginate(20);
-        return view('dashboard.users.show', compact('user','feeds'));
+        //
     }
 
     /**
@@ -83,7 +70,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Category::find($id);
+
+        return view('dashboard.categories.edit', compact('item'));
     }
 
     /**
@@ -95,7 +84,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+        $category = Category::find($id);
+        $category->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->back()->with('success', 'Category is updated');
     }
 
     /**
@@ -106,8 +103,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-
-        $item = User::find($id);
+        $item = Category::find($id);
         $item->delete();
 
         return redirect()->back();

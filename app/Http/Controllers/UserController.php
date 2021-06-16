@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversation;
 use App\Models\Follow;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
@@ -56,7 +58,7 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        $follow = $user->followers()->where('follow_id', $follow_id)->first();
+        $follow = $user->follow_action()->where('follow_id', $follow_id)->first();
 
 
         if($follow){
@@ -83,10 +85,11 @@ class UserController extends Controller
     {
 
         if(isset($request->trust)){
-            $peers =  Auth::user()->followers()->wherePivot('trust', $request->trust)->where('type', 10)->get();
+            $peers =  Auth::user()->following()->wherePivot('trust', $request->trust)->where('type', 10)->get();
         }else{
-            $peers =  Auth::user()->followers->where('type', 10);
+            $peers =  Auth::user()->following->where('type', 10);
         }
+
 
         return view('peers', compact('peers'));
     }
@@ -109,12 +112,41 @@ class UserController extends Controller
             }
         } else {
             throw ValidationException::withMessages(['current_password' => 'Current password is wrong']);
-            return redirect()->back();
         }
     }
 
+    public function updateInfo(Request $request){
+
+        if($request->type == 'company'){
+            $this->validate($request, [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'company_name' => 'required',
+            ]);
+            Auth::user()->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'company_name' => $request->company_name,
+            ]);
+        }elseif($request->type == 'user'){
+            $this->validate($request, [
+                'first_name' => 'required',
+                'last_name' => 'required',
+            ]);
+            Auth::user()->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+            ]);
+        }
+
+        return redirect()->back();
+
+
+    }
+
+
     public function peerTrust(Request $request){
-        $task =   Auth::user()->followers()->wherePivot('follow_id', $request->id)->first();
+        $task =   Auth::user()->following()->wherePivot('follow_id', $request->id)->first();
         $task->pivot->trust = $request->value;
         $task->pivot->save();
 
@@ -123,4 +155,97 @@ class UserController extends Controller
     public function notifications(){
         return view('notifications');
     }
+
+    public function messages(Request $request)
+    {
+
+        $chat = false;
+        $person = false;
+        $conversation_id = false;
+
+        $conversations = Conversation::where(function($query){
+            $query->where('from_id', Auth::id());
+            $query->orWhere('to_id', Auth::id());
+        })->get();
+
+        if($request->id){
+
+            $chat = Conversation::where(function($query){
+                $query->where('from_id', Auth::id());
+                $query->orWhere('to_id', Auth::id());
+            })->where('id', $request->id)->first();
+
+            if($chat->messages()->count() > 0 ){
+                if($chat->messages->last()->seen == 0 && $chat->messages->last()->to_id == Auth::id()){
+                    $chat->messages()->update([
+                        'seen' => 1
+                    ]);
+                }
+            }
+
+            $conversation_id = $request->id;
+            $person = $chat->from_id == Auth::id() ? $chat->to_id : $chat->from_id ;
+            $person = User::find($person);
+
+        }
+
+
+        return view('messages',compact('conversations','chat','person','conversation_id'));
+    }
+
+    public function sendMessage(Request $request)
+    {
+        $request->validate([
+            'message' => 'required|min:1',
+            'conversation_id' => 'required'
+        ]);
+
+        $conversation = Conversation::find($request->conversation_id);
+        $to_id = $conversation->from_id == Auth::id() ? $conversation->to_id : $conversation->from_id;
+        $message =  Message::create([
+            'conversation_id' => $conversation->id,
+            'message' => $request->message,
+            'from_id' => Auth::id(),
+            'to_id' =>$to_id
+        ]);
+
+
+        return response()->json([
+            'html' => view('areas.message', compact('message'))->render(),
+        ]);
+    }
+    public function deleteMessage(Request $request)
+    {
+
+       $message = Message::where('id', $request->id)->where('from_id', Auth::id())->first();
+       if($message){
+           $message->delete();
+       }
+
+        return response()->json([
+            'result' => true,
+        ]);
+    }
+
+    public function addConversation(Request $request, $id)
+    {
+        $check_converstaion =  Conversation::where(function($query) use ($id){
+            $query->where(['from_id' => Auth::id(), 'to_id' => $id]);
+            $query->orWhere(['to_id' => $id, 'from_id' => Auth::id()]);
+        })->first();
+
+        $check_converstaion =  Conversation::where(['from_id' => Auth::id(), 'to_id' => $id])->orWhere(['from_id' => $id, 'to_id' => Auth::id()])->first();
+
+        if($check_converstaion){
+            $conversation = $check_converstaion;
+        }else{
+            $conversation = Conversation::create([
+                'from_id' => Auth::id(),
+                'to_id' => $request->id,
+            ]);
+        }
+
+        return redirect()->route('messages',['id' => $conversation->id]);
+    }
+
 }

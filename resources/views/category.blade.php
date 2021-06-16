@@ -10,7 +10,7 @@
                         @if($feeds->count() > 0)
                             @foreach($feeds as $key => $feed_item)
                                 <div class="d-flex row-news">
-                                    <div class=" w-40 text-left"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->article}}</a></div>
+                                    <div class=" w-40 text-left"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->title}}</a></div>
                                     <div class="flex-1 text-center">{{$feed_item->user->company_name ? $feed_item->user->company_name : $feed_item->author_name}}</div>
                                     <div class="flex-1 text-right">{{\Carbon\Carbon::parse($feed_item->created_at)->format('D, M d H:i')}}</div>
                                 </div>

@@ -12,8 +12,8 @@
                                     <form action="{{route('dashboard.feeds.store')}}" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <label>Article</label>
-                                            <input type="text" class="form-control"  name="article" value="{{old('article')}}">
+                                            <label>Title</label>
+                                            <input type="text" class="form-control"  name="title" value="{{old('title')}}">
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>

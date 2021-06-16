@@ -13,8 +13,8 @@
                                         @method('PUT')
                                         @csrf
                                         <div class="form-group">
-                                            <label>Article</label>
-                                            <input type="text" class="form-control"  name="article" value="{{$item->article}}">
+                                            <label>Title</label>
+                                            <input type="text" class="form-control"  name="title" value="{{$item->title}}">
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>

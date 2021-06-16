@@ -13,7 +13,7 @@
             <div class="my-profile-content">
                 <h1 class="title">My Profile</h1>
                 <div class="d-flex align-items-center p-4">
-                    <div class="mr-4 prof-img" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/no-image.jpg'}})">
+                    <div class="mr-4 prof-img" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/profile-user-gray.svg'}})">
                         <div class="upload-img">
                             <div class="d-flex justify-content-center align-items-center w-100 h-100">
                                 <img id="OpenImgUpload" src="{{asset('img/Group%20103.svg')}}" alt="">
@@ -31,7 +31,7 @@
                         @if($user->type == 20)
                             <div class="d-flex justify-content-between ">
                                 <div class="name">{{$user->first_name}} </div>
-                                <i class="fas fa-pencil-alt ml-5"></i>
+                            {{--    <i class="fas fa-pencil-alt ml-5"></i>--}}
                             </div>
                             <div class="username mb-3">{{$user->last_name}}</div>
                         @else
@@ -55,38 +55,83 @@
                 </div>
                 <div class="collapse multi-collapse show mt-4" >
                     <div class="card card-body">
-                        <div>
-                            <form action="{{route('change-password')}}" method="POST">
-                                @csrf
-                                <div style="max-width: 375px; width: 100%" class=" pb-5">
-                                    <h3 class="text-left">Update Password</h3>
+                        <div class="d-flex justify-content-center">
+                             <div style="max-width: 375px; width: 100%" class="d-inline-block pb-5">
+                                <form action="{{route('change-password')}}" method="POST">
+                                    @csrf
+                                        <h5 class="text-left">Update Password</h5>
+                                        <div class="form-group">
+                                            <label for="current_password">Current Password</label>
+                                            <input type="password" class="form-control" id="current_password" name="current_password">
+                                            @if($errors->has('current_password'))
+                                            <span class="text-danger" role="alert">
+                                                   <strong>{{ $errors->first('current_password') }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="new_password">New Password</label>
+                                            <input type="password" class="form-control" id="new_password" name="new_password">
+                                            @if($errors->has('new_password'))
+                                            <span class="text-danger" role="alert">
+                                                   <strong>{{ $errors->first('new_password') }}</strong>
+                                             </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirm_new_password">Confirm New Password</label>
+                                            <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password">
+                                            @if($errors->has('confirm_new_password'))
+                                            <span class="text-danger" role="alert">
+                                                   <strong>{{ $errors->first('confirm_new_password') }}</strong>
+                                             </span>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-4">
+                                            <button type="submit" class="btn-red py-2 ">Update</button>
+                                        </div>
+                                        @if ($message = Session::get('success'))
+                                            <div class="alert alert-success alert-block mt-2">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @endif
+                                </form>
+                            </div>
+                            <div style="max-width: 375px;margin-left:50px; width: 100%" class="d-inline-block pb-5">
+                                <form action="{{route('update-info')}}" method="POST">
+                                    @csrf
+                                    <h5 class="text-left">Update Info</h5>
+                                    <input type="hidden" name="type" value="{{\Auth::user()->type == 10 ? 'company' : 'user'}}">
                                     <div class="form-group">
-                                        <label for="current_password">Current Password</label>
-                                        <input type="password" class="form-control" id="current_password" name="current_password">
-                                        @if($errors->has('current_password'))
-                                        <span class="text-danger" role="alert">
-                                               <strong>{{ $errors->first('current_password') }}</strong>
-                                        </span>
-                                        @enderror
+                                        <label for="first_name">First Name</label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{$user->first_name}}">
+                                        @if($errors->has('first_name'))
+                                            <span class="text-danger" role="alert">
+                                                   <strong>{{ $errors->first('first_name') }}</strong>
+                                            </span>
+                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="new_password">New Password</label>
-                                        <input type="password" class="form-control" id="new_password" name="new_password">
-                                        @if($errors->has('new_password'))
-                                        <span class="text-danger" role="alert">
-                                               <strong>{{ $errors->first('new_password') }}</strong>
-                                         </span>
+                                        <label for="last_name">Last Name</label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{$user->last_name}}">
+                                        @if($errors->has('last_name'))
+                                            <span class="text-danger" role="alert">
+                                                   <strong>{{ $errors->first('last_name') }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
+                                    @if(\Auth::user()->type == 10)
                                     <div class="form-group">
-                                        <label for="confirm_new_password">Confirm New Password</label>
-                                        <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password">
-                                        @if($errors->has('confirm_new_password'))
-                                        <span class="text-danger" role="alert">
-                                               <strong>{{ $errors->first('confirm_new_password') }}</strong>
-                                         </span>
-                                        @enderror
+                                        <label for="company_name">Company Name</label>
+                                        <input type="text" class="form-control" id="company_name" name="company_name" value="{{$user->company_name}}">
+                                        @if($errors->has('company_name'))
+                                            <span class="text-danger" role="alert">
+                                                   <strong>{{ $errors->first('company_name') }}</strong>
+                                            </span>
+                                         @enderror
                                     </div>
+                                    @endif
                                     <div class="mt-4">
                                         <button type="submit" class="btn-red py-2 ">Update</button>
                                     </div>
@@ -96,17 +141,17 @@
                                             <strong>{{ $message }}</strong>
                                         </div>
                                     @endif
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
+                     {{--   <div class="d-flex justify-content-between align-items-center py-2">
                             <div class="info_name">Block list:</div>
                             <div class="info_name-description d-flex justify-content-end">
                                 <a href="#" class="ml-2"><img src="img/visibility.svg" alt=""></a>
                                 <a href="#" class="ml-2"><img src="img/import.png" alt=""></a>
                                 <a href="#" class="ml-2"><img src="img/export.svg" alt=""></a>
                             </div>
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </div>

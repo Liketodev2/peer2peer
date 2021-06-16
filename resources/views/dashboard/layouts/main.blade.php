@@ -174,6 +174,12 @@
                             <span class="site-menu-title">Dashboard</span>
                         </a>
                     </li>
+                    <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.categories.index') ? 'active' : ''}}">
+                        <a class="animsition-link" href="{{route('dashboard.categories.index')}}">
+                            <i class="site-menu-icon  md-view-list" aria-hidden="true"></i>
+                            <span class="site-menu-title">Categories</span>
+                        </a>
+                    </li>
                     <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.users.index') ? 'active' : ''}}">
                         <a class="animsition-link" href="{{route('dashboard.users.index')}}">
                             <i class="site-menu-icon md-accounts" aria-hidden="true"></i>

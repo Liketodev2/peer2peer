@@ -33,6 +33,10 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function redirectToHome(){
+        return redirect()->route('home');
+    }
+
     public function profile($id)
     {
         $user = User::findOrFail($id);
@@ -40,8 +44,11 @@ class HomeController extends Controller
         $results_count = $user->feed->count();
         $results = $results->paginate(25);
 
+        $reposts = $user->reposts()->paginate(20);
+        $reposts_count = $user->reposts()->count();
 
-        return view('profile', compact('user','results','results_count'));
+
+        return view('profile', compact('user','results','results_count','reposts','reposts_count'));
     }
 
     public function myProfile()
@@ -57,7 +64,7 @@ class HomeController extends Controller
 
         if(Str::length($request->search) > 2){
             $results = Feed::where(function($query) use ($request) {
-                $query->where('article', 'like', '%' . $request->search . '%');
+                $query->where('title', 'like', '%' . $request->search . '%');
                 $query->orWhere('description', 'like', '%' . $request->search . '%');
             });
             $results_count = $results->count();
@@ -95,9 +102,5 @@ class HomeController extends Controller
         return view('feed', compact('feed'));
     }
 
-    public function messages()
-    {
-        return view('messages');
-    }
 
 }

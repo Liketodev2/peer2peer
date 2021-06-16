@@ -6,6 +6,47 @@ $( document ).ready(function() {
 });
 $(document).ready(function() {
 
+    $('.send-message-btn').click(function () {
+
+        let message = $('#message').val();
+        let conversation_id = $('#conversation_id').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/message",
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: {
+                message : message,
+                conversation_id : conversation_id
+            },
+            success: function(data){
+                $('.chat-content').append(data.html);
+                $('#message').val('');
+            }
+        });
+    });
+
+
+    $('.remove-chat-message').click(function () {
+
+        let id = $(this).data('id');
+        let root = $(this);
+
+        $.ajax({
+            type: "POST",
+            url: "/messages/delete",
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: {
+                id : id,
+            },
+            success: function(data){
+                if(data.result){
+                    $(root).parent().parent().parent().fadeOut();
+                }
+            }
+        });
+    });
+
     $(".fa-caret-down").click(function () {
         $(this).toggleClass("rotate");
     });
@@ -169,3 +210,58 @@ $(document).on('click','.peer_status_item' ,function(){
         }
     });
 });
+
+$('.delete-comment').on('click', function(){
+
+    let id = $(this).data('id');
+    let parent = $(this).data('parent');
+    let type = $(this).data('type');
+
+
+    $.ajax({
+        type: "POST",
+        url: "/comment/delete",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            id : id,
+        },
+        success: function(){
+            $('.comment-block[data-type="'+type+'"][data-id="'+parent+'"]').fadeOut();
+        }
+    });
+});
+
+$(".admin-remove-btn").on('click', function () {
+    if(confirm('Are you sure?')){
+        $(this).next().submit();
+    }
+})
+
+$('.edit-comment').click(function () {
+    let id = $(this).data('id');
+    $('.edit-comment-block[data-id="'+id+'"]').toggle();
+})
+$('.edit-comment-btn').click(function () {
+
+    let root = $(this);
+    let value = $(this).prev().val();
+    let id = $(this).data('id');
+
+    $.ajax({
+        type: "POST",
+        url: "/feed/comment/update",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            id : id,
+            value : value,
+        },
+        success: function(data){
+            $(root).prev().val('');
+            $('.edited-text[data-id="'+id+'"]').html(data.value);
+        }
+    });
+
+});
+
+
+

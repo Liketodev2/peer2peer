@@ -13,8 +13,8 @@
 
                         <div class="form-group">
                             <label for="article">Article name</label>
-                            <input type="text" required class="form-control @error('article') is-invalid @enderror" name="article" id="article" aria-describedby="article" >
-                            @error('article')
+                            <input type="text" required class="form-control @error('title') is-invalid @enderror" name="title" id="article" aria-describedby="article" >
+                            @error('title')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                             @enderror
                         </div>
@@ -81,11 +81,11 @@
                                 <button class="btn btn-link" type="button">
                                     {{ $key }}
                                 </button>
-                                <ul class="d-flex">
+                            {{--    <ul class="d-flex">
                                     <li class="active"><a href="#">Mixed</a></li>
                                     <li><a href="#">Recommended</a></li>
                                     <li><a href="#">Followed</a></li>
-                                </ul>
+                                </ul>--}}
                                 <div class="d-flex flex-1 justify-content-end abs">
                                     <div class="mr-3" data-toggle="collapse" data-target="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapse{{$loop->index}}"><img src="{{asset('img/Path%2047.svg')}}" alt="img"></div>
                                     <div data-dismiss="alert" aria-label="Close"><img src="{{asset('img/x-blue.svg')}}" alt="img"></div>
@@ -96,8 +96,8 @@
                                     @if(count($feed) > 0)
                                         @foreach($feed as $feed_item)
                                                 <div class="d-flex row-news">
-                                                    <div class="w-40"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->article}}</a></div>
-                                                    <div class="flex-1">{{$feed_item->author_name}}</div>
+                                                    <div class="w-40"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->title}}</a></div>
+                                                    <div class="flex-1">{{$feed_item->user->company_name ? $feed_item->user->company_name : $feed_item->user->first_name.' '. $feed_item->user->last_name}}</div>
                                                     <div class="flex-1">{{$feed_item->category->name}}</div>
                                                     <div class="flex-1">{{\Carbon\Carbon::parse($feed_item->created_at)->format('H:i')}}</div>
                                                 </div>

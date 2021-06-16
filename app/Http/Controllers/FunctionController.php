@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Feed;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FunctionController extends Controller
@@ -18,6 +19,19 @@ class FunctionController extends Controller
 
        return $feeds;
    }
+
+    public static function userTypeName($id){
+
+       $user = User::find($id);
+
+       if($user->type == 10){
+           $name = $user->company_name;
+       }else{
+           $name = $user->first_name .' '. $user->last_name;
+       }
+
+        return $name;
+    }
 
     public static function trustStatus($i){
         switch ($i) {

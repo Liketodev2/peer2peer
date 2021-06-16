@@ -7,7 +7,7 @@
         <ul class="m-0 p-0 active">
             @if($feeds['world']->count() > 0)
                 @foreach($feeds['world'] as $feed)
-                    <li><a href=" {{route('feed', $feed->id)}} ">{{$feed->article}}</a></li>
+                    <li><a href=" {{route('feed', $feed->id)}} ">{{$feed->title}}</a></li>
                 @endforeach
             @endif
         </ul>
@@ -17,7 +17,7 @@
         <ul class="m-0 p-0">
             @if($feeds['business_money']->count() > 0)
                 @foreach($feeds['business_money'] as $feed)
-                    <li><a href=" {{route('feed', $feed->id)}} ">{{$feed->article}}</a></li>
+                    <li><a href=" {{route('feed', $feed->id)}} ">{{$feed->title}}</a></li>
                 @endforeach
             @endif
         </ul>
@@ -27,7 +27,7 @@
         <ul class="m-0 p-0">
             @if($feeds['entertainment']->count() > 0)
                 @foreach($feeds['entertainment'] as $feed)
-                    <li><a href=" {{route('feed', $feed->id)}} ">{{$feed->article}}</a></li>
+                    <li><a href=" {{route('feed', $feed->id)}} ">{{$feed->title}}</a></li>
                 @endforeach
             @endif
         </ul>

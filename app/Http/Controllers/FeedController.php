@@ -10,6 +10,8 @@ use App\Models\Like;
 use App\Models\Repost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class FeedController extends Controller
 {
@@ -146,7 +148,7 @@ class FeedController extends Controller
 
     public function repostFeed(Request $request){
 
-        $repost = Auth::user()->reposts()->where('feed_id', $request->feed_id)->first();
+        $repost = Auth::user()->repost()->where('feed_id', $request->feed_id)->first();
 
         if(!$repost){
             $repost = new Repost();
@@ -166,8 +168,8 @@ class FeedController extends Controller
 
         $request->validate([
             'url' => 'required|url',
-            'description' => 'required|max:300',
-            'article' => 'required|max:60',
+            'description' => 'required|max:600',
+            'title' => 'required|max:120',
             'user_name' => 'required|max:60',
             'category_id' => 'required',
         ]);
@@ -175,7 +177,7 @@ class FeedController extends Controller
         Feed::create([
             'url' => $request['url'],
             'author_name' => $request['user_name'],
-            'article' => $request['article'],
+            'title' => $request['title'],
             'description' => $request['description'],
             'category_id' => $request['category_id'],
             'comment_access' => isset($request['comment_access']) && $request['comment_access'] == 1 ? 1 : 0,
@@ -195,9 +197,20 @@ class FeedController extends Controller
 
         $input = $request->all();
         $input['user_id'] = auth()->user()->id;
+        $reply = isset($input['reply']) ? 1 : 0;
+        if($reply){
+            unset($input['reply']);
+        }
+
+       if($reply){
+            $parent = Comment::where('parent_id', $request->parent_id)->get()->groupBy('user_id')->count();
+            if($parent > 1){
+                throw ValidationException::withMessages(['limit' => 'Discussion people limit is 12']);
+            }
+        }
+
 
         Comment::create($input);
-
 
 
         return back();
@@ -205,8 +218,78 @@ class FeedController extends Controller
     public function myFeeds()
     {
         $feeds = Feed::where('user_id', Auth::id())->orderBy('created_at','desc')->paginate(20, ['*'], 'feeds');
-        $reposts = Feed::whereIn('id',Auth::user()->reposts()->pluck('feed_id'))->paginate(20, ['*'], 'reposts');
+        $reposts = Auth::user()->reposts()->paginate(20, ['*'], 'reposts');
 
         return view('myfeeds', compact('feeds','reposts'));
     }
+
+    public function commentDelete(Request $request)
+    {
+        $comment = Comment::where('id', $request->id)->where('user_id', Auth::id());
+        if($comment){
+            $comment->delete();
+        }
+
+        return redirect()->back();
+    }
+
+
+    public function feedDelete($id)
+    {
+        $feed = Feed::find($id);
+        if($feed){
+            $feed->delete();
+        }
+
+        return redirect()->back();
+    }
+
+    public function feedUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'url' => 'required|url',
+            'description' => 'required|max:600',
+            'title' => 'required|max:120',
+            'user_name' => 'required|max:60',
+            'category_id' => 'required',
+        ]);
+
+        $feed =   Feed::where('id',$id)->where('user_id', Auth::id());
+
+        if($feed){
+            $feed->update([
+                'url' => $request['url'],
+                'author_name' => $request['user_name'],
+                'title' => $request['title'],
+                'description' => $request['description'],
+                'category_id' => $request['category_id'],
+                'comment_access' => isset($request['comment_access']) && $request['comment_access'] == 1 ? 1 : 0,
+                'user_id' => Auth::id(),
+                'status' => 0
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Article is updated');
+
+    }
+
+    public function feedEdit($id)
+    {
+        $feed = Feed::where('user_id', Auth::id())->where('id',$id)->first();
+
+        return view('feed-edit', compact('feed'));
+    }
+
+    public function commentUpdate(Request $request)
+    {
+        $comment = Comment::where('user_id', Auth::id())->where('id',$request->id)->first();
+        if(Str::length($request->value) > 0){
+            $comment->message = $request->value;
+            $comment->save();
+        }
+
+        return response()->json(['value' => $comment->message]);
+    }
+
+
 }
