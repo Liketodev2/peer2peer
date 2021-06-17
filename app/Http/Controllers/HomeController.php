@@ -97,7 +97,7 @@ class HomeController extends Controller
     }
     public function feed($id)
     {
-        $feed = Feed::with('comments')->find($id);
+        $feed = Feed::with('comments')->findOrFail($id);
 
         return view('feed', compact('feed'));
     }

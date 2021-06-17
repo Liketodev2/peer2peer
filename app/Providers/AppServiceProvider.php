@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Notify;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -31,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
         if(Schema::hasTable('categories')){
             View::share('categories', Category::all());
         }
+
     }
 }

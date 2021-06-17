@@ -46,27 +46,22 @@
                     </li>
                     <li class="dropdown nav-item">
                         <a class="nav-link" href="#" id="Notification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Notification <i class="fa fa-bell ml-1"></i>
+                            Notification <i class="fa fa-bell ml-1 {{\App\Http\Controllers\FunctionController::getNotifications()->count() > 0 ? 'text-danger' : ''}}"></i>
                         </a>
                         <div class="dropdown-menu notification_dropdown" aria-labelledby="Notification">
                             <main class="notification_content">
                                 <div class="px-3">
-                                    <div class="alert bg-light-gray alert-red d-flex align-items-center position-relative mb-3" role="alert">
-                                        <p class="m-0">Tom Smith commented on your post “Trump extradites Robert Mueller to Ecuador”...</p>
-                                        <div class="abs"><i class="far fa-clock mr-1"></i> 2 hours ago</div>
-                                    </div>
-                                    <div class="alert bg-light-gray  d-flex align-items-center position-relative mb-3" role="alert">
-                                        <p class="m-0">-Robert Makerman replied to the comment on post “CNN World is banned from Venezuela”...</p>
-                                        <div class="abs"><i class="far fa-clock mr-1"></i> 4 hours ago</div>
-                                    </div>
-                                    <div class="alert bg-light-gray d-flex align-items-center position-relative mb-3" role="alert">
-                                        <p class="m-0">-Robert Makerman replied to the comment on post “CNN World is banned from Venezuela”...</p>
-                                        <div class="abs"><i class="far fa-clock mr-1"></i> 4 hours ago</div>
-                                    </div>
-                                    <div class="alert bg-light-gray d-flex align-items-center position-relative mb-3" role="alert">
-                                        <p class="m-0">-Robert Makerman replied to the comment on post “CNN World is banned from Venezuela”...</p>
-                                        <div class="abs"><i class="far fa-clock mr-1"></i> 4 hours ago</div>
-                                    </div>
+
+                                    @if( \App\Http\Controllers\FunctionController::getNotifications()->count() > 0)
+                                        @foreach(\App\Http\Controllers\FunctionController::getNotifications() as $notify)
+                                            <div class="alert bg-light-gray alert-red d-flex align-items-center position-relative mb-3" role="alert">
+                                                <p class="m-0">{{$notify->text}}</p>
+                                                <div class="abs"><i class="far fa-clock mr-1"></i> {{\Carbon\Carbon::parse($notify->created_at)->diffForHumans(\Illuminate\Support\Carbon::now())}}</div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p class="text-center mt-3 text-info">Notifications are empty</p>
+                                    @endif
                                     <div>
                                         <a href="{{route('notifications')}}" role="button" class="btn-red px-5">View all in full window</a>
                                     </div>
@@ -75,7 +70,9 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('messages')}}">Messages</a>
+                        <a class="nav-link message-check-icon" href="{{route('messages')}}">
+                            Messages
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('my-feeds')}}">My Feeds</a>
@@ -398,21 +395,25 @@
 <script src="{{asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 @stack('scripts')
+@if(!$errors->isEmpty())
+    <script>
+        let login_type = localStorage.getItem('login_type');
+        if(login_type == "login"){
+                    setTimeout(function () {
+                        $('.log-in-btn').click();
+                    })
+                }else if(login_type == "register"){
+                    setTimeout(function () {
+                        $('.sign-up-btn').click();
+                    })
+                }
 
-    @if(!$errors->isEmpty())
-        <script>
-            let login_type = localStorage.getItem('login_type');
-            if(login_type == "login"){
-                        setTimeout(function () {
-                            $('.log-in-btn').click();
-                        })
-                    }else if(login_type == "register"){
-                        setTimeout(function () {
-                            $('.sign-up-btn').click();
-                        })
-                    }
-        </script>
-    @endif
+@endif
+@if(\Auth::user())
+    <script>
+        checkMessages();
+    </script>
+@endif
 </body>
 </html>
 

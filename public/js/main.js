@@ -263,5 +263,17 @@ $('.edit-comment-btn').click(function () {
 
 });
 
+function checkMessages() {
+    $.ajax({
+        type: "POST",
+        url: "/check-messages",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        success: function(data){
+            if(data.result){
+                $('.message-check-icon').append(`<i class="fas fa-comments text-danger ml-1 "></i>`);
+            }
+        }
+    });
+}
 
 

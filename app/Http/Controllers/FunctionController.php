@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversation;
 use App\Models\Feed;
+use App\Models\Notify;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FunctionController extends Controller
 {
@@ -32,6 +35,27 @@ class FunctionController extends Controller
 
         return $name;
     }
+
+    public static function getNotifications(){
+
+        return Notify::where('user_id', Auth::id())->orderBy('created_at', 'desc')->where('seen', 0)->take(5)->get();
+    }
+    public static function checkMessages(){
+
+        $check_converstaions =  Conversation::where(['from_id' => Auth::id()])->orWhere(['to_id' => Auth::id()])->get();
+        $result = false;
+
+        foreach ($check_converstaions as $check_converstaion) {
+          if(  $check_converstaion->messages()->count() > 0 && $check_converstaion->messages->last()->seen == 0 && $check_converstaion->messages->last()->to_id == Auth::id()){
+              $result = true;
+          }
+        }
+        return $result;
+    }
+
+
+
+
 
     public static function trustStatus($i){
         switch ($i) {

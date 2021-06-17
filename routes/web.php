@@ -26,6 +26,7 @@ Route::post('/search', [App\Http\Controllers\HomeController::class, 'search'])->
 Route::get('/category/{id}', [App\Http\Controllers\HomeController::class, 'category'])->name('category');
 Route::get('/feed/{id}', [App\Http\Controllers\HomeController::class, 'feed'])->name('feed');
 Route::get('/notifications', [App\Http\Controllers\UserController::class, 'notifications'])->name('notifications');
+Route::post('/check-messages', [App\Http\Controllers\UserController::class, 'checkMessages'])->name('check-messages');
 
 Route::get('/search', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 Route::get('/profile/{id}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');

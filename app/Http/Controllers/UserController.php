@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conversation;
 use App\Models\Follow;
 use App\Models\Message;
+use App\Models\Notify;
 use App\Models\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
@@ -153,7 +154,10 @@ class UserController extends Controller
     }
 
     public function notifications(){
-        return view('notifications');
+        $notifications = Notify::where('user_id', Auth::id())->orderBy('created_at', 'desc');
+        $notifications->update(['seen' => 1]);
+        $notifications = $notifications->paginate(20);
+        return view('notifications', compact('notifications'));
     }
 
     public function messages(Request $request)
@@ -229,6 +233,7 @@ class UserController extends Controller
 
     public function addConversation(Request $request, $id)
     {
+
         $check_converstaion =  Conversation::where(function($query) use ($id){
             $query->where(['from_id' => Auth::id(), 'to_id' => $id]);
             $query->orWhere(['to_id' => $id, 'from_id' => Auth::id()]);
@@ -245,7 +250,14 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('messages',['id' => $conversation->id]);
+        return redirect()->route('messages', ['id' => $conversation->id]);
+    }
+
+    public function checkMessages()
+    {
+        $result = FunctionController::checkMessages();
+
+        return response()->json(['result' => $result]);
     }
 
 }

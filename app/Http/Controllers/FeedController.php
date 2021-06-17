@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Feed;
 use App\Models\Like;
+use App\Models\Notify;
 use App\Models\Repost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -195,6 +196,7 @@ class FeedController extends Controller
             'message' => 'required',
         ]);
 
+
         $input = $request->all();
         $input['user_id'] = auth()->user()->id;
         $reply = isset($input['reply']) ? 1 : 0;
@@ -208,9 +210,15 @@ class FeedController extends Controller
                 throw ValidationException::withMessages(['limit' => 'Discussion people limit is 12']);
             }
         }
-
+        $feed = Feed::findOrFail($request->feed_id);
+        $text = FunctionController::userTypeName(Auth::id()) .' '. ( $reply ? 'replied to the comment on feed ' : 'commented on your feed ') .' "'. ( Str::limit($feed->title, 60) ) .' "';
 
         Comment::create($input);
+
+        Notify::create([
+            'user_id' => $feed->user_id,
+            'text' => $text
+        ]);
 
 
         return back();
