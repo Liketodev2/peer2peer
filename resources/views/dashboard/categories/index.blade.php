@@ -13,7 +13,7 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="url" class="form-control" id="name" aria-describedby="emailHelp" name="name">
+                                            <input type="text" class="form-control" id="name"  name="name">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Create</button>
                                     </form>

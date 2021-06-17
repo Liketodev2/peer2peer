@@ -407,6 +407,7 @@
                         $('.sign-up-btn').click();
                     })
                 }
+        </script>
 
 @endif
 @if(\Auth::user())
