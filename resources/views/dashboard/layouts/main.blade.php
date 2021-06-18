@@ -126,10 +126,10 @@
                 </span>
                     </a>
                     <div class="dropdown-menu" role="menu">
-                        <a class="dropdown-item" href="" role="menuitem"><i class="icon md-settings"
+                       {{-- <a class="dropdown-item" href="" role="menuitem"><i class="icon md-settings"
                                                                                                        aria-hidden="true"></i>
-                            Settings</a>
-                        <div class="dropdown-divider" role="presentation"></div>
+                            Settings</a>--}}
+                  {{--      <div class="dropdown-divider" role="presentation"></div>--}}
                         <a class="dropdown-item" href="{{ route('logout') }}" role="menuitem"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

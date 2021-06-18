@@ -16,9 +16,19 @@ class FeedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Feed::orderBy('created_at','desc')->paginate(20);
+        $items = Feed::orderBy('created_at','desc');
+
+        if($request->search){
+            $items = $items->where(function($query) use ($request) {
+                $query->where('title', 'like', '%' . $request->search . '%');
+                $query->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $items = $items->paginate(20);
+
 
         return view('dashboard.feeds.index', compact('items'));
     }

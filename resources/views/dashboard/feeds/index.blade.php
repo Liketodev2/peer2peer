@@ -8,6 +8,19 @@
                         <div class="panel-body">
                             @include('dashboard.partials.crud-notifications')
                             <a href="{{route('dashboard.feeds.create')}}"><button class="btn btn-primary">Create</button></a>
+                            <div class="row d-flex justify-content-end mr-4">
+                                <form action="{{route('dashboard.feeds.index')}}" method="GET" >
+                                    @csrf
+                                    <div class="d-flex">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"  name="search" value="">
+                                    </div>
+                                        <div class="form-group ml-2">
+                                            <button class="btn btn-primary">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="row mt-4" >
                                 <div class="col-12 ">
                                     <table  class="table table-striped" >
