@@ -71,6 +71,5 @@ class RssReader extends Command
                 }
             }
         }
-        dd('stop process');
     }
 }
