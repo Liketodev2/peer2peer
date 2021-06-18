@@ -161,7 +161,7 @@
                         <div  class="w-100">
                             <div class="form-group">
                                 <label for="Email_reg">Email</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="Email_reg" name="email" aria-describedby="emailHelp">
+                                <input type="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" id="Email_reg" name="email" aria-describedby="emailHelp">
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -171,7 +171,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label>First name</label>
-                                    <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror">
+                                    <input type="text" name="first_name" value="{{old('first_name')}}" class="form-control @error('first_name') is-invalid @enderror">
                                         @error('first_name')
                                             <span class="invalid-feedback" role="alert">
                                                <strong>{{ $message }}</strong>
@@ -180,7 +180,7 @@
                                 </div>
                                 <div class="col">
                                     <label>Last name</label>
-                                    <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror">
+                                    <input type="text" name="last_name" value="{{old('last_name')}}" class="form-control @error('last_name') is-invalid @enderror">
                                         @error('last_name')
                                             <span class="invalid-feedback" role="alert">
                                                    <strong>{{ $message }}</strong>
@@ -213,13 +213,18 @@
                                 </div>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input @error('agreement') is-invalid @enderror" id="exampleCheck1" name="agreement">
                                 <label class="form-check-label" for="exampleCheck1">
                                     I agree to the
                                     <a href="#" class="modal_link"> Privacy Policy</a>
                                     and
                                     <a href="#" class="modal_link"> Terms of Service</a>
                                 </label>
+                                @error('agreement')
+                                <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
                             </div>
                             <div class="mt-4">
                                 <button type="submit" class="btn-bordered py-2 mx-auto sign-up-submit">Sign Up</button>
@@ -266,7 +271,7 @@
                         <div style="max-width: 375px; width: 100%" class="mx-auto">
                             <div class="form-group">
                                 <label for="Email">Email</label>
-                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="Email" aria-describedby="emailHelp" >
+                                <input type="email" value="{{old('email')}}" name="email" class="form-control @error('email') is-invalid @enderror" id="Email" aria-describedby="emailHelp" >
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -282,7 +287,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <a href="#" class="modal_link" data-toggle="modal" data-target="#forgotPassword" data-dismiss="modal" aria-label="Close">Forgot password?</a>
+                            <a href="#" class="modal_link forgot-btn" data-toggle="modal" data-target="#forgotPassword" data-dismiss="modal" aria-label="Close">Forgot password?</a>
                             <div class="mt-4">
                                 <button type="submit" class="btn-bordered py-2 mx-auto log-in-submit">Log in</button>
                                 <button type="submit" class="btn-red mx-auto mt-3 d-block  d-md-none" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#signUp">Sigh Up</button>
@@ -405,6 +410,10 @@
                 }else if(login_type == "register"){
                     setTimeout(function () {
                         $('.sign-up-btn').click();
+                    })
+                }else if(login_type == "forgot"){
+                    setTimeout(function () {
+                        $('.forgot-btn').click();
                     })
                 }
         </script>

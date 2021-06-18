@@ -61,7 +61,12 @@ $(document).ready(function() {
         localStorage.setItem('login_type','register');
     });
 
-    $('.reset-submit').on('click', function(){
+    $('.forgot-btn').on('click', function(){
+        localStorage.removeItem('login_type');
+        localStorage.setItem('login_type','forgot');
+    });
+
+    $('.res-btn').on('click', function(){
         localStorage.removeItem('login_type');
         localStorage.setItem('login_type','reset');
     });

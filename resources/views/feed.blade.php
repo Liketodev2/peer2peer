@@ -1,44 +1,46 @@
 @extends('layouts.main')
-<style>
-    .comment-replay{
-        border-left: 5px solid #e91414;
-        border-radius: 5px;
-        padding: 20px;
-        margin-left: 20px;
-        display: none;
-    }
-    .replay, .comment-like, .delete-comment, .edit-comment{
-        cursor: pointer;
-    }
-    .active-comment{
-        color: #44b144;
-    }
-    .btn-sm{
-        min-width: 18px !important;
-        height: 36px !important;
-    }
-    .img-user{
-        width: 50px;
-        height: 50px;
-        border-radius: 25px;
-        object-fit: contain;
-    }
-    .edit-comment-block{
-        display:none;
-    }
-    .edit-comment-btn{
-        width: 20%;
-        height: 36px;
-        vertical-align: top !important;
-    }
-    .feed-profile-link{
-        position: absolute;
-        right: 0;
-    }
-    .title{
-        width: 95%;
-    }
-</style>
+@push('scripts')
+    <style>
+        .comment-replay{
+            border-left: 5px solid #e91414;
+            border-radius: 5px;
+            padding: 20px;
+            margin-left: 20px;
+            display: none;
+        }
+        .replay, .comment-like, .delete-comment, .edit-comment{
+            cursor: pointer;
+        }
+        .active-comment{
+            color: #44b144;
+        }
+        .btn-sm{
+            min-width: 18px !important;
+            height: 36px !important;
+        }
+        .img-user{
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            object-fit: contain;
+        }
+        .edit-comment-block{
+            display:none;
+        }
+        .edit-comment-btn{
+            width: 20%;
+            height: 36px;
+            vertical-align: top !important;
+        }
+        .feed-profile-link{
+            position: absolute;
+            right: 0;
+        }
+        .title{
+            width: 95%;
+        }
+    </style>
+@endpush
 @section('content')
 
     <div class="d-xl-flex">
