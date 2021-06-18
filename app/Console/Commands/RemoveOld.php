@@ -40,7 +40,7 @@ class RemoveOld extends Command
     public function handle()
     {
         Feed::where('created_at', '<',
-            Carbon::now()->subDays(30)->toDateTimeString())
+            Carbon::now()->subMonths(12)->toDateTimeString())
             ->delete();
     }
 }
