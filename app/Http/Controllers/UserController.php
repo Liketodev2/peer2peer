@@ -179,20 +179,26 @@ class UserController extends Controller
                 $query->orWhere('to_id', Auth::id());
             })->where('id', $request->id)->first();
 
-            if($chat->messages()->count() > 0 ){
-                if($chat->messages->last()->seen == 0 && $chat->messages->last()->to_id == Auth::id()){
-                    $chat->messages()->update([
-                        'seen' => 1
-                    ]);
+
+            if($chat && $chat->messages){
+                if($chat->messages()->count() > 0 ){
+                    if($chat->messages->last()->seen == 0 && $chat->messages->last()->to_id == Auth::id()){
+                        $chat->messages()->update([
+                            'seen' => 1
+                        ]);
+                    }
                 }
             }
 
+
             $conversation_id = $request->id;
-            $person = $chat->from_id == Auth::id() ? $chat->to_id : $chat->from_id ;
-            $person = User::find($person);
-
+            if($chat){
+                $person = $chat->from_id == Auth::id() ? $chat->to_id : $chat->from_id ;
+                $person = User::find($person);
+            }else{
+                $person = [];
+            }
         }
-
 
         return view('messages',compact('conversations','chat','person','conversation_id'));
     }
@@ -235,11 +241,8 @@ class UserController extends Controller
     {
 
         $check_converstaion =  Conversation::where(function($query) use ($id){
-            $query->where(['from_id' => Auth::id(), 'to_id' => $id]);
-            $query->orWhere(['to_id' => $id, 'from_id' => Auth::id()]);
+            $query->where(['from_id' => Auth::id(), 'to_id' => (int) $id])->orWhere(['from_id' => (int) $id, 'to_id' => Auth::id()]);
         })->first();
-
-        $check_converstaion =  Conversation::where(['from_id' => Auth::id(), 'to_id' => $id])->orWhere(['from_id' => $id, 'to_id' => Auth::id()])->first();
 
         if($check_converstaion){
             $conversation = $check_converstaion;
@@ -249,6 +252,7 @@ class UserController extends Controller
                 'to_id' => $request->id,
             ]);
         }
+
 
         return redirect()->route('messages', ['id' => $conversation->id]);
     }
