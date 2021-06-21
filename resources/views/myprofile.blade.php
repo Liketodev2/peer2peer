@@ -90,12 +90,6 @@
                                         <div class="mt-4">
                                             <button type="submit" class="btn-red py-2 ">Update</button>
                                         </div>
-                                        @if ($message = Session::get('success'))
-                                            <div class="alert alert-success alert-block mt-2">
-                                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                                <strong>{{ $message }}</strong>
-                                            </div>
-                                        @endif
                                 </form>
                             </div>
                             <div style="max-width: 375px;margin-left:50px; width: 100%" class="d-inline-block pb-5">
@@ -135,14 +129,16 @@
                                     <div class="mt-4">
                                         <button type="submit" class="btn-red py-2 ">Update</button>
                                     </div>
-                                    @if ($message = Session::get('success'))
-                                        <div class="alert alert-success alert-block mt-2">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                    @endif
                                 </form>
                             </div>
+                        </div>
+                        <div>
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success alert-block mt-2">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif
                         </div>
                      {{--   <div class="d-flex justify-content-between align-items-center py-2">
                             <div class="info_name">Block list:</div>

@@ -92,8 +92,8 @@
                     <h5 class="text-danger mt-4"><i class="fas fa-sign-in-alt"></i> Please login to make comments</h5>
                 @endguest
                 @if($feed->comment_access == 1)
-                    @if($feed->comments)
-                        @foreach($feed->comments as $comment)
+                    @if($comments)
+                        @foreach($comments as $comment)
                             <div class="comment-block" data-id="{{$comment->id}}" data-type="comment">
                                 <div class="d-flex my-3 align-items-start border-bottom py-4 ">
                                     <a href="{{route('profile', $comment->user->id)}}"><img src="{{$comment->user->avatar ? asset('images').'/'.$comment->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>
@@ -177,8 +177,11 @@
                                 </div>
                             </div>
                         @endforeach
-                            <div class="d-flex justify-content-end">
+                           {{-- <div class="d-flex justify-content-end">
                                 <div role="button" class="color-red btn-link">Show more comments >></div>
+                            </div>--}}
+                            <div class="d-flex justify-content-center mt-4">
+                                {{$comments->links('pagination::bootstrap-4')}}
                             </div>
                     @endif
                 @endif

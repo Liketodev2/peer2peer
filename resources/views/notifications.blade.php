@@ -1,4 +1,11 @@
 @extends('layouts.main')
+@push('styles')
+    <style>
+        .notify-empty{
+            font-size: 40px;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="d-xl-flex ">
         @include('areas.feed-left-side')
@@ -16,7 +23,12 @@
                             {{$notifications->links('pagination::bootstrap-4')}}
                         </div>
                 @else
-                    <h4 class="text-center mt-3 text-info">Notifications are empty</h4>
+                    <div>
+                        <div class="text-center"><i class="far fa-folder-open notify-empty"></i></div>
+                        <div class="text-center">
+                            <h5 class=" text-dark mt-2">Notifications are empty</h5>
+                        </div>
+                    </div>
                 @endif
             </div>
         </main>

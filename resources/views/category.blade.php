@@ -1,6 +1,12 @@
 @extends('layouts.main')
 @section('content')
-
+    @push('styles')
+        <style>
+            .empty-category{
+                font-size: 40px;
+            }
+        </style>
+    @endpush
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <main class="flex-1 main-content">
@@ -16,7 +22,13 @@
                                 </div>
                             @endforeach
                         @else
-                            <h4 class="text-danger text-center mt-2">Current category feeds are empty</h4>
+                            <div>
+                                <div class="text-center"><i class="far fa-folder-open empty-category"></i></div>
+                                <div class="text-center">
+                                    <h5 class=" text-dark mt-2">Current category feeds are empty</h5>
+                                </div>
+                            </div>
+
                         @endif
                     </div>
                     <div class="d-flex justify-content-center mt-4">

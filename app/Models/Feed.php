@@ -18,6 +18,9 @@ class Feed extends Model
     public function likes(){
         return $this->belongsTo('App\Models\Like');
     }
+    public function likes_pivot(){
+        return $this->belongsTo('App\Models\Like','id','feed_id');
+    }
     public function agrees(){
         return $this->belongsTo('App\Models\Agree');
     }

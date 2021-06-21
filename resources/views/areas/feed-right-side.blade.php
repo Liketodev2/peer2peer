@@ -34,24 +34,13 @@
         <div class="collapse multi-collapse" id="multiCollapseExample1">
             <div class="card card-body">
                 <ul class="m-0 p-0">
-                    <li>
-                        Fires rage in California again
-                    </li>
-                    <li>
-                        New York to build bridge to Florida
-                    </li>
-                    <li>
-                        Weather continues to be not great
-                    </li>
-                    <li>
-                        Amazon workers shop mostly at Walmart
-                    </li>
-                    <li>
-                        Salsa is growing in US, find out why
-                    </li>
-                    <li>
-                        Netflix opens kidflix in USA
-                    </li>
+                    @if(isset($trending_feeds))
+                        @foreach($trending_feeds as $trend)
+                            <li>
+                                <a href="{{route('feed', $trend->id)}}"> {{$trend->title}}</a>
+                            </li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
         </div>

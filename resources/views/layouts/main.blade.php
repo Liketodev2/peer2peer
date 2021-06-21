@@ -41,10 +41,10 @@
                             <a class="nav-link" href="{{route('dashboard.index')}}"><button class="btn-sm btn-primary">Dashboard</button></a>
                         </li>
                      @endif
-                    <li class="nav-item">
+                    <li class="nav-item {{(\Request::route()->getName() == 'peers') ? 'active' : ''}}">
                         <a class="nav-link" href="{{route('peers')}}">Peers</a>
                     </li>
-                    <li class="dropdown nav-item">
+                    <li class="dropdown nav-item {{(\Request::route()->getName() == 'notifications') ? 'active' : ''}}">
                         <a class="nav-link" href="#" id="Notification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Notification <i class="fa fa-bell ml-1 {{\App\Http\Controllers\FunctionController::getNotifications()->count() > 0 ? 'text-danger' : ''}}"></i>
                         </a>
@@ -60,7 +60,7 @@
                                             </div>
                                         @endforeach
                                     @else
-                                        <p class="text-center mt-3 text-info">Notifications are empty</p>
+                                        <p class="text-center mt-3 text-dark"><i class="far fa-folder-open mr-2"></i> Notifications are empty</p>
                                     @endif
                                     <div>
                                         <a href="{{route('notifications')}}" role="button" class="btn-red px-5">View all in full window</a>
@@ -69,12 +69,12 @@
                             </main>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{(\Request::route()->getName() == 'messages') ? 'active' : ''}}">
                         <a class="nav-link message-check-icon" href="{{route('messages')}}">
                             Messages
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{(\Request::route()->getName() == 'my-feeds') ? 'active' : ''}}">
                         <a class="nav-link" href="{{route('my-feeds')}}">My Feeds</a>
                     </li>
                     <li class="dropdown">

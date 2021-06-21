@@ -14,10 +14,13 @@
             overflow-y: scroll;
             height: 500px;
         }
+        .messages_content{
+            min-height: 600px;
+        }
     </style>
 @endpush
 @section('content')
-    <div class="d-xl-flex my-feed_content">
+    <div class="d-xl-flex my-feed_content ">
         <aside class="asides left_aside">
            {{-- <div class="pb-4 mb-2 py-3">
                 <div class="title px-3">My Feeds</div>

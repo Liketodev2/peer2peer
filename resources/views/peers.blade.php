@@ -8,6 +8,9 @@
             font: normal normal 600 14px/21px Poppins !important;
             color: #0019FF !important;
         }
+        .empty-peers{
+            font-size: 40px;
+        }
     </style>
 @endpush
 @section('content')
@@ -71,7 +74,12 @@
                         </div>
             @endforeach
             @else
-                <h4>Peers are empty</h4>
+                <div>
+                    <div class="text-center"><i class="far fa-folder-open empty-peers"></i></div>
+                    <div class="text-center">
+                        <h5 class=" text-dark mt-2">Peers are empty</h5>
+                    </div>
+                </div>
             @endif
         </main>
         <aside class="asides right_aside">

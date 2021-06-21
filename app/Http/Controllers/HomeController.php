@@ -97,9 +97,12 @@ class HomeController extends Controller
     }
     public function feed($id)
     {
-        $feed = Feed::with('comments')->findOrFail($id);
 
-        return view('feed', compact('feed'));
+        $feed = Feed::findOrFail($id);
+        $comments = $feed->comments()->paginate(25);
+
+
+        return view('feed', compact('feed','comments'));
     }
 
 
