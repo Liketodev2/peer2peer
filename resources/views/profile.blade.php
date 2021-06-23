@@ -24,7 +24,9 @@
                         @if(\Auth::id() != $user->id)
                             <div class="d-flex mt-4">
                                 <div class="follow-check" style="{{Auth::user()->follow_action() && Auth::user()->follow_action()->where('follow_id', $user->id)->first() ? 'display:block': 'display:none' }}"><i class="far fa-check-circle text-success mr-2"></i></div>
-                                <button class="btn-red mr-3 w-90 follow-btn" data-follow="{{$user->id}}">Follow</button>
+                                @if($user->type == 10)
+                                    <button class="btn-red mr-3 w-90 follow-btn" data-follow="{{$user->id}}">Follow</button>
+                                @endif
                                 <a href="{{route('add-conversation', $user->id)}}"><div role="button" class="chat-btn"></div></a>
                             </div>
                         @endif
