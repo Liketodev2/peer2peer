@@ -26,8 +26,8 @@
                                             <div class="form-group">
                                                 <label >Type</label>
                                                 <select class="form-control" name="type">
-                                                    <option value="10">Company</option>
-                                                    <option value="20">User</option>
+                                                    <option value="10" {{old('type') == 10 ? 'selected' : ''}}>Company</option>
+                                                    <option value="20" {{old('type') == 20 ? 'selected' : ''}}>User</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">

@@ -52,15 +52,24 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-
-        $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'company_name' => 'required',
-            'type' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|min:6',
-        ]);
+        if($request->type == 10){
+            $this->validate($request, [
+                'first_name' => 'required|max:60',
+                'last_name' => 'required|max:60',
+                'company_name' => 'required|max:60',
+                'type' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'required|min:8',
+            ]);
+        }else{
+            $this->validate($request, [
+                'first_name' => 'required|max:60',
+                'last_name' => 'required|max:60',
+                'type' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'required|min:8',
+            ]);
+        }
 
         User::create([
             'first_name' => $request->first_name,
@@ -95,7 +104,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('dashboard.users.edit', compact('user'));
     }
 
     /**
@@ -107,7 +117,41 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request->type == 10){
+            $this->validate($request, [
+                'first_name' => 'required|max:60',
+                'last_name' => 'required|max:60',
+                'company_name' => 'required|max:60',
+                'type' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'nullable|min:8',
+            ]);
+        }else{
+            $this->validate($request, [
+                'first_name' => 'required|max:60',
+                'last_name' => 'required|max:60',
+                'type' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'nullable|min:8',
+            ]);
+        }
+
+        User::find($id)->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'company_name' => $request->company_name,
+            'type' => $request->type,
+            'category_id' => $request->category_id,
+            'email' => $request->email
+        ]);
+
+        if($request->password){
+            User::find($id)->update([
+                'password' => (new BcryptHasher())->make($request->get('password'))
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'User is updated');
     }
 
     /**

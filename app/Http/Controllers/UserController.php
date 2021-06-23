@@ -100,8 +100,8 @@ class UserController extends Controller
 
         $this->validate($request, [
             'current_password' => 'required',
-            'new_password' => 'required|min:6',
-            'confirm_new_password' => 'required|same:new_password|min:6',
+            'new_password' => 'required|min:8',
+            'confirm_new_password' => 'required|same:new_password|min:8',
         ]);
 
 
@@ -120,9 +120,9 @@ class UserController extends Controller
 
         if($request->type == 'company'){
             $this->validate($request, [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'company_name' => 'required',
+                'first_name' => 'required|max:60',
+                'last_name' => 'required|max:60',
+                'company_name' => 'required|max:60',
             ]);
             Auth::user()->update([
                 'first_name' => $request->first_name,
@@ -131,8 +131,8 @@ class UserController extends Controller
             ]);
         }elseif($request->type == 'user'){
             $this->validate($request, [
-                'first_name' => 'required',
-                'last_name' => 'required',
+                'first_name' => 'required|max:60',
+                'last_name' => 'required|max:60',
             ]);
             Auth::user()->update([
                 'first_name' => $request->first_name,

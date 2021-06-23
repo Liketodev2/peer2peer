@@ -44,6 +44,7 @@
                                                 <td>{{$item->email}}</td>
                                                 <td>
                                                     <a href="{{route('dashboard.users.show', $item->id)}}"><button class="btn btn-light w-60 btn-sm"><i class="fas fa-info text-primary"></i></button></a>
+                                                    <a href="{{route('dashboard.users.edit', $item->id)}}"><button class="btn btn-light btn-sm w-60"><i class="fas fa-edit"></i></button></a>
                                                     <button class="btn btn-light btn-sm admin-remove-btn w-60"><i class="fas fa-trash text-danger"></i></button>
                                                     <form action="{{route('dashboard.users.destroy',$item->id)}}" method="POST" class="d-none admin-remove-form">
                                                         @method('DELETE')
