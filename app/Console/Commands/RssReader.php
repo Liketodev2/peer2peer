@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Feed;
 use App\Models\RssFeed;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Vedmant\FeedReader\Facades\FeedReader;
 
 class RssReader extends Command
@@ -41,6 +42,8 @@ class RssReader extends Command
     public function handle()
     {
         $rss_links = RssFeed::all();
+
+        Log::info('here');
 
         foreach ($rss_links as $rss_link){
 
