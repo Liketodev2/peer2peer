@@ -17,7 +17,7 @@ class RssController extends Controller
      */
     public function index()
     {
-        $items = RssFeed::paginate(20);
+        $items = RssFeed::orderBy('id','desc')->paginate(20);
         $users = User::where('type', 10)->get();
         $categories = Category::all();
 

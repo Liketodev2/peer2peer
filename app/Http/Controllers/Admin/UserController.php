@@ -92,7 +92,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $feeds = $user->feed()->paginate(20);
+        $feeds = $user->feed()->orderBy('id','desc')->paginate(20);
         return view('dashboard.users.show', compact('user','feeds'));
     }
 

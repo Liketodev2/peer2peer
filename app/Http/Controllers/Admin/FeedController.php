@@ -18,7 +18,7 @@ class FeedController extends Controller
      */
     public function index(Request $request)
     {
-        $items = Feed::orderBy('created_at','desc');
+        $items = Feed::query();
 
         if($request->search){
             $items = $items->where(function($query) use ($request) {
@@ -27,7 +27,7 @@ class FeedController extends Controller
             });
         }
 
-        $items = $items->paginate(20);
+        $items = $items->orderBy('id','desc')->paginate(20);
 
 
         return view('dashboard.feeds.index', compact('items'));

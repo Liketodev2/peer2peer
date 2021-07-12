@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('rss:read')->everyMinute();
+         $schedule->command('rss:read')->daily();
          $schedule->command('remove:old')->yearly();
     }
 
