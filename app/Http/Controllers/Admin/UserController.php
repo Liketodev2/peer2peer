@@ -123,7 +123,6 @@ class UserController extends Controller
                 'last_name' => 'required|max:60',
                 'company_name' => 'required|max:60',
                 'type' => 'required',
-                'email' => 'required|unique:users',
                 'password' => 'nullable|min:8',
             ]);
         }else{
@@ -131,12 +130,19 @@ class UserController extends Controller
                 'first_name' => 'required|max:60',
                 'last_name' => 'required|max:60',
                 'type' => 'required',
-                'email' => 'required|unique:users',
                 'password' => 'nullable|min:8',
             ]);
         }
 
-        User::find($id)->update([
+        $user = User::find($id);
+
+        if($request->email != $user->email){
+            $this->validate($request, [
+                'email' => 'required|unique:users'
+            ]);
+        }
+
+        $user->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'company_name' => $request->company_name,
@@ -146,7 +152,7 @@ class UserController extends Controller
         ]);
 
         if($request->password){
-            User::find($id)->update([
+            $user->update([
                 'password' => (new BcryptHasher())->make($request->get('password'))
             ]);
         }
