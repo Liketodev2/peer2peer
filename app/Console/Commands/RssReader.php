@@ -58,9 +58,14 @@ class RssReader extends Command
                 $content = strip_tags($content);
                 $link = $item->get_link();
 
-                $check_unique = Feed::where('category_id', $rss_link->category_id)->where('title', 'like', '%' . $title . '%')->first();
+                $check_unique = Feed::where('category_id', $rss_link->category_id)->where('user_id', $rss_link->user_id)->orderBy('id','desc')->take(500)->get();
 
-                if(!$check_unique){
+                $to_search = $title;
+                $res_search = $check_unique->filter(function ($item) use ($to_search) {
+                    return false !== stristr($item->title, $to_search);
+                });
+
+                if($res_search && $res_search->count() == 0){
                     Feed::create([
                         'category_id' => $rss_link->category_id,
                         'user_id' => $rss_link->user_id,
