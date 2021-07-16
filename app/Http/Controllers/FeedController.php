@@ -190,6 +190,16 @@ class FeedController extends Controller
         return redirect()->back()->with('success', 'Article is created');
 
     }
+
+    public function getUrlTitle(Request $request){
+
+        $url = $request->url;
+        $page = file_get_contents($url);
+        $title = preg_match('/<title[^>]*>(.*?)<\/title>/ims', $page, $match) ? $match[1] : null;
+
+        return response()->json($title);
+    }
+
     public function comment(Request $request)
     {
         $request->validate([

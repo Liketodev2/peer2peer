@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
             $trending_feeds = [];
             $category = Category::where('name', 'like', '%' . 'World' . '%')->first();
             if($category){
-                $trending_feeds = Feed::where('category_id',$category->id)->withCount('likes_pivot')->orderBy('likes_pivot_count','desc')->take(5)->get();
+                $trending_feeds = Feed::where('category_id',$category->id)->withCount('likes_pivot')->orderBy('likes_pivot_count','desc')->published()->take(5)->get();
             }
             View::share('trending_feeds', $trending_feeds);
         }

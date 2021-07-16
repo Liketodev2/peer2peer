@@ -186,11 +186,27 @@
                             <span class="site-menu-title">Users</span>
                         </a>
                     </li>
-                    <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.feeds.index') ? 'active' : ''}}">
-                        <a class="animsition-link" href="{{route('dashboard.feeds.index')}}">
-                            <i class="site-menu-icon  md-view-list" aria-hidden="true"></i>
+
+                    <li class="site-menu-item has-sub  {{(\Request::route()->getName() == 'dashboard.feeds.index') || (\Request::route()->getName() == 'dashboard.inactiveFeeds')   ? ' open active' : ''}}">
+                        <a class="animsition-link"  href="javascript:void(0)">
+                            <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
                             <span class="site-menu-title">Feeds</span>
+                            <span class="site-menu-arrow"></span>
                         </a>
+                        <ul class="site-menu-sub">
+                            <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.feeds.index') ? 'active' : ''}}" >
+                                <a class="animsition-link" href="{{route('dashboard.feeds.index')}}">
+                                    <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
+                                    <span class="site-menu-title">All</span>
+                                </a>
+                            </li>
+                            <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.inactiveFeeds') ? 'active' : ''}}" >
+                                <a class="animsition-link" href="{{route('dashboard.inactiveFeeds')}}">
+                                    <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
+                                    <span class="site-menu-title">Inactive</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.rss.index') ? 'active' : ''}}">
                         <a class="animsition-link" href="{{route('dashboard.rss.index')}}">

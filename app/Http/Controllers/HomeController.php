@@ -63,7 +63,7 @@ class HomeController extends Controller
     {
 
         if(Str::length($request->search) > 2){
-            $results = Feed::where(function($query) use ($request) {
+            $results = Feed::published()->where(function($query) use ($request) {
                 $query->where('title', 'like', '%' . $request->search . '%');
                 $query->orWhere('description', 'like', '%' . $request->search . '%');
             });
@@ -81,9 +81,9 @@ class HomeController extends Controller
     public function home()
     {
         $feeds = [];
-        $feeds[Carbon::now()->format('D, M d')] = Feed::whereDate('created_at', Carbon::now())->orderBy('id','desc')->take(10)->get();
-        $feeds[Carbon::now()->subDays(1)->format('D, M d')] = Feed::whereDate('created_at', Carbon::now()->subDays(1))->orderBy('id','desc')->take(10)->get();
-        $feeds[Carbon::now()->subDays(2)->format('D, M d')] = Feed::whereDate('created_at', Carbon::now()->subDays(2))->orderBy('id','desc')->take(10)->get();
+        $feeds[Carbon::now()->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now())->orderBy('id','desc')->take(10)->get();
+        $feeds[Carbon::now()->subDays(1)->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now()->subDays(1))->orderBy('id','desc')->take(10)->get();
+        $feeds[Carbon::now()->subDays(2)->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now()->subDays(2))->orderBy('id','desc')->take(10)->get();
 
 
         return view('welcome', compact('feeds'));
@@ -91,14 +91,14 @@ class HomeController extends Controller
 
     public function category($id)
     {
-        $feeds = Feed::where('category_id', $id)->orderBy('created_at','desc')->paginate(20);
+        $feeds = Feed::where('category_id', $id)->orderBy('created_at','desc')->published()->paginate(20);
 
         return view('category', compact('id', 'feeds'));
     }
     public function feed($id)
     {
 
-        $feed = Feed::findOrFail($id);
+        $feed = Feed::published()->findOrFail($id);
         $comments = $feed->comments()->paginate(25);
 
 

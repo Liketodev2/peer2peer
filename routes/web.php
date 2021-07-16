@@ -38,6 +38,7 @@ Route::post('/comment-like', [App\Http\Controllers\FeedController::class, 'comme
 Route::post('/agree', [App\Http\Controllers\FeedController::class, 'agreeFeed'])->name('agree');
 Route::post('/repost', [App\Http\Controllers\FeedController::class, 'repostFeed'])->name('repost');
 Route::post('feed/store', [App\Http\Controllers\FeedController::class, 'store'])->name('feed.store');
+Route::post('feed/get-url-title', [App\Http\Controllers\FeedController::class, 'getUrlTitle'])->name('feed.getUrlTitle');
 Route::post('feed/comment', [App\Http\Controllers\FeedController::class, 'comment'])->name('feed.comment');
 Route::post('comment/delete', [App\Http\Controllers\FeedController::class, 'commentDelete'])->name('feed.comment.delete');
 
@@ -72,5 +73,7 @@ Route::prefix('dashboard')->middleware(['dashboard','auth'])->group(function(){
         Route::resource('rss', '\App\Http\Controllers\Admin\RssController', ['as' => 'dashboard']);
         Route::resource('feeds', '\App\Http\Controllers\Admin\FeedController', ['as' => 'dashboard']);
         Route::resource('categories', '\App\Http\Controllers\Admin\CategoryController', ['as' => 'dashboard']);
+
+        Route::get('inactive-feeds', [App\Http\Controllers\Admin\FeedController::class, 'inactiveFeeds'])->name('dashboard.inactiveFeeds');
 
 });

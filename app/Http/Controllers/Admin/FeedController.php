@@ -67,7 +67,7 @@ class FeedController extends Controller
             'description' => $request->description,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
-            'status' => 1,
+            'status' => $request->status,
             'comment_access' => 1
         ]);
 
@@ -94,6 +94,8 @@ class FeedController extends Controller
     public function edit($id)
     {
         $item = Feed::findOrFail($id);
+        $item->seen = 1;
+        $item->save();
         $categories = Category::all();
         $users = User::where('id','!=', Auth::id())->where('type', 10)->get();
         return view('dashboard.feeds.edit', compact('categories','item','users'));
@@ -122,7 +124,7 @@ class FeedController extends Controller
             'description' => $request->description,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
-            'status' => 1,
+            'status' => $request->status,
             'comment_access' => 1
         ]);
 
@@ -141,5 +143,23 @@ class FeedController extends Controller
         $item->delete();
 
         return redirect()->back();
+    }
+
+    public function inactiveFeeds(Request $request){
+
+        $items = Feed::where('status', 0);
+
+        if($request->search){
+            $items = $items->where(function($query) use ($request) {
+                $query->where('title', 'like', '%' . $request->search . '%');
+                $query->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $items = $items->orderBy('id','desc')->paginate(20);
+
+
+        return view('dashboard.feeds.inactive', compact('items'));
+
     }
 }

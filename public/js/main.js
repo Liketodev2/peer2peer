@@ -186,6 +186,25 @@ $('.follow-btn').on('click', function(){
     });
 });
 
+$('input[id="url"]').on('change', function () {
+
+    $('input[name="title"]').css('border','1px solid #CFCBCB');
+    let url = $('input[name="url"]').val();
+
+    $.ajax({
+        type: "POST",
+        url: "/feed/get-url-title",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            url : url,
+        },
+        success: function(data){
+            $('input[name="title"]').val(data);
+            $('input[name="title"]').css('border','1px solid #31a232');
+        }
+    });
+})
+
 $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
 $('#imgupload').change(function(){
     $(this).closest('form').submit();

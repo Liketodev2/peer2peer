@@ -32,6 +32,13 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label >Status</label>
+                                            <select class="form-control" name="status">
+                                                <option value="0">Inactive</option>
+                                                <option value="1" selected>Active</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label >Creator</label>
                                             <select class="form-control" name="user_id">
                                                 @foreach($users as $user)

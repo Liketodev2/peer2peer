@@ -11,6 +11,12 @@ class Feed extends Model
 
     protected $guarded = [];
 
+    public function scopePublished($query)
+    {
+        return $query
+            ->where('status', 1);
+    }
+
     public function user(){
         return $this->belongsTo('App\Models\User');
     }

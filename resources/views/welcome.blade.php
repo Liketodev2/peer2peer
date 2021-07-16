@@ -10,18 +10,17 @@
                         <div class="form-title mb-4">
                             Click on an article to start or join a discussion
                         </div>
-
-                        <div class="form-group">
-                            <label for="article">Article name</label>
-                            <input type="text" required class="form-control @error('title') is-invalid @enderror" name="title" id="article" aria-describedby="article" >
-                            @error('title')
-                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            @enderror
-                        </div>
                         <div class="form-group">
                             <label for="url">URL link of news article</label>
                             <input type="url" required class="form-control @error('url') is-invalid @enderror" name="url" id="url" aria-describedby="emailHelp" >
                             @error('url')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="article">Article name</label>
+                            <input type="text" required class="form-control @error('title') is-invalid @enderror" name="title" id="article" aria-describedby="article" >
+                            @error('title')
                             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                             @enderror
                         </div>
@@ -63,7 +62,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center py-4">
-                            <button class="btn-red" role="button">Post</button>
+                            <button class="btn-red post-feed-btn" role="button">Post</button>
                         </div>
                         @if ($message = Session::get('success'))
                             <div class="alert alert-success alert-block">
