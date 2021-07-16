@@ -186,7 +186,7 @@ $('.follow-btn').on('click', function(){
     });
 });
 
-$('input[id="url"]').on('change', function () {
+/*$('input[id="url"]').on('change', function () {
 
     $('input[name="title"]').css('border','1px solid #CFCBCB');
     let url = $('input[name="url"]').val();
@@ -203,7 +203,7 @@ $('input[id="url"]').on('change', function () {
             $('input[name="title"]').css('border','1px solid #31a232');
         }
     });
-})
+})*/
 
 $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
 $('#imgupload').change(function(){
