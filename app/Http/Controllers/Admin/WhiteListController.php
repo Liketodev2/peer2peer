@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\RssFeed;
-use App\Models\User;
+use App\Models\ChannelWhiteList;
 use Illuminate\Http\Request;
 
-class RssController extends Controller
+class WhiteListController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +15,9 @@ class RssController extends Controller
      */
     public function index()
     {
-        $items = RssFeed::orderBy('id','desc')->paginate(20);
-        $users = User::where('type', 10)->get();
-        $categories = Category::all();
+        $items = ChannelWhiteList::orderBy('id','desc')->paginate(40);
 
-        return view('dashboard.rss.index', compact('items','users','categories'));
+        return view('dashboard.white-list.index', compact('items'));
     }
 
     /**
@@ -44,14 +40,9 @@ class RssController extends Controller
     {
         $this->validate($request, [
             'url' => 'required|url',
-            'category_id' => 'required',
-            'user_id' => 'required',
         ]);
-
-        RssFeed::create([
+        ChannelWhiteList::create([
             'url' => $request->url,
-            'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
         ]);
 
         return redirect()->back();
@@ -99,7 +90,8 @@ class RssController extends Controller
      */
     public function destroy($id)
     {
-        $item = RssFeed::find($id);
+        $item = ChannelWhiteList::find($id);
+
         $item->delete();
 
         return redirect()->back();

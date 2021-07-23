@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agree;
+use App\Models\ChannelWhiteList;
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Feed;
@@ -175,6 +176,21 @@ class FeedController extends Controller
             'category_id' => 'required',
         ]);
 
+        $req_url_parse =  str_ireplace('www.', '', parse_url($request['url'], PHP_URL_HOST));
+        $white_list = ChannelWhiteList::all();
+        $check_parsing = true;
+        if($white_list->count() > 0) {
+            foreach ($white_list as $list) {
+                $list_url_parse = str_ireplace('www.', '', parse_url($list->url, PHP_URL_HOST));
+
+                if ($req_url_parse != $list_url_parse) {
+                    $check_parsing = false;
+                }
+            }
+        }else{
+            $check_parsing = false;
+        }
+
         Feed::create([
             'url' => $request['url'],
             'author_name' => $request['user_name'],
@@ -183,7 +199,7 @@ class FeedController extends Controller
             'category_id' => $request['category_id'],
             'comment_access' => isset($request['comment_access']) && $request['comment_access'] == 1 ? 1 : 0,
             'user_id' => Auth::id(),
-            'status' => 0
+            'status' => $check_parsing == false ? 0 : 1
         ]);
 
 
@@ -194,10 +210,18 @@ class FeedController extends Controller
     public function getUrlTitle(Request $request){
 
         $url = $request->url;
-        $page = file_get_contents($url);
-        $title = preg_match('/<title[^>]*>(.*?)<\/title>/ims', $page, $match) ? $match[1] : null;
 
-        return response()->json($title);
+        try{
+            $page = file_get_contents($url);
+            $title = preg_match('/<title[^>]*>(.*?)<\/title>/ims', $page, $match) ? $match[1] : null;
+
+        }catch(\Exception $exception){
+
+            return response()->json('',404);
+        }
+
+
+           return response()->json($title);
     }
 
     public function comment(Request $request)

@@ -54,7 +54,7 @@
                     {{$feed->description}}
                 </div>
                 <div>
-                    <a href="{{$feed->url}}" class="post-link">{{$feed->url}}</a>
+                    <a target="_blank" href="{{$feed->url}}" class="post-link">{{$feed->url}}</a>
                 </div>
                 @auth
                     @if($feed->comment_access == 1)

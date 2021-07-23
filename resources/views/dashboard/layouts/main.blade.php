@@ -200,13 +200,19 @@
                                     <span class="site-menu-title">All</span>
                                 </a>
                             </li>
-                          {{--  <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.inactiveFeeds') ? 'active' : ''}}" >
+                            <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.inactiveFeeds') ? 'active' : ''}}" >
                                 <a class="animsition-link" href="{{route('dashboard.inactiveFeeds')}}">
                                     <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
                                     <span class="site-menu-title">Inactive</span>
                                 </a>
-                            </li>--}}
+                            </li>
                         </ul>
+                    </li>
+                    <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.white-list.index') ? 'active' : ''}}">
+                        <a class="animsition-link" href="{{route('dashboard.white-list.index')}}">
+                            <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
+                            <span class="site-menu-title">White List</span>
+                        </a>
                     </li>
                     <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.rss.index') ? 'active' : ''}}">
                         <a class="animsition-link" href="{{route('dashboard.rss.index')}}">

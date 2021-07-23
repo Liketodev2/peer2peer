@@ -186,7 +186,7 @@ $('.follow-btn').on('click', function(){
     });
 });
 
-/*$('input[id="url"]').on('change', function () {
+$('input[id="url"]').on('change', function () {
 
     $('input[name="title"]').css('border','1px solid #CFCBCB');
     let url = $('input[name="url"]').val();
@@ -201,9 +201,12 @@ $('.follow-btn').on('click', function(){
         success: function(data){
             $('input[name="title"]').val(data);
             $('input[name="title"]').css('border','1px solid #31a232');
+        },
+        error: function () {
+            $('input[name="title"]').css('border','1px solid red');
         }
     });
-})*/
+})
 
 $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
 $('#imgupload').change(function(){

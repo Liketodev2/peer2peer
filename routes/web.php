@@ -73,7 +73,8 @@ Route::prefix('dashboard')->middleware(['dashboard','auth'])->group(function(){
         Route::resource('rss', '\App\Http\Controllers\Admin\RssController', ['as' => 'dashboard']);
         Route::resource('feeds', '\App\Http\Controllers\Admin\FeedController', ['as' => 'dashboard']);
         Route::resource('categories', '\App\Http\Controllers\Admin\CategoryController', ['as' => 'dashboard']);
+        Route::resource('white-list', '\App\Http\Controllers\Admin\WhiteListController', ['as' => 'dashboard']);
 
-        // Route::get('inactive-feeds', [App\Http\Controllers\Admin\FeedController::class, 'inactiveFeeds'])->name('dashboard.inactiveFeeds');
+        Route::get('inactive-feeds', [App\Http\Controllers\Admin\FeedController::class, 'inactiveFeeds'])->name('dashboard.inactiveFeeds');
 
 });
