@@ -23,7 +23,7 @@
                         <div class="counter counter-md counter-inverse text-left">
                             <div class="counter-number-wrap font-size-30">
                                 <span class="counter-number">{{$info['companies']}}</span>
-                                <span class="counter-number-related text-capitalize">Companies</span>
+                                <span class="counter-number-related text-capitalize">Authors</span>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="counter counter-md counter-inverse text-left">
                             <div class="counter-number-wrap font-size-30">
                                 <span class="counter-number">{{$info['feeds']}}</span>
-                                <span class="counter-number-related text-capitalize">Feeds</span>
+                                <span class="counter-number-related text-capitalize">Articles</span>
                             </div>
                         </div>
                     </div>

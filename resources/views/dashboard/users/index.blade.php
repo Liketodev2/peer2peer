@@ -29,7 +29,7 @@
                                             <th>ID</th>
                                             <th>First Name</th>
                                             <th>Last Name</th>
-                                            <th>Company name</th>
+                                            <th>Author</th>
                                             <th>Email</th>
                                             <th>Actions</th>
                                         </tr>
