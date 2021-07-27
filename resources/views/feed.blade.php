@@ -46,6 +46,7 @@
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <main class="flex-1 main-content p-3">
+            @if($feed)
             <div class="post-content p-4 position-relative">
                 <a class="feed-profile-link" title="{{\App\Http\Controllers\FunctionController::userTypeName($feed->user->id)}}" href="{{route('profile', $feed->user->id)}}"><img src="{{$feed->user->avatar ? asset('images').'/'. $feed->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>
                 <div class="title">{{$feed->title}}</div>
@@ -189,6 +190,9 @@
                     <h5 class="text-info mt-4"><i class="far fa-times-circle"></i> Comments disabled by the author</h5>
                 @endif
             </div>
+            @else
+                <h4 class="text-center mt-4">Feed is not published yet</h4>
+            @endif
         </main>
         @include('areas.feed-right-side')
     </div>

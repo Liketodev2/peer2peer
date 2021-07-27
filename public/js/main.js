@@ -188,7 +188,7 @@ $('.follow-btn').on('click', function(){
 
 $('input[id="url"]').on('change', function () {
 
-    $('input[name="title"]').css('border','1px solid #CFCBCB');
+    $('input[name="article_name"]').css('border','1px solid #CFCBCB');
     let url = $('input[name="url"]').val();
 
     $.ajax({
@@ -199,11 +199,12 @@ $('input[id="url"]').on('change', function () {
             url : url,
         },
         success: function(data){
-            $('input[name="title"]').val(data);
-            $('input[name="title"]').css('border','1px solid #31a232');
+            $('input[name="article_name"]').val(data);
+            $('input[name="article_name"]').css('border','1px solid #31a232');
         },
         error: function () {
-            $('input[name="title"]').css('border','1px solid red');
+            $('input[name="article_name"]').val('');
+            $('input[name="article_name"]').css('border','1px solid red');
         }
     });
 })

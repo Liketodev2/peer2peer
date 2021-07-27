@@ -171,9 +171,10 @@ class FeedController extends Controller
         $request->validate([
             'url' => 'required|url',
             'description' => 'required|max:600',
-            'title' => 'required|max:120',
+            'article_name' => 'required|max:120',
             'user_name' => 'required|max:60',
             'category_id' => 'required',
+            'discussion_count' => 'required',
         ]);
 
         $req_url_parse =  str_ireplace('www.', '', parse_url($request['url'], PHP_URL_HOST));
@@ -194,9 +195,10 @@ class FeedController extends Controller
         Feed::create([
             'url' => $request['url'],
             'author_name' => $request['user_name'],
-            'title' => $request['title'],
+            'title' => $request['article_name'],
             'description' => $request['description'],
             'category_id' => $request['category_id'],
+            'discussion_count' => $request['discussion_count'],
             'comment_access' => isset($request['comment_access']) && $request['comment_access'] == 1 ? 1 : 0,
             'user_id' => Auth::id(),
             'status' => $check_parsing == false ? 0 : 1
@@ -237,14 +239,23 @@ class FeedController extends Controller
         if($reply){
             unset($input['reply']);
         }
-
+        $feed = Feed::findOrFail($request->feed_id);
        if($reply){
-            $parent = Comment::where('parent_id', $request->parent_id)->get()->groupBy('user_id')->count();
-            if($parent > 1){
-                throw ValidationException::withMessages(['limit' => 'Discussion people limit is 12']);
+
+            $parent = Comment::where('parent_id', $request->parent_id)->get()->groupBy('user_id');
+            $auth_id = Auth::id();
+            $plucked_ids = array_keys($parent->toArray());
+            $parent = $parent->count();
+
+            if(!in_array($auth_id, $plucked_ids)){
+                $parent +=1;
+            }
+
+            if($parent > (int)$feed->discussion_count ){
+                throw ValidationException::withMessages(['limit' => 'Discussion people limit is '.$feed->discussion_count ]);
             }
         }
-        $feed = Feed::findOrFail($request->feed_id);
+
         $text = FunctionController::userTypeName(Auth::id()) .' '. ( $reply ? 'replied to the comment on feed ' : 'commented on your feed ') .' "'. ( Str::limit($feed->title, 60) ) .' "';
 
         Comment::create($input);
@@ -291,9 +302,10 @@ class FeedController extends Controller
         $request->validate([
             'url' => 'required|url',
             'description' => 'required|max:600',
-            'title' => 'required|max:120',
+            'article_name' => 'required|max:120',
             'user_name' => 'required|max:60',
             'category_id' => 'required',
+            'discussion_count' => 'required',
         ]);
 
         $feed =   Feed::where('id',$id)->where('user_id', Auth::id());
@@ -302,9 +314,10 @@ class FeedController extends Controller
             $feed->update([
                 'url' => $request['url'],
                 'author_name' => $request['user_name'],
-                'title' => $request['title'],
+                'title' => $request['article_name'],
                 'description' => $request['description'],
                 'category_id' => $request['category_id'],
+                'discussion_count' => $request['discussion_count'],
                 'comment_access' => isset($request['comment_access']) && $request['comment_access'] == 1 ? 1 : 0,
                 'user_id' => Auth::id(),
                 'status' => 0
