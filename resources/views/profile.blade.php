@@ -21,7 +21,7 @@
                         @else
                             <div class="name">{{$user->company_name}}</div>
                         @endif
-                        @if(\Auth::id() != $user->id)
+                        @if(\Auth::user() && \Auth::id() != $user->id)
                             <div class="d-flex mt-4">
                                 <div class="follow-check" style="{{Auth::user()->follow_action() && Auth::user()->follow_action()->where('follow_id', $user->id)->first() ? 'display:block': 'display:none' }}"><i class="far fa-check-circle text-success mr-2"></i></div>
                                 @if($user->type == 10)

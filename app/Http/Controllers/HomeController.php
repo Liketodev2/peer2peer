@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -55,9 +56,9 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
+
         return view('myprofile', compact('user'));
     }
-
 
     public function search(Request $request)
     {

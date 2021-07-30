@@ -27,10 +27,14 @@ Route::get('/category/{id}', [App\Http\Controllers\HomeController::class, 'categ
 Route::get('/feed/{id}', [App\Http\Controllers\HomeController::class, 'feed'])->name('feed');
 Route::get('/notifications', [App\Http\Controllers\UserController::class, 'notifications'])->name('notifications');
 Route::post('/check-messages', [App\Http\Controllers\UserController::class, 'checkMessages'])->name('check-messages');
+Route::post('/create-profile', [App\Http\Controllers\UserController::class, 'createProfile'])->name('create-profile');
+Route::post('/remove-profile/{id}', [App\Http\Controllers\UserController::class, 'removeProfile'])->name('remove-profile');
 
 Route::get('/search', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 Route::get('/profile/{id}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
 Route::get('/my-profile', [App\Http\Controllers\HomeController::class, 'myProfile'])->name('my-profile');
+Route::get('/my-channels', [App\Http\Controllers\UserController::class, 'myChannels'])->name('my-channels');
+
 
 Route::get('/my-feeds', [App\Http\Controllers\FeedController::class, 'myFeeds'])->name('my-feeds');
 Route::post('/like', [App\Http\Controllers\FeedController::class, 'likeFeed'])->name('like');
@@ -43,6 +47,7 @@ Route::post('feed/comment', [App\Http\Controllers\FeedController::class, 'commen
 Route::post('comment/delete', [App\Http\Controllers\FeedController::class, 'commentDelete'])->name('feed.comment.delete');
 
 Route::get('feed/edit/{id}', [App\Http\Controllers\FeedController::class, 'feedEdit'])->name('feed.edit');
+Route::get('my-channels/feeds/{id}', [App\Http\Controllers\FeedController::class, 'myChannelsFeed'])->name('my-channels.feeds');
 Route::post('feed/update/{id}', [App\Http\Controllers\FeedController::class, 'feedUpdate'])->name('feed.update');
 Route::post('feed/delete/{id}', [App\Http\Controllers\FeedController::class, 'feedDelete'])->name('feed.delete');
 Route::post('feed/comment/update', [App\Http\Controllers\FeedController::class, 'commentUpdate'])->name('feed.comment.update');

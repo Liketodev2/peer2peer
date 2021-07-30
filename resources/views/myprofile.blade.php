@@ -46,6 +46,11 @@
                             <div class="d-flex">
                                 <div><i class="far fa-eye"></i> Following: {{\Auth::user()->following()->count()}}</div>
                             </div>
+                            @if(Auth::user()->main == 1 && Auth::user()->parent_id == null)
+                            <div class="d-flex">
+                                <div><i class="fas fa-user-check"></i> <a href="{{route('my-channels')}}">My channels</a></div>
+                            </div>
+                            @endif
                     </div>
                 </div>
                 <div>

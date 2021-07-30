@@ -23,7 +23,9 @@ class User extends Authenticatable
         'last_name',
         'type',
         'company_name',
-        'avatar'
+        'avatar',
+        'parent_id',
+        'main'
     ];
 
     /**
@@ -86,5 +88,5 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Follow');
     }
-    
+
 }

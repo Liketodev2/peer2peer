@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Image;
 
 class UserController extends Controller
 {
@@ -23,8 +24,21 @@ class UserController extends Controller
     public function imageUpload(Request $request){
 
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
         ]);
+
+ /*       $image = $request->file('image');
+        $input['image'] = time().'.'.$image->getClientOriginalExtension();
+
+        $destinationPath = public_path('/images');
+
+        $imgFile = Image::make($image->getRealPath());
+
+        $imgFile->resize(150, 150, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($destinationPath.'/'.$input['image']);
+
+        $image->move($destinationPath, $input['file']);*/
 
        if(Auth::user()->avatar){
             if(file_exists(public_path('images/'). Auth::user()->avatar)){
@@ -262,6 +276,44 @@ class UserController extends Controller
         $result = FunctionController::checkMessages();
 
         return response()->json(['result' => $result]);
+    }
+
+    public function createProfile(Request $request)
+    {
+        $this->validate($request, [
+            'first_name' => ['required', 'string', 'max:60'],
+            'last_name' => ['required', 'string', 'max:60'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'confirm_password' => ['required', 'same:password', 'min:8'],
+        ]);
+
+        User::create([
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'company_name' => $request['company_name'],
+            'parent_id' => Auth::id(),
+            'main' => 0,
+            'type' => 20,
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+
+        return redirect()->back()->with('success', 'User is created');
+    }
+
+    public function removeProfile($id){
+        $item = User::find($id);
+        $item->delete();
+
+        return redirect()->back();
+    }
+
+    public function myChannels(){
+
+        $my_channels  = User::where('parent_id', Auth::id())->get();
+
+        return view('my-channels', compact('my_channels'));
     }
 
 }

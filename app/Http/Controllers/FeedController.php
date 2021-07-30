@@ -10,6 +10,7 @@ use App\Models\Feed;
 use App\Models\Like;
 use App\Models\Notify;
 use App\Models\Repost;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -289,7 +290,7 @@ class FeedController extends Controller
 
     public function feedDelete($id)
     {
-        $feed = Feed::find($id);
+        $feed = Feed::where('user_id', Auth::id())->where('id', $id)->fir;
         if($feed){
             $feed->delete();
         }
@@ -331,6 +332,15 @@ class FeedController extends Controller
     public function feedEdit($id)
     {
         $feed = Feed::where('user_id', Auth::id())->where('id',$id)->first();
+        if(!$feed){
+            $feed_parent = Feed::find($id);
+            if($feed_parent->user->parent_id == Auth::id()){
+                $feed = $feed_parent;
+                return view('feed-edit', compact('feed'));
+            }
+
+            return redirect()->back();
+        }
 
         return view('feed-edit', compact('feed'));
     }
@@ -344,6 +354,23 @@ class FeedController extends Controller
         }
 
         return response()->json(['value' => $comment->message]);
+    }
+
+    public function myChannelsFeed($id){
+
+        if(Auth::user()->parent_id == null && Auth::user()->main == 1){
+            $user = User::find($id);
+            if($user->parent_id == Auth::user()->id){
+                $feeds = Feed::where('user_id', $id)->paginate(20);
+            }else{
+                return redirect()->back();
+            }
+
+        }
+
+
+        return view('my-channels-feeds', compact('feeds'));
+
     }
 
 

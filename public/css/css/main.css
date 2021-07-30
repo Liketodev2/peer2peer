@@ -788,3 +788,9 @@ footer .social-icon-style a {
     max-width: 700px; } }
 
 /*# sourceMappingURL=main.css.map */
+
+.main-avatar{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+}

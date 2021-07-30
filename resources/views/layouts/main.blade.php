@@ -79,7 +79,7 @@
                     </li>
                     <li class="dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{asset('img/profile-user.svg')}}" alt="login">
+                            <img class="main-avatar" src="{{Auth::user()->avatar ? asset('images').'/'.Auth::user()->avatar : asset('img/profile-user.svg') }}" alt="login">
                         </a>
                         <div class="dropdown-menu px-3" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{route('my-profile', \Auth::id())}}">Profile</a>
