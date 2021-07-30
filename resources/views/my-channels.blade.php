@@ -22,7 +22,7 @@
                                 @if($my_channels->count() > 0)
                                     @foreach($my_channels as $item)
                                         <div class="d-flex">
-                                            <div class=" w-40 text-left">{{$item->first_name}} {{$item->first_name}}</div>
+                                            <div class=" w-40 text-left">{{$item->first_name}} {{$item->last_name}}</div>
                                             <div class="flex-1 text-center">{{$item->email}}</div>
                                             <div class="flex-1 text-right">{{\Carbon\Carbon::parse($item->created_at)->format('D, M d H:i')}}</div>
                                             <div class="flex-1 text-right">

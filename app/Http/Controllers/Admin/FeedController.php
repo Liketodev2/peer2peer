@@ -41,7 +41,7 @@ class FeedController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $users = User::where('id','!=', Auth::id())->where('type', 10)->get();
+        $users = User::where('id','!=', Auth::id())->get();
         return view('dashboard.feeds.create', compact('categories','users'));
     }
 
@@ -97,7 +97,7 @@ class FeedController extends Controller
         $item->seen = 1;
         $item->save();
         $categories = Category::all();
-        $users = User::where('id','!=', Auth::id())->where('type', 10)->get();
+        $users = User::where('id','!=', Auth::id())->get();
         return view('dashboard.feeds.edit', compact('categories','item','users'));
     }
 

@@ -3,10 +3,10 @@ Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.
        Load path: D:/OpenServer/domains/peer2peer/resources/sass
         on line 8 of D:\OpenServer\domains\peer2peer\resources\sass\app.scss
 
-3: 
+3:
 4: // Variables
 5: @import 'variables';
-6: 
+6:
 7: // Bootstrap
 8: @import '~bootstrap/scss/bootstrap';
 

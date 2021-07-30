@@ -61,17 +61,11 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group d-flex">
-                        <label class="mr-4">Comment</label>
-                        <div class="d-flex">
-                            <div class="mr-3">
-                                <input type="radio" id="male" name="comment_access" checked value="1">
-                                <label for="male">ON</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="female" name="comment_access" value="0">
-                                <label for="female">OFF</label>
-                            </div>
+                    <div class="d-flex">
+                        <div class="mr-3">Comment</div>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" name="comment_access" class="custom-control-input" id="customSwitch1" checked>
+                            <label class="custom-control-label" for="customSwitch1"></label>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center py-4">

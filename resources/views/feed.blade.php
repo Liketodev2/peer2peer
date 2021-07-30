@@ -50,7 +50,7 @@
             <div class="post-content p-4 position-relative">
                 <a class="feed-profile-link" title="{{\App\Http\Controllers\FunctionController::userTypeName($feed->user->id)}}" href="{{route('profile', $feed->user->id)}}"><img src="{{$feed->user->avatar ? asset('images').'/'. $feed->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>
                 <div class="title">{{$feed->title}}</div>
-                <small><strong>Feed/ID: {{$feed->id}}</strong></small>
+                <small><strong>Article/ID: {{$feed->id}}</strong></small>
                 <div class="info-text">
                     {{$feed->description}}
                 </div>

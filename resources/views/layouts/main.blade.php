@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('css/secondary/owl.theme.default.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/css/main.css')}}">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     @stack('styles')
 </head>
 
@@ -398,6 +399,7 @@
 
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
 <script src="{{asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 @stack('scripts')
 @if(!$errors->isEmpty())
