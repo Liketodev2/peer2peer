@@ -11,6 +11,7 @@ class Feed extends Model
 
     protected $guarded = [];
 
+
     public function scopePublished($query)
     {
         return $query

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Feed;
+use App\Models\RssFeed;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -47,17 +48,20 @@ class HomeController extends Controller
 
         $reposts = $user->reposts()->paginate(20);
         $reposts_count = $user->reposts()->count();
+        $rss_count = RssFeed::where('user_id', Auth::id())->count();
 
 
-        return view('profile', compact('user','results','results_count','reposts','reposts_count'));
+
+        return view('profile', compact('user','results','results_count','reposts','reposts_count','rss_count'));
     }
 
     public function myProfile()
     {
         $user = Auth::user();
+        $rss_count = RssFeed::where('user_id', Auth::id())->count();
 
 
-        return view('myprofile', compact('user'));
+        return view('myprofile', compact('user','rss_count'));
     }
 
     public function search(Request $request)

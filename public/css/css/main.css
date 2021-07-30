@@ -795,3 +795,7 @@ footer .social-icon-style a {
     border-radius: 50%;
     object-fit: contain;
 }
+.prof-img{
+    background-position: center;
+    background-repeat: no-repeat;
+}

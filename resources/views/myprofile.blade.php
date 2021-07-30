@@ -51,6 +51,11 @@
                                 <div><i class="fas fa-user-check"></i> <a href="{{route('my-channels')}}">My channels</a></div>
                             </div>
                             @endif
+                            @if($user->type == 10)
+                                <div class="d-flex">
+                                    <div><i class="fas fa-rss-square pr-1"></i> RSS: {{$rss_count}}</div>
+                                </div>
+                            @endif
                     </div>
                 </div>
                 <div>

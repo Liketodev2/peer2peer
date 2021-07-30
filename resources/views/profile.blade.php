@@ -21,6 +21,17 @@
                         @else
                             <div class="name">{{$user->company_name}}</div>
                         @endif
+                            <div class="d-flex">
+                                <div><i class="fas fa-users"></i> Followers: {{\Auth::user()->followers()->count()}}</div>
+                            </div>
+                            <div class="d-flex">
+                                <div><i class="far fa-eye"></i> Following: {{\Auth::user()->following()->count()}}</div>
+                            </div>
+                            @if($user->type == 10)
+                                <div class="d-flex">
+                                    <div><i class="fas fa-rss-square pr-1"></i> RSS: {{$rss_count}}</div>
+                                </div>
+                            @endif
                         @if(\Auth::user() && \Auth::id() != $user->id)
                             <div class="d-flex mt-4">
                                 <div class="follow-check" style="{{Auth::user()->follow_action() && Auth::user()->follow_action()->where('follow_id', $user->id)->first() ? 'display:block': 'display:none' }}"><i class="far fa-check-circle text-success mr-2"></i></div>
@@ -30,6 +41,7 @@
                                 <a href="{{route('add-conversation', $user->id)}}"><div role="button" class="chat-btn"></div></a>
                             </div>
                         @endif
+
                     </div>
                 </div>
             </div>
