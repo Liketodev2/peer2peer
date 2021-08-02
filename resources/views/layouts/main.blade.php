@@ -136,31 +136,22 @@
     <div class="d-block d-xl-none w-100">
         <div class="aside-accordion alert mb-0 p-0 ">
             <div class="btn btn-red w-100 d-flex justify-content-between align-items-center" style="min-width: 100%">
-
-                <a class="d-flex justify-content-between align-items-center w-100" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="true" aria-controls="multiCollapseExample1">
+                <a class="d-flex justify-content-between align-items-center w-100" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                     <div class="title">Trending of US</div>
-                    <img src="http://peer2peer.loc/img/Polygon%204.png" width="21" height="12">
+                    <img src="{{asset('img/Polygon%204.png')}}" width="21" height="12">
                 </a>
-                <img src="http://peer2peer.loc/img/x%20(5).svg" alt="" class="ml-3" data-dismiss="alert" aria-label="Close">
+                <img src="{{asset('img/x%20(5).svg')}}" alt="" class="ml-3" data-dismiss="alert" aria-label="Close">
             </div>
             <div class="multi-collapse collapse" id="multiCollapseExample1" style="">
                 <div class="card card-body">
                     <ul class="m-0 p-3">
-                        <li>
-                            <a href="http://peer2peer.loc/feed/8"> Experts urge Americans to refinance in 2021</a>
-                        </li>
-                        <li>
-                            <a href="http://peer2peer.loc/feed/16"> Belarus 'hijacking' redraws Europe's air map</a>
-                        </li>
-                        <li>
-                            <a href="http://peer2peer.loc/feed/24"> How rich people could help save the planet from the climate crisis</a>
-                        </li>
-                        <li>
-                            <a href="http://peer2peer.loc/feed/32"> This country is being torn by a civil war that few have heard of</a>
-                        </li>
-                        <li>
-                            <a href="http://peer2peer.loc/feed/40"> The unlikely coalition that could end Benjamin Netanyahu's premiership</a>
-                        </li>
+                        @if(isset($trending_feeds))
+                            @foreach($trending_feeds as $trend)
+                                <li>
+                                    <a href="{{route('feed', $trend->id)}}"> {{$trend->title}}</a>
+                                </li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
