@@ -12,7 +12,7 @@
         <div class="flex-1 profile-content p-4">
             <div class="">
                 <h1 class="title">Profile</h1>
-                <div class="d-flex align-items-center p-4">
+                <div class="d-flex p-4">
                     <img class="img-fluid prof-img mr-4" alt="" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/profile-user-gray.svg'}})">
                     <div>
                         @if($user->type == 20)
@@ -22,10 +22,10 @@
                             <div class="name">{{$user->company_name}}</div>
                         @endif
                             <div class="d-flex">
-                                <div><i class="fas fa-users"></i> Followers: {{\Auth::user()->followers()->count()}}</div>
+                                <div><i class="fas fa-users"></i> Followers: {{$user->followers()->count()}}</div>
                             </div>
                             <div class="d-flex">
-                                <div><i class="far fa-eye"></i> Following: {{\Auth::user()->following()->count()}}</div>
+                                <div><i class="far fa-eye"></i> Following: {{$user->following()->count()}}</div>
                             </div>
                             @if($user->type == 10)
                                 <div class="d-flex">
@@ -43,7 +43,16 @@
                         @endif
 
                     </div>
+                    @if($user->type == 10)
+                        @foreach($my_channels as $channel)
+                            <div class="ml-4">
+                                <div class="name">Channels</div>
+                                <a href="{{route('profile', $channel->id)}}">{{$channel->company_name}}</a>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
+
             </div>
             <h1 class="title mt-4">Feeds</h1>
             <div class="color-gray my-3">

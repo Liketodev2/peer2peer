@@ -288,13 +288,17 @@ class UserController extends Controller
             'confirm_password' => ['required', 'same:password', 'min:8'],
         ]);
 
+        if(User::where('parent_id', Auth::id())->count() + 1 > 3){
+            return redirect()->back()->with('error', 'Channels limit is 3');
+        }
+
         User::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'company_name' => $request['company_name'],
             'parent_id' => Auth::id(),
             'main' => 0,
-            'type' => 20,
+            'type' => 10,
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);

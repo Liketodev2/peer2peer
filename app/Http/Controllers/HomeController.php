@@ -45,6 +45,7 @@ class HomeController extends Controller
         $results =  $user->feed();
         $results_count = $user->feed->count();
         $results = $results->paginate(25);
+        $my_channels  = User::where('parent_id', $user->id)->get();
 
         $reposts = $user->reposts()->paginate(20);
         $reposts_count = $user->reposts()->count();
@@ -52,7 +53,7 @@ class HomeController extends Controller
 
 
 
-        return view('profile', compact('user','results','results_count','reposts','reposts_count','rss_count'));
+        return view('profile', compact('user','results','results_count','reposts','reposts_count','rss_count','my_channels'));
     }
 
     public function myProfile()
