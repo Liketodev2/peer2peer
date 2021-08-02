@@ -44,12 +44,12 @@
 
                     </div>
                     @if($user->type == 10)
-                        @foreach($my_channels as $channel)
                             <div class="ml-4">
                                 <div class="name">Channels</div>
+                                @foreach($my_channels as $channel)
                                 <a href="{{route('profile', $channel->id)}}">{{$channel->company_name}}</a>
+                                @endforeach
                             </div>
-                        @endforeach
                     @endif
                 </div>
 
