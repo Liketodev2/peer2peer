@@ -47,7 +47,7 @@
                             <div class="ml-4">
                                 <div class="name">Channels</div>
                                 @foreach($my_channels as $channel)
-                                <a href="{{route('profile', $channel->id)}}">{{$channel->company_name}}</a>
+                                <a class="d-block" href="{{route('profile', $channel->id)}}">{{$channel->company_name}}</a>
                                 @endforeach
                             </div>
                     @endif
