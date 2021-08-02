@@ -22,7 +22,7 @@
 <header class="navigation-wrap">
     <nav class="navbar navbar-expand-xl p-0 nav-top">
         <div class="d-xl-flex align-items-center w-100 justify-content-between">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center  w-100">
                 <a class="navbar-brand p-0" href="/">
                     <div class="d-flex">
                         <img src="{{asset('img/logo.png')}}" alt="logo" width="247" height="139">
@@ -30,10 +30,17 @@
                     </div>
                 </a>
                 <div class="header-date_info d-none d-lg-block">{{\Carbon\Carbon::now()->format('D, M d')}}th {{\Carbon\Carbon::now()->format(' g:i A')}}</div>
+                @guest
+                    <div class="ml-auto pr-3">
+                        <button type="submit" class="btn-red log-in-btn"  data-toggle="modal" data-target="#logIn">Log in</button>
+                    </div>
+                @endguest
             </div>
+            @auth
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
             </button>
+            @endauth
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto align-items-center">
                     @auth
@@ -43,10 +50,10 @@
                         </li>
                      @endif
                     <li class="nav-item {{(\Request::route()->getName() == 'peers') ? 'active' : ''}}">
-                        <a class="nav-link" href="{{route('peers')}}">Peers</a>
+                        <a class="nav-link text-nowrap" href="{{route('peers')}}">Peers</a>
                     </li>
                     <li class="dropdown nav-item {{(\Request::route()->getName() == 'notifications') ? 'active' : ''}}">
-                        <a class="nav-link" href="#" id="Notification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link text-nowrap" href="#" id="Notification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Notification <i class="fa fa-bell ml-1 {{\App\Http\Controllers\FunctionController::getNotifications()->count() > 0 ? 'text-danger' : ''}}"></i>
                         </a>
                         <div class="dropdown-menu notification_dropdown" aria-labelledby="Notification">
@@ -71,12 +78,12 @@
                         </div>
                     </li>
                     <li class="nav-item {{(\Request::route()->getName() == 'messages') ? 'active' : ''}}">
-                        <a class="nav-link message-check-icon" href="{{route('messages')}}">
+                        <a class="nav-link message-check-icon text-nowrap" href="{{route('messages')}}">
                             Messages
                         </a>
                     </li>
                     <li class="nav-item {{(\Request::route()->getName() == 'my-feeds') ? 'active' : ''}}">
-                        <a class="nav-link" href="{{route('my-feeds')}}">My Feeds</a>
+                        <a class="nav-link text-nowrap" href="{{route('my-feeds')}}">My Feeds</a>
                     </li>
                     <li class="dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,11 +101,11 @@
                         </div>
                     </li>
                     @endauth
-                    @guest
-                    <li class="nav-item">
-                        <button type="submit" class="btn-red log-in-btn"  data-toggle="modal" data-target="#logIn">Log in</button>
-                    </li>
-                    @endguest
+{{--                    @guest--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <button type="submit" class="btn-red log-in-btn"  data-toggle="modal" data-target="#logIn">Log in</button>--}}
+{{--                    </li>--}}
+{{--                    @endguest--}}
                 </ul>
             </div>
         </div>
@@ -126,6 +133,39 @@
             </div>
         </div>
     </nav>
+    <div class="d-block d-xl-none w-100">
+        <div class="aside-accordion alert mb-0 p-0 ">
+            <div class="btn btn-red w-100 d-flex justify-content-between align-items-center" style="min-width: 100%">
+
+                <a class="d-flex justify-content-between align-items-center w-100" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="true" aria-controls="multiCollapseExample1">
+                    <div class="title">Trending of US</div>
+                    <img src="http://peer2peer.loc/img/Polygon%204.png" width="21" height="12">
+                </a>
+                <img src="http://peer2peer.loc/img/x%20(5).svg" alt="" class="ml-3" data-dismiss="alert" aria-label="Close">
+            </div>
+            <div class="multi-collapse collapse" id="multiCollapseExample1" style="">
+                <div class="card card-body">
+                    <ul class="m-0 p-3">
+                        <li>
+                            <a href="http://peer2peer.loc/feed/8"> Experts urge Americans to refinance in 2021</a>
+                        </li>
+                        <li>
+                            <a href="http://peer2peer.loc/feed/16"> Belarus 'hijacking' redraws Europe's air map</a>
+                        </li>
+                        <li>
+                            <a href="http://peer2peer.loc/feed/24"> How rich people could help save the planet from the climate crisis</a>
+                        </li>
+                        <li>
+                            <a href="http://peer2peer.loc/feed/32"> This country is being torn by a civil war that few have heard of</a>
+                        </li>
+                        <li>
+                            <a href="http://peer2peer.loc/feed/40"> The unlikely coalition that could end Benjamin Netanyahu's premiership</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 @yield('content')
 <div class="modal fade logReg" id="signUp" tabindex="-1" role="dialog" aria-labelledby="signUpTitle" aria-hidden="true" >
