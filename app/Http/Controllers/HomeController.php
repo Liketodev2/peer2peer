@@ -49,7 +49,7 @@ class HomeController extends Controller
 
         $reposts = $user->reposts()->paginate(20);
         $reposts_count = $user->reposts()->count();
-        $rss_count = RssFeed::where('user_id', Auth::id())->count();
+        $rss_count = RssFeed::where('user_id', $user->id)->count();
 
 
 
