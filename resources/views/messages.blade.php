@@ -81,7 +81,7 @@
                         <div class="chat-header d-flex align-items-center">
                             <div class="mr-3">
                                 <a href="{{route('profile', $person->id)}}">
-                                     <img src="{{$person->avatar ? asset('images').'/'.$person->avatar : asset('img').'/profile-user-gray.svg'}}" alt="login">
+                                     <img class="message-image" src="{{$person->avatar ? asset('images').'/'.$person->avatar : asset('img').'/profile-user-gray.svg'}}" alt="login">
                                 </a>
                             </div>
                             <div>
