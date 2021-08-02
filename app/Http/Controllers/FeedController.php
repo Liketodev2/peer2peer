@@ -182,18 +182,20 @@ class FeedController extends Controller
 
         $req_url_parse =  str_ireplace('www.', '', parse_url($request['url'], PHP_URL_HOST));
         $white_list = ChannelWhiteList::all();
-        $check_parsing = true;
+        $check_parsing = false;
+
         if($white_list->count() > 0) {
             foreach ($white_list as $list) {
                 $list_url_parse = str_ireplace('www.', '', parse_url($list->url, PHP_URL_HOST));
 
-                if ($req_url_parse != $list_url_parse) {
-                    $check_parsing = false;
+                if ($req_url_parse == $list_url_parse) {
+                    $check_parsing = true;
                 }
             }
         }else{
             $check_parsing = false;
         }
+
 
         Feed::create([
             'url' => $request['url'],
@@ -204,7 +206,7 @@ class FeedController extends Controller
             'discussion_count' => $request['discussion_count'],
             'comment_access' => isset($request['comment_access'])  ? 1 : 0,
             'user_id' => Auth::id(),
-            'status' => $check_parsing == false ? 0 : 1
+            'status' => $check_parsing == true ? 1 : 0
         ]);
 
 
