@@ -43,7 +43,7 @@
                         @endif
 
                     </div>
-                    @if($user->type == 10)
+                    @if($user->type == 10 && $user->main == 1)
                             <div class="ml-4">
                                 <div class="name">Channels</div>
                                 @foreach($my_channels as $channel)
