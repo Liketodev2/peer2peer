@@ -138,7 +138,7 @@
             <div class="btn btn-red w-100 d-flex justify-content-between align-items-center" style="min-width: 100%">
                 <a class="d-flex justify-content-between align-items-center w-100" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                     <div class="title">Trending of US</div>
-                    <img src="{{asset('img/Polygon%204.png')}}" width="21" height="12">
+                    <img class="toggle_triangle" src="{{asset('img/Polygon%204.png')}}" width="21" height="12">
                 </a>
                 <img src="{{asset('img/x%20(5).svg')}}" alt="" class="ml-3" data-dismiss="alert" aria-label="Close">
             </div>

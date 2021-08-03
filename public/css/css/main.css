@@ -811,3 +811,12 @@ footer .social-icon-style a {
     border-radius: 50%;
     object-fit: contain;
 }
+.rotate{
+    transform: rotate(90deg);
+}
+.accordion  img{
+    transform: rotate(90deg);
+}
+.accordion  .collapsed img{
+    transform: rotate(0deg);
+}

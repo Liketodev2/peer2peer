@@ -107,7 +107,7 @@
                                     <li><a href="#">Followed</a></li>
                                 </ul>--}}
                                 <div class="d-flex flex-1 justify-content-end abs">
-                                    <div class="mr-3" data-toggle="collapse" data-target="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapse{{$loop->index}}"><img src="{{asset('img/Path%2047.svg')}}" alt="img"></div>
+                                    <div class="mr-3" data-toggle="collapse" data-target="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapse{{$loop->index}}"><img class="toggle_triangle rotate" src="{{asset('img/Path%2047.svg')}}" alt="img"></div>
                                     <div data-dismiss="alert" aria-label="Close"><img src="{{asset('img/x-blue.svg')}}" alt="img"></div>
                                 </div>
                             </div>

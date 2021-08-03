@@ -305,3 +305,10 @@ function checkMessages() {
 }
 
 
+$('.aside-accordion').on('click', function () {
+    $(this).find('.toggle_triangle').toggleClass('rotate');
+})
+
+
+
+

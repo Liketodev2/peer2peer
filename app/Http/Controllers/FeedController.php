@@ -221,6 +221,7 @@ class FeedController extends Controller
         try{
             $page = file_get_contents($url);
             $title = preg_match('/<title[^>]*>(.*?)<\/title>/ims', $page, $match) ? $match[1] : null;
+            $title = htmlspecialchars_decode($title, ENT_QUOTES);
 
         }catch(\Exception $exception){
 
