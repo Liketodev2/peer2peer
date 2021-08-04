@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Conversation;
 use App\Models\Follow;
 use App\Models\Message;
 use App\Models\Notify;
+use App\Models\RssFeed;
 use App\Models\User;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
@@ -130,6 +132,29 @@ class UserController extends Controller
         }
     }
 
+    public function changeChannelPassword(Request $request, $id){
+
+        $user = User::findOrFail($id);
+        $this->validate($request, [
+            'current_password' => 'required',
+            'new_password' => 'required|min:8',
+            'confirm_new_password' => 'required|same:new_password|min:8',
+        ]);
+
+
+        if (Hash::check($request->get('current_password'), $user->password)) {
+            $user = User::find($user->id);
+            $user->password = (new BcryptHasher())->make($request->get('new_password'));
+            if ($user->save()) {
+                return redirect()->back()->with('success', 'Password is changed');
+            }
+        } else {
+            throw ValidationException::withMessages(['current_password' => 'Current password is wrong']);
+        }
+    }
+
+
+
     public function updateInfo(Request $request){
 
         if($request->type == 'company'){
@@ -157,6 +182,35 @@ class UserController extends Controller
         return redirect()->back();
 
 
+    }
+    public function updateChannelInfo(Request $request, $id){
+
+        $user = User::where('id', $id)->where('parent_id', Auth::id())->firstOrFail();
+
+        if($request->type == 'company'){
+            $this->validate($request, [
+                'first_name' => 'required|max:60',
+                'last_name' => 'required|max:60',
+                'company_name' => 'required|max:60',
+                'rss_link' => 'nullable|url'
+            ]);
+            $user->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'company_name' => $request->company_name,
+            ]);
+        }elseif($request->type == 'user'){
+            $this->validate($request, [
+                'first_name' => 'required|max:60',
+                'last_name' => 'required|max:60',
+            ]);
+            $user->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+            ]);
+        }
+
+        return redirect()->back();
     }
 
 
@@ -318,6 +372,15 @@ class UserController extends Controller
         $my_channels  = User::where('parent_id', Auth::id())->get();
 
         return view('my-channels', compact('my_channels'));
+    }
+
+    public function editChannel($id){
+
+        $user = User::where('id', $id)->where('parent_id', Auth::id())->firstOrFail();
+        $rss_feeds = RssFeed::where('user_id',$id)->get();
+        $categories = Category::get();
+
+        return view('edit-channel', compact('user','rss_feeds','categories'));
     }
 
 }

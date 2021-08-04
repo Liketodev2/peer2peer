@@ -56,8 +56,15 @@ Route::get('/peers', [App\Http\Controllers\UserController::class, 'peers'])->nam
 Route::post('/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
 Route::post('/image-upload', [App\Http\Controllers\UserController::class, 'imageUpload'])->name('image-upload');
 Route::post('/change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
+Route::post('/change-channel-password/{id}', [App\Http\Controllers\UserController::class, 'changeChannelPassword'])->name('change-channel-password');
 Route::post('/update-info', [App\Http\Controllers\UserController::class, 'updateInfo'])->name('update-info');
+Route::post('/update-channel-info/{id}', [App\Http\Controllers\UserController::class, 'updateChannelInfo'])->name('update-channel-info');
 Route::post('/peer-trust', [App\Http\Controllers\UserController::class, 'peerTrust'])->name('peer-trust');
+Route::get('/channel/edit/{id}', [App\Http\Controllers\UserController::class, 'editChannel'])->name('edit-channel');
+
+Route::post('/rss/store/{id}', [App\Http\Controllers\RssController::class, 'store'])->name('rss.store');
+Route::post('/rss/delete/{id}', [App\Http\Controllers\RssController::class, 'delete'])->name('rss.delete');
+
 
 
 Route::post('/message', [App\Http\Controllers\UserController::class, 'sendMessage'])->name('send-message');

@@ -28,6 +28,7 @@
                                             <div class="flex-1 text-right">{{\Carbon\Carbon::parse($item->created_at)->format('D, M d H:i')}}</div>
                                             <div class="flex-1 text-right">
                                                 <a href="{{route('my-channels.feeds', $item->id)}}"><button class="btn btn-light btn-sm"><i class="fas fa-info"></i></button></a>
+                                                <a href="{{route('edit-channel', $item->id)}}"><button class="btn btn-light btn-sm w-60"><i class="fas fa-edit"></i></button></a>
                                                 <button class="btn btn-light btn-sm admin-remove-btn w-60"><i class="fas fa-trash text-danger"></i></button>
                                                 <form action="{{route('remove-profile',$item->id)}}" method="POST" class="d-none admin-remove-form">
                                                     @csrf
