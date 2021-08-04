@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.3.1/dist/multiple-select.min.css">
     @stack('styles')
     @stack('partner.styles')
-    <link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
+    <link rel="stylesheet" href="{{asset('css/css/dashboard.css')}}">
 
 <!-- Fonts -->
     <link rel="stylesheet" href="{{asset('global/fonts/material-design/material-design.min.css')}}">
@@ -225,19 +225,25 @@
         </div>
     </div>
 </div>
+<div>
+    <div class="flash-messages-area">
+        @if ($flash = session('success'))
+            <div id="flash-message" class="alert alert-success">
+                {{ $flash }}
+            </div>
+        @endif
 
-@yield('content')
-@if ($flash = session('success'))
-    <div id="flash-message" class="alert alert-success">
-        {{ $flash }}
+        @if ($flash = session('error'))
+            <div id="flash-message" class="alert alert-danger">
+                {{ $flash }}
+            </div>
+        @endif
     </div>
-@endif
 
-@if ($flash = session('error'))
-    <div id="flash-message" class="alert alert-warning">
-        {{ $flash }}
-    </div>
-@endif
+        @yield('content')
+</div>
+
+
 
 <!-- Footer -->
 <footer class="site-footer">

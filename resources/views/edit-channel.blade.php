@@ -132,14 +132,6 @@
                                 </form>
                             </div>
                         </div>
-                        <div>
-                            @if ($message = Session::get('success'))
-                                <div class="alert alert-success alert-block mt-2">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @endif
-                        </div>
                         {{--   <div class="d-flex justify-content-between align-items-center py-2">
                                <div class="info_name">Block list:</div>
                                <div class="info_name-description d-flex justify-content-end">
@@ -172,28 +164,29 @@
                                 </div>
                                 <button class="btn-success btn-sm ">Add</button>
                             </form>
+                            @include('areas.flash')
                         </div>
                         <hr>
                         <div>
-                            @foreach($rss_feeds as $item)
-                                <div class="card alert alert-dismissible fade show" style="background: #F3F3F3">
-                                    <div class="card-header mt-4">
-                                        Rss List
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <div class=" w-40 text-left">{{$item->url}}</div>
-                                            <div class=" w-40 text-left">{{$item->category->name}}</div>
-                                            <div class="flex-1 text-right">
-                                                <button class="btn btn-light btn-sm admin-remove-btn w-60"><i class="fas fa-trash text-danger"></i></button>
-                                                <form action="{{route('rss.delete',$item->id)}}" method="POST" class="d-none admin-remove-form">
-                                                    @csrf
-                                                </form>
-                                            </div>
+                            <div class="card alert alert-dismissible fade show" style="background: #F3F3F3">
+                                <div class="card-header mt-4">
+                                    Rss List
+                                </div>
+                                <div class="card-body">
+                                    @foreach($rss_feeds as $item)
+                                    <div class="d-flex">
+                                        <div class=" w-40 text-left">{{$item->url}}</div>
+                                        <div class=" w-40 text-left">{{$item->category->name}}</div>
+                                        <div class="flex-1 text-right">
+                                            <button class="btn btn-light btn-sm admin-remove-btn w-60"><i class="fas fa-trash text-danger"></i></button>
+                                            <form action="{{route('rss.delete',$item->id)}}" method="POST" class="d-none admin-remove-form">
+                                                @csrf
+                                            </form>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -14,9 +14,15 @@ class RssController extends Controller
 
     public function store(Request $request, $id){
         $this->validate($request, [
-            'url' => ['required', 'url'],
+            'url' => ['required', 'url', 'unique:rss_feeds'],
             'category_id' => ['required'],
         ]);
+        $path_info = pathinfo($request['url']);
+
+        if(!isset($path_info['extension']) || isset($path_info['extension'])  && $path_info['extension'] != 'xml' && $path_info['extension'] != 'rss'){
+            return redirect()->back()->with('error', 'Rss format is wrong  (only rss, xml extensions)');
+        }
+
 
         RssFeed::create([
             'url' => $request['url'],

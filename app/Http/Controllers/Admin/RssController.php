@@ -48,6 +48,12 @@ class RssController extends Controller
             'user_id' => 'required',
         ]);
 
+        $path_info = pathinfo($request['url']);
+
+        if(!isset($path_info['extension']) || isset($path_info['extension'])  && $path_info['extension'] != 'xml' && $path_info['extension'] != 'rss'){
+            return redirect()->back()->with('error', 'Rss format is wrong  (only rss, xml extensions)');
+        }
+
         RssFeed::create([
             'url' => $request->url,
             'category_id' => $request->category_id,
