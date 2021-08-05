@@ -35,6 +35,8 @@ Route::get('/profile/{id}', [App\Http\Controllers\HomeController::class, 'profil
 Route::get('/my-profile', [App\Http\Controllers\HomeController::class, 'myProfile'])->name('my-profile');
 Route::get('/my-channels', [App\Http\Controllers\UserController::class, 'myChannels'])->name('my-channels');
 
+Route::get('/followed-feeds/{id}', [App\Http\Controllers\UserController::class, 'followedFeeds'])->name('followed-feeds');
+
 
 Route::get('/my-feeds', [App\Http\Controllers\FeedController::class, 'myFeeds'])->name('my-feeds');
 Route::post('/like', [App\Http\Controllers\FeedController::class, 'likeFeed'])->name('like');
@@ -54,6 +56,7 @@ Route::post('feed/comment/update', [App\Http\Controllers\FeedController::class, 
 
 Route::get('/peers', [App\Http\Controllers\UserController::class, 'peers'])->name('peers');
 Route::post('/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
+Route::post('/show-category', [App\Http\Controllers\UserController::class, 'showCategory'])->name('show-category');
 Route::post('/image-upload', [App\Http\Controllers\UserController::class, 'imageUpload'])->name('image-upload');
 Route::post('/change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
 Route::post('/change-channel-password/{id}', [App\Http\Controllers\UserController::class, 'changeChannelPassword'])->name('change-channel-password');

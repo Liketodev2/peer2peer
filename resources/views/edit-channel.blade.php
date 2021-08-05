@@ -162,7 +162,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <button class="btn-success btn-sm ">Add</button>
+                                <button class="btn-success btn-sm ">Update</button>
+                                <button class="btn-secondary btn-sm"><a class="text-white" href="{{route('my-channels')}}">Back</a></button>
                             </form>
                             @include('areas.flash')
                         </div>

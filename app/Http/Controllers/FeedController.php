@@ -274,10 +274,21 @@ class FeedController extends Controller
 
         return back();
     }
-    public function myFeeds()
+    public function myFeeds(Request $request)
     {
         $feeds = Feed::where('user_id', Auth::id())->orderBy('created_at','desc')->paginate(20, ['*'], 'feeds');
         $reposts = Auth::user()->reposts()->paginate(20, ['*'], 'reposts');
+
+        if(Auth::user()->type == 10 && Auth::user()->main == 1){
+            if($request->id){
+                $feeds = Feed::where('user_id', $request->id)->orderBy('created_at','desc')->paginate(20, ['*'], 'feeds');
+            }
+            $channels = User::where('parent_id', Auth::id())->get();
+            $peers =  Auth::user()->following->where('type', 10);
+            return view('myfeeds-channel', compact('feeds','reposts','channels','peers'));
+        }
+
+
 
         return view('myfeeds', compact('feeds','reposts'));
     }

@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Conversation;
+use App\Models\Feed;
 use App\Models\Follow;
 use App\Models\Message;
 use App\Models\Notify;
 use App\Models\RssFeed;
+use App\Models\ShowFeed;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -98,6 +101,43 @@ class UserController extends Controller
 
     }
 
+    public function showCategory(Request $request){
+
+        $show_category_id = $request->show_category_id;
+
+
+        $update = false;
+
+        $user = User::find($show_category_id);
+
+        if(!$user){
+            return null;
+        }
+
+        $user = Auth::user();
+
+        $show_feed = $user->showCategory_action()->where('blocked_id', $show_category_id)->first();
+
+
+        if($show_feed){
+            $update = true;
+        }else{
+            $show_feed = new ShowFeed();
+        }
+
+        $show_feed->user_id = Auth::id();
+        $show_feed->blocked_id = $show_category_id;
+
+        if($update){
+            $show_feed->delete();
+        }else{
+            $show_feed->save();
+        }
+
+        return null;
+
+    }
+
     public function peers(Request $request)
     {
 
@@ -109,6 +149,19 @@ class UserController extends Controller
 
 
         return view('peers', compact('peers'));
+    }
+
+    public function followedFeeds($id){
+        $user = User::findOrFail($id);
+        $channels = User::where('parent_id', Auth::id())->get();
+        $peers =  Auth::user()->following->where('type', 10);
+
+        $feeds = [];
+        $feeds[Carbon::now()->format('D, M d')] = Feed::published()->where('user_id',$user->id)->whereDate('created_at', Carbon::now())->orderBy('id','desc')->take(10)->get();
+        $feeds[Carbon::now()->subDays(1)->format('D, M d')] = Feed::published()->where('user_id',$user->id)->whereDate('created_at', Carbon::now()->subDays(1))->orderBy('id','desc')->take(10)->get();
+        $feeds[Carbon::now()->subDays(2)->format('D, M d')] = Feed::published()->where('user_id',$user->id)->whereDate('created_at', Carbon::now()->subDays(2))->orderBy('id','desc')->take(10)->get();
+
+        return view('followed-feeds',compact('user','channels','peers','feeds'));
     }
 
     public function changePassword(Request $request){

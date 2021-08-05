@@ -97,7 +97,13 @@ class HomeController extends Controller
 
     public function category($id)
     {
-        $feeds = Feed::where('category_id', $id)->orderBy('created_at','desc')->published()->paginate(20);
+        $feeds = Feed::where('category_id', $id);
+        if(Auth::user()){
+            $blocked_to_show_in_category = Auth::user()->showCategory_action->pluck('blocked_id');
+
+            $feeds->whereNotIn('user_id', $blocked_to_show_in_category);
+        }
+        $feeds = $feeds->orderBy('created_at','desc')->published()->paginate(20);
 
         return view('category', compact('id', 'feeds'));
     }

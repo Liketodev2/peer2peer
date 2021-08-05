@@ -186,6 +186,23 @@ $('.follow-btn').on('click', function(){
     });
 });
 
+$('.show-category').on('change', function(){
+
+    let show_category_id = $(this).data('show');
+
+    $.ajax({
+        type: "POST",
+        url: "/show-category",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            show_category_id : show_category_id,
+        },
+        success: function(data){
+
+        }
+    });
+});
+
 $('input[id="url"]').on('change', function () {
 
     $('input[name="article_name"]').css('border','1px solid #CFCBCB');

@@ -84,9 +84,19 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows','user_id','follow_id')->withPivot('trust');
     }
 
+    public function showCategory()
+    {
+        return $this->belongsToMany(User::class, 'show_feeds','user_id','blocked_id');
+    }
+
     public function follow_action()
     {
         return $this->hasMany('App\Models\Follow');
+    }
+
+    public function showCategory_action()
+    {
+        return $this->hasMany('App\Models\ShowFeed');
     }
 
 }

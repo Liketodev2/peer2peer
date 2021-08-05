@@ -820,3 +820,6 @@ footer .social-icon-style a {
 .accordion  .collapsed img{
     transform: rotate(0deg);
 }
+.cursor-pointer{
+    cursor: pointer;
+}
