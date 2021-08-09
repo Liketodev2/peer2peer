@@ -6,13 +6,12 @@
                 <div class="card card-shadow col-md-12">
                     <div class="card-block p-20 pt-10">
                         <div class="panel-body">
-                            @include('dashboard.partials.crud-notifications')
                             <div class="row mt-4" >
                                 <div class="col-12 mb-4">
                                     <form action="{{route('dashboard.white-list.store-csv')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="csv-file"><b>Choose csv</b></label>
+                                            <label for="csv-file"><b>Choose CSV file</b></label>
                                             <input style="padding: 5px" type="file" class="form-control" id="exampleInputLink" aria-describedby="csv-file" name="file" >
                                         </div>
 

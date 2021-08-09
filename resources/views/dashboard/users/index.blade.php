@@ -6,7 +6,6 @@
                 <div class="card card-shadow col-md-12">
                     <div class="card-block p-20 pt-10">
                         <div class="panel-body">
-                            @include('dashboard.partials.crud-notifications')
                             <a href="{{route('dashboard.users.create')}}"><button class="btn btn-primary">Create</button></a>
                             <div class="row d-flex justify-content-end mr-4">
                                 <form action="{{route('dashboard.users.index')}}" method="GET" >

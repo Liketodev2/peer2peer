@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ChannelWhiteList;
 use Illuminate\Http\Request;
 
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Input;
+
 
 class WhiteListController extends Controller
 {
@@ -119,21 +118,7 @@ class WhiteListController extends Controller
                     $storagename = 'csv/'.time().'.'.$ext;
                     move_uploaded_file($_FILES["file"]["tmp_name"], $storagename);
 
-                    if($ext == 'xlsx'){
-                        $result = true;
-                        if ( $xlsx = \SimpleXLSX::parse($storagename) ) {
-                            foreach ($xlsx->rows() as $row){
-                                if(filter_var($row, FILTER_VALIDATE_URL) && !ChannelWhiteList::where('url', $row)->first()){
-                                    ChannelWhiteList::create([
-                                        'url' => $row
-                                    ]);
-                                }
-                            }
-                        } else {
-                            $result = false;
-                            echo \SimpleXLSX::parseError();
-                        }
-                    }elseif($ext == 'csv'){
+                    if($ext == 'csv'){
                         $result = true;
                         $row = 1;
                         if (($handle = fopen($storagename, "r")) !== FALSE) {
@@ -151,6 +136,21 @@ class WhiteListController extends Controller
                             fclose($handle);
                         }
                     }
+           /*         elseif($ext == 'xlsx'){
+                        $result = true;
+                        if ( $xlsx = SimpleXLSX::parse($storagename) ) {
+                            foreach ($xlsx->rows() as $row){
+                                if(filter_var($row, FILTER_VALIDATE_URL) && !ChannelWhiteList::where('url', $row)->first()){
+                                    ChannelWhiteList::create([
+                                        'url' => $row
+                                    ]);
+                                }
+                            }
+                        } else {
+                            $result = false;
+                            echo SimpleXLSX::parseError();
+                        }
+                    }*/
                 }
             }
             if($result){
