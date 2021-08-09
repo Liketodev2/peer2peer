@@ -89,6 +89,7 @@ Route::prefix('dashboard')->middleware(['dashboard','auth'])->group(function(){
         Route::resource('feeds', '\App\Http\Controllers\Admin\FeedController', ['as' => 'dashboard']);
         Route::resource('categories', '\App\Http\Controllers\Admin\CategoryController', ['as' => 'dashboard']);
         Route::resource('white-list', '\App\Http\Controllers\Admin\WhiteListController', ['as' => 'dashboard']);
+        Route::post('white-list/store-csv', [App\Http\Controllers\Admin\WhiteListController::class, 'storeCSV'])->name('dashboard.white-list.store-csv');
 
         Route::get('inactive-feeds', [App\Http\Controllers\Admin\FeedController::class, 'inactiveFeeds'])->name('dashboard.inactiveFeeds');
 

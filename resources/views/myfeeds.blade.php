@@ -61,13 +61,13 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="d-flex">
+                {{--    <div class="d-flex">
                         <div class="mr-3">Comment</div>
                         <div class="custom-control custom-switch">
                             <input type="checkbox" name="comment_access" class="custom-control-input" id="customSwitch1" checked>
                             <label class="custom-control-label" for="customSwitch1"></label>
                         </div>
-                    </div>
+                    </div>--}}
                     <div class="d-flex justify-content-center py-4">
                         <button class="btn-red post-feed-btn" role="button">Post</button>
                     </div>

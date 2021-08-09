@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\ChannelWhiteList;
 use Illuminate\Http\Request;
 
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Input;
+
 class WhiteListController extends Controller
 {
     /**
@@ -95,5 +98,66 @@ class WhiteListController extends Controller
         $item->delete();
 
         return redirect()->back();
+    }
+
+
+    public function storeCSV(Request $request)
+    {
+
+        $result = false;
+
+            if ( isset($_FILES["file"])) {
+
+                //if there was an error uploading the file
+                if ($_FILES["file"]["error"] > 0) {
+                    echo "Return Code: " . $_FILES["file"]["error"] . "<br />";
+
+                }
+                else {
+                    $path = $_FILES['file']['name'];
+                    $ext = pathinfo($path, PATHINFO_EXTENSION);
+                    $storagename = 'csv/'.time().'.'.$ext;
+                    move_uploaded_file($_FILES["file"]["tmp_name"], $storagename);
+
+                    if($ext == 'xlsx'){
+                        $result = true;
+                        if ( $xlsx = \SimpleXLSX::parse($storagename) ) {
+                            foreach ($xlsx->rows() as $row){
+                                if(filter_var($row, FILTER_VALIDATE_URL) && !ChannelWhiteList::where('url', $row)->first()){
+                                    ChannelWhiteList::create([
+                                        'url' => $row
+                                    ]);
+                                }
+                            }
+                        } else {
+                            $result = false;
+                            echo \SimpleXLSX::parseError();
+                        }
+                    }elseif($ext == 'csv'){
+                        $result = true;
+                        $row = 1;
+                        if (($handle = fopen($storagename, "r")) !== FALSE) {
+                            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                                $num = count($data);
+                                $row++;
+                                for ($c=0; $c < $num; $c++) {
+                                    if(filter_var($data[$c], FILTER_VALIDATE_URL) && !ChannelWhiteList::where('url', $data[$c])->first()) {
+                                        ChannelWhiteList::create([
+                                            'url' => $data[$c]
+                                        ]);
+                                    }
+                                }
+                            }
+                            fclose($handle);
+                        }
+                    }
+                }
+            }
+            if($result){
+                return back()->with('success','File is uploaded');
+            }else{
+                return back()->with('success','Something wrong');
+            }
+
     }
 }

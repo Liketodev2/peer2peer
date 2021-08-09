@@ -14,6 +14,7 @@
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
+        "shuchkin/simplexlsx": "^0.8.25",
         "vedmant/laravel-feed-reader": "^1.5"
     },
     "require-dev": {

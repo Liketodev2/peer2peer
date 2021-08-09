@@ -204,7 +204,7 @@ class FeedController extends Controller
             'description' => $request['description'],
             'category_id' => $request['category_id'],
             'discussion_count' => $request['discussion_count'],
-            'comment_access' => isset($request['comment_access'])  ? 1 : 0,
+            'comment_access' => 1,
             'user_id' => Auth::id(),
             'status' => $check_parsing == true ? 1 : 0
         ]);
@@ -335,7 +335,7 @@ class FeedController extends Controller
                 'description' => $request['description'],
                 'category_id' => $request['category_id'],
                 'discussion_count' => $request['discussion_count'],
-                'comment_access' => isset($request['comment_access'])  ? 1 : 0,
+                'comment_access' => 1,
                 'user_id' => Auth::id(),
                 'status' => 0
             ]);

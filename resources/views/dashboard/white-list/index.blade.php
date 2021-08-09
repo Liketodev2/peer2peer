@@ -9,10 +9,22 @@
                             @include('dashboard.partials.crud-notifications')
                             <div class="row mt-4" >
                                 <div class="col-12 mb-4">
+                                    <form action="{{route('dashboard.white-list.store-csv')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="csv-file"><b>Choose csv</b></label>
+                                            <input style="padding: 5px" type="file" class="form-control" id="exampleInputLink" aria-describedby="csv-file" name="file" >
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Insert</button>
+                                    </form>
+                                </div>
+
+                                <div class="col-12 mb-4">
                                     <form action="{{route('dashboard.white-list.store')}}" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="exampleInputLink">Link</label>
+                                            <label for="exampleInputLink"><b>Link</b></label>
                                             <input type="url" class="form-control" id="exampleInputLink" aria-describedby="emailHelp" name="url" placeholder="Enter link">
                                         </div>
 
