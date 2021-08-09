@@ -306,7 +306,7 @@ class FeedController extends Controller
 
     public function feedDelete($id)
     {
-        $feed = Feed::where('user_id', Auth::id())->where('id', $id)->fir;
+        $feed = Feed::where('user_id', Auth::id())->where('id', $id)->first();
         if($feed){
             $feed->delete();
         }
