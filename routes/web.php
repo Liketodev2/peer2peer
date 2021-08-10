@@ -32,7 +32,7 @@ Route::post('/remove-profile/{id}', [App\Http\Controllers\UserController::class,
 
 Route::get('/search', [App\Http\Controllers\HomeController::class, 'search'])->name('search');
 Route::get('/profile/{id}', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
-Route::get('/my-profile', [App\Http\Controllers\HomeController::class, 'myProfile'])->name('my-profile');
+Route::get('/my-profile', [App\Http\Controllers\HomeController::class, 'myProfile'])->name('my-profile')->middleware('auth');
 Route::get('/my-channels', [App\Http\Controllers\UserController::class, 'myChannels'])->name('my-channels');
 
 Route::get('/followed-feeds/{id}', [App\Http\Controllers\UserController::class, 'followedFeeds'])->name('followed-feeds');
