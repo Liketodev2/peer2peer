@@ -12,7 +12,7 @@
         <div class="flex-1 profile-content p-4">
             @if(Auth::user()->main == 1 && Auth::user()->parent_id == null)
                 <div class="my-profile-content mt-4">
-                    <h1 class="title">Profile List</h1>
+                    <h1 class="title">   <button class="btn-secondary btn-sm d-inline-block mr-2 mb-2"><a class="text-white" href="{{route('my-profile')}}">Back</a></button> Profile List</h1>
                     @include('areas.flash')
                     <div class="accordion px-lg-5">
                         <div class="card alert alert-dismissible fade show">

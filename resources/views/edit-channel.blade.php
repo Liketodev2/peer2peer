@@ -11,7 +11,7 @@
         @include('areas.feed-left-side')
         <div class="flex-1 profile-content p-4">
             <div class="my-profile-content">
-                <h1 class="title">{{ $user->company_name }} Profile</h1>
+                <h1 class="title"><button class="btn-secondary btn-sm d-inline-block mr-2 mb-2"><a class="text-white" href="{{route('my-channels')}}">Back</a></button> {{ $user->company_name }} Profile</h1>
                 <div class="d-flex align-items-center p-4">
                     <div class="mr-4 prof-img" style="background-image: url({{ $user->avatar ? asset('images').'/'.$user->avatar : asset('img').'/profile-user-gray.svg'}})">
                         <div class="upload-img">
