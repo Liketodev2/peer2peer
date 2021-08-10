@@ -29,7 +29,7 @@
                         @endif
                     </div>
                     <div class="d-flex justify-content-center mt-4">
-                        {{$feeds->links('pagination::bootstrap-4')}}
+                        {{$feeds->appends(['id' => \Request::get('id')])->links('pagination::bootstrap-4')}}
                     </div>
                 </div>
             </div>
