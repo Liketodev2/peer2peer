@@ -114,6 +114,11 @@
         <div class="d-flex align-items-center w-100">
             <div class="d-flex justify-content-between  py-lg-0 py-3 bg-dark border-top w-100 position-relative flex-wrap">
                 <ul class="list-unstyled m-0 d-flex flex-wrap">
+                    @if(\Request::route()->getName() != 'home')
+                        <li class="nav-item btn-secondary">
+                            <a class="nav-link" href="{{ url()->previous() }}">Back</a>
+                        </li>
+                    @endif
                     <li class="nav-item {{\Request::route()->getName() == 'category' && \Request::route()->getName() == "home" ? 'active' : ''}}">
                         <a class="nav-link" href="/">Home</a>
                     </li>

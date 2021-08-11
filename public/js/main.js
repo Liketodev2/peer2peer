@@ -326,6 +326,9 @@ $('.aside-accordion').on('click', function () {
     $(this).find('.toggle_triangle').toggleClass('rotate');
 })
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+})
 
 
 
