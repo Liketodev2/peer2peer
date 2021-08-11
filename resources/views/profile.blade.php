@@ -10,6 +10,7 @@
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <div class="flex-1 profile-content p-4">
+            @include('areas.back-btn')
             <div class="">
                 <h1 class="title">Profile</h1>
                 <div class="d-flex p-4">

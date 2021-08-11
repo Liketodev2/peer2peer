@@ -3,6 +3,7 @@
     <div class="d-xl-flex ">
         @include('areas.feed-left-side')
         <main class="flex-1 main-content">
+            @include('areas.back-btn')
             <div class="accordion px-lg-5 pt-lg-4">
                 <div class="card alert alert-dismissible fade show">
                     <div class="card-header">

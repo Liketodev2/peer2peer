@@ -46,6 +46,7 @@
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <main class="flex-1 main-content p-3">
+            @include('areas.back-btn')
             @if($feed)
             <div class="post-content p-4 position-relative">
                 <a class="feed-profile-link" title="{{\App\Http\Controllers\FunctionController::userTypeName($feed->user->id)}}" href="{{route('profile', $feed->user->id)}}"><img src="{{$feed->user->avatar ? asset('images').'/'. $feed->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>

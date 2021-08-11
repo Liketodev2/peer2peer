@@ -3,6 +3,7 @@
     <div class="d-xl-flex ">
         @include('areas.my-feed-left-side')
         <main class="flex-1 main-content">
+            @include('areas.back-btn')
             <div class="accordion p-lg-5" id="accordionExample">
                 <div class="d-flex mb-4">
                     <div class="mr-3">Don`t display in category</div>

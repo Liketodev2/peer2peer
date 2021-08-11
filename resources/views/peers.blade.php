@@ -29,6 +29,7 @@
             </div>
         </aside>
         <main class="flex-1 main-content px-lg-4 py-5">
+            @include('areas.back-btn')
      {{--       <div class="d-flex justify-content-center align-items-center">
                 <div class="mr-3 color-red">Sort by</div>
                 <ul class="d-flex">

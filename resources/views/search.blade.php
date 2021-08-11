@@ -4,6 +4,7 @@
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <div class="flex-1 search-content p-4">
+            @include('areas.back-btn')
             <h1 class="title">Search</h1>
             <div class="color-gray my-3">
                 Founded {{$results_count}} results

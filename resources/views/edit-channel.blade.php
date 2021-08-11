@@ -10,6 +10,7 @@
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <div class="flex-1 profile-content p-4">
+            @include('areas.back-btn')
             <div class="my-profile-content">
                 <h1 class="title"><button class="btn-secondary btn-sm d-inline-block mr-2 mb-2"><a class="text-white" href="{{route('my-channels')}}">Back</a></button> {{ $user->company_name }} Profile</h1>
                 <div class="d-flex align-items-center p-4">

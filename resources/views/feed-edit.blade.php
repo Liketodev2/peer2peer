@@ -3,6 +3,7 @@
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <main class="flex-1 main-content">
+            @include('areas.back-btn')
             @auth
                 <div class="col-lg-6 mx-auto">
                     <form  action="{{route('feed.update', $feed->id)}}" class="article-form mt-5" method="POST">

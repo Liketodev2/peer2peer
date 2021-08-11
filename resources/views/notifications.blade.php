@@ -10,6 +10,7 @@
     <div class="d-xl-flex ">
         @include('areas.feed-left-side')
         <main class="flex-1 main-content notification_content px-lg-4 py-5">
+            @include('areas.back-btn')
             <div class="col-12 col-xl-9">
                 @if($notifications->count() > 0)
                     @foreach($notifications as $notify)

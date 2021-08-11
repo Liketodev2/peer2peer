@@ -10,6 +10,7 @@
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <main class="flex-1 main-content">
+            @include('areas.back-btn')
             <div class="accordion p-lg-5">
                 <div class="card">
                     <div class="card-body">

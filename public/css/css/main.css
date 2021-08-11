@@ -823,3 +823,6 @@ footer .social-icon-style a {
 .cursor-pointer{
     cursor: pointer;
 }
+.back-page-btn{
+    display: block;
+}
