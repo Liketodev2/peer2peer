@@ -70,7 +70,6 @@
                                     @else
                                         <p class="text-center mt-3 text-dark"><i class="far fa-folder-open mr-2"></i> Notifications are empty</p>
                                     @endif
-
                                     <div>
                                         <a href="{{route('notifications')}}" role="button" class="btn-red px-5">View all in full window</a>
                                     </div>
