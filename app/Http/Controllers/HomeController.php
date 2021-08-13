@@ -111,16 +111,9 @@ class HomeController extends Controller
     {
 
         $comments = null;
+
         $feed = Feed::published()->find($id);
-
-        $likes = $feed->likes_pivot()->where('like', 1)->count();
-        $dislikes = $feed->likes_pivot()->where('like', 0)->count();
-
-        $total = $likes + $dislikes;
-
-        $percent['like'] =  $total != 0 ? round(($likes / $total) * 100) : 0;
-        $percent['disslike'] = $total != 0 ? round(($dislikes / $total) * 100) : 0;
-
+        $percent = FunctionController::LikePercent($id);
 
         if($feed){
             $comments = $feed->comments()->paginate(25);

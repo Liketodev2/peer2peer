@@ -83,6 +83,7 @@ $(document).ready(function() {
 
         let feed_id = $(this).data('feed');
         let is_like = $(this).data('is_like');
+        let root = $(this);
 
         $.ajax({
             type: "POST",
@@ -93,7 +94,11 @@ $(document).ready(function() {
                 is_like : is_like,
             },
             success: function(data){
-                console.log(data);
+              if(data){
+                  $('.like-trigger[data-is_like="1"]').attr('data-original-title', 'Likes ' + data.like +' %').tooltip('hide');
+                  $('.like-trigger[data-is_like="0"]').attr('data-original-title', 'Dislikes '+ data.disslike +' %').tooltip('hide');
+                  $(root).tooltip('show');
+              }
             }
         });
     });

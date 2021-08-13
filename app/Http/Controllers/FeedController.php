@@ -68,6 +68,11 @@ class FeedController extends Controller
 
     }
 
+    public function return_response($feed_id){
+        $percent = FunctionController::LikePercent($feed_id);
+        return response()->json($percent);
+    }
+
     public function likeFeed(Request $request){
 
         $feed_id = $request->feed_id;
@@ -75,10 +80,6 @@ class FeedController extends Controller
         $update = false;
 
         $feed = Feed::find($feed_id);
-
-        if(!$feed){
-            return null;
-        }
 
         $user = Auth::user();
         $like = $user->likes()->where('feed_id', $feed_id)->first();
@@ -89,7 +90,7 @@ class FeedController extends Controller
 
             if($already_like == $is_like){
                 $like->delete();
-                return null;
+                return $this->return_response($feed_id);
             }
         }else{
             $like = new Like();
@@ -104,7 +105,7 @@ class FeedController extends Controller
             $like->save();
         }
 
-        return null;
+        return $this->return_response($feed_id);
 
 
     }

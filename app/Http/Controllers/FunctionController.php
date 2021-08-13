@@ -23,6 +23,19 @@ class FunctionController extends Controller
        return $feeds;
    }
 
+   public static function likePercent($id){
+       $feed = Feed::published()->find($id);
+       $likes = $feed->likes_pivot()->where('like', 1)->count();
+       $dislikes = $feed->likes_pivot()->where('like', 0)->count();
+
+       $total = $likes + $dislikes;
+
+       $percent['like'] =  $total != 0 ? round(($likes / $total) * 100) : 0;
+       $percent['disslike'] = $total != 0 ? round(($dislikes / $total) * 100) : 0;
+
+       return $percent;
+   }
+
     public static function userTypeName($id){
 
        $user = User::find($id);
