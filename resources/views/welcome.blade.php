@@ -3,6 +3,13 @@
     <div class="d-xl-flex">
         @include('areas.feed-left-side')
         <main class="flex-1 main-content">
+            @if (session('status'))
+                <div class="p-5">
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                </div>
+            @endif
             @auth
                 <div class="col-lg-6 mx-auto">
                     <form  action="{{route('feed.store')}}" class="article-form mt-5" method="POST">
