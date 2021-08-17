@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <label for="post_text">Discussion size</label>
                             <div class="d-flex">
-                                <select required class="form-control discussion_count @error('discussion_count') is-invalid @enderror" name="discussion_count" id="discussion_count">
+                                <select required class="form-control discussion_count @error('discussion_count') is-invalid @enderro r" name="discussion_count" id="discussion_count">
                                     @for($i = 6; $i < 13; $i++)
                                         <option value="{{$i}}" {{$feed->discussion_count == $i ? 'selected' : ''}}>{{$i}}</option>
                                     @endfor

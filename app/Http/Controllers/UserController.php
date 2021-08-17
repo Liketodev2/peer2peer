@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlackList;
 use App\Models\Category;
 use App\Models\Conversation;
 use App\Models\Feed;
@@ -95,6 +96,58 @@ class UserController extends Controller
             $follow->delete();
         }else{
             $follow->save();
+        }
+
+        return null;
+
+    }
+
+    public function blackListShow(){
+
+        $items = BlackList::where('user_id', Auth::id())->paginate(20);
+
+        return view('blacklist',compact('items'));
+    }
+
+    public function removeFromBlock($id){
+
+        $item = BlackList::find($id);
+        $item->delete();
+
+        return redirect()->back();
+    }
+
+
+    public function blackList(Request $request){
+
+        $block_id = $request->block_id;
+
+        $update = false;
+
+        $user = User::find($block_id);
+
+        if(!$user){
+            return null;
+        }
+
+        $user = Auth::user();
+
+        $block = $user->block_action()->where('block_id', $block_id)->first();
+
+
+        if($block){
+            $update = true;
+        }else{
+            $block = new BlackList();
+        }
+
+        $block->user_id = Auth::id();
+        $block->block_id = $block_id;
+
+        if($update){
+            $block->delete();
+        }else{
+            $block->save();
         }
 
         return null;
@@ -331,18 +384,26 @@ class UserController extends Controller
             'conversation_id' => 'required'
         ]);
 
+        $blocked = false;
+        $message = "";
         $conversation = Conversation::find($request->conversation_id);
         $to_id = $conversation->from_id == Auth::id() ? $conversation->to_id : $conversation->from_id;
-        $message =  Message::create([
-            'conversation_id' => $conversation->id,
-            'message' => $request->message,
-            'from_id' => Auth::id(),
-            'to_id' =>$to_id
-        ]);
+
+        $blocked = FunctionController::checkBlock($to_id);
+
+        if(!$blocked){
+            $message =  Message::create([
+                'conversation_id' => $conversation->id,
+                'message' => $request->message,
+                'from_id' => Auth::id(),
+                'to_id' =>$to_id
+            ]);
+        }
+
 
 
         return response()->json([
-            'html' => view('areas.message', compact('message'))->render(),
+            'html' => view('areas.message', compact('message','blocked'))->render(),
         ]);
     }
     public function deleteMessage(Request $request)
@@ -361,12 +422,13 @@ class UserController extends Controller
     public function addConversation(Request $request, $id)
     {
 
-        $check_converstaion =  Conversation::where(function($query) use ($id){
-            $query->where(['from_id' => Auth::id(), 'to_id' => (int) $id])->orWhere(['from_id' => (int) $id, 'to_id' => Auth::id()]);
-        })->first();
+        $conversation_1 = Conversation::where(['from_id' => Auth::id(), 'to_id' => (int) $id])->first();
+        $conversation_2 = Conversation::where(['from_id' => (int) $id, 'to_id' => Auth::id()])->first();
 
-        if($check_converstaion){
-            $conversation = $check_converstaion;
+        $check_conversation = $conversation_1 ? $conversation_1 : $conversation_2;
+
+        if($check_conversation){
+            $conversation = $check_conversation;
         }else{
             $conversation = Conversation::create([
                 'from_id' => Auth::id(),

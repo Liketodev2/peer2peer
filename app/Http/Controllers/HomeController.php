@@ -47,6 +47,12 @@ class HomeController extends Controller
         $results = $results->paginate(25);
         $my_channels  = User::where('parent_id', $user->id)->get();
 
+        $blocked = FunctionController::checkBlock($id);
+
+        if($blocked){
+            return view('blocked');
+        }
+
         $reposts = $user->reposts()->paginate(20);
         $reposts_count = $user->reposts()->count();
         $rss_count = RssFeed::where('user_id', $user->id)->count();
@@ -97,11 +103,16 @@ class HomeController extends Controller
 
     public function category($id)
     {
+        $auth = Auth::user();
         $feeds = Feed::where('category_id', $id);
-        if(Auth::user()){
+        if($auth){
+
             $blocked_to_show_in_category = Auth::user()->showCategory_action->pluck('blocked_id');
+            $blocked_users = $auth->block_action->pluck('block_id');
 
             $feeds->whereNotIn('user_id', $blocked_to_show_in_category);
+            $feeds->whereNotIn('user_id', $blocked_users);
+
         }
         $feeds = $feeds->orderBy('created_at','desc')->published()->paginate(20);
 

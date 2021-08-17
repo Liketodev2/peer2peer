@@ -39,10 +39,16 @@
                                 @if($user->type == 10)
                                     <button class="btn-red mr-3 w-90 follow-btn" data-follow="{{$user->id}}">Follow</button>
                                 @endif
+                                @if($user->id != \Auth::user()->id)
+                                <button class="btn-red w-90 block-btn mr-3 bg-secondary" data-block="{{$user->id}}">
+                                    <span class="unblocked-text" {{Auth::user()->block_action() && Auth::user()->block_action()->where('block_id', $user->id)->first() ? 'style=display:none' : ''}}>Block</span>
+                                    <span class="blocked-text" {{ !Auth::user()->block_action()->where('block_id', $user->id)->first() ? 'style=display:none' : ''}}>Unblock</span>
+                                </button>
+                                 @endif
                                 <a href="{{route('add-conversation', $user->id)}}"><div role="button" class="chat-btn"></div></a>
+
                             </div>
                         @endif
-
                     </div>
                     @if($user->type == 10 && $user->main == 1 && $my_channels->count() > 0)
                             <div class="ml-4">

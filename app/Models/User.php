@@ -93,6 +93,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Follow');
     }
+    public function block_action()
+    {
+        return $this->hasMany('App\Models\BlackList');
+    }
 
     public function showCategory_action()
     {

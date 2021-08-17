@@ -92,4 +92,15 @@ class FunctionController extends Controller
         }
         return $result;
     }
+
+    public static function checkBlock($to_id){
+        $blocked = false;
+
+        $user_to = User::find(Auth::id());
+        if($user_to->block_action() && $user_to->block_action()->where('block_id', $to_id)->first()){
+            $blocked = true;
+        }
+
+        return $blocked;
+    }
 }

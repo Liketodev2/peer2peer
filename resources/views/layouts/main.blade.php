@@ -91,6 +91,7 @@
                         </a>
                         <div class="dropdown-menu px-3" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{route('my-profile', \Auth::id())}}">Profile</a>
+                            <a class="dropdown-item" href="{{route('black-list-show')}}">Black list</a>
                             <hr>
                             <a class="dropdown-item" href="#"
                                onclick="event.preventDefault();

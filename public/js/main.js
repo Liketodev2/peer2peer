@@ -190,6 +190,25 @@ $('.follow-btn').on('click', function(){
         }
     });
 });
+$('.block-btn').on('click', function(){
+
+    $('.unblocked-text').toggle();
+    $('.blocked-text').toggle();
+
+    let block_id = $(this).data('block');
+
+    $.ajax({
+        type: "POST",
+        url: "/black-list",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            block_id : block_id,
+        },
+        success: function(data){
+
+        }
+    });
+});
 
 $('.show-category').on('change', function(){
 
@@ -198,6 +217,7 @@ $('.show-category').on('change', function(){
     $.ajax({
         type: "POST",
         url: "/show-category",
+
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data: {
             show_category_id : show_category_id,

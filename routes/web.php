@@ -56,6 +56,10 @@ Route::post('feed/comment/update', [App\Http\Controllers\FeedController::class, 
 
 Route::get('/peers', [App\Http\Controllers\UserController::class, 'peers'])->name('peers');
 Route::post('/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
+Route::post('/black-list', [App\Http\Controllers\UserController::class, 'blackList'])->name('black-list');
+Route::get('/black-list', [App\Http\Controllers\UserController::class, 'blackListShow'])->name('black-list-show');
+Route::post('/remove-from-black/{id}', [App\Http\Controllers\UserController::class, 'removeFromBlock'])->name('remove-from-black');
+
 Route::post('/show-category', [App\Http\Controllers\UserController::class, 'showCategory'])->name('show-category');
 Route::post('/image-upload', [App\Http\Controllers\UserController::class, 'imageUpload'])->name('image-upload');
 Route::post('/change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
