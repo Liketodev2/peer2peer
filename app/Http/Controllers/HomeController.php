@@ -144,10 +144,13 @@ class HomeController extends Controller
 
         $feed = Feed::published()->find($id);
 
-        $blocked = FunctionController::checkBlock($feed->user_id);
-        if($blocked){
-            return view('blocked');
+        if(Auth::id()){
+            $blocked = FunctionController::checkBlock($feed->user_id);
+            if($blocked){
+                return view('blocked');
+            }
         }
+
         $percent = FunctionController::LikePercent($id);
 
         if($feed){
