@@ -14,11 +14,20 @@ class FunctionController extends Controller
    public static function getLimetedFeeds(){
 
        $feeds = [];
-       $feeds['world'] = Feed::where('category_id', 2)->orderBy('id','desc')->published()->limit(10)->get();
-       $feeds['business_money'] = Feed::where('category_id', 3)->orderBy('id','desc')->published()->limit(10)->get();
-       $feeds['entertainment'] = Feed::where('category_id', 4)->orderBy('id','desc')->published()->limit(10)->get();
-       $feeds['tech'] = Feed::where('category_id', 6)->orderBy('id','desc')->published()->limit(10)->get();
-       $feeds['health'] = Feed::where('category_id', 7)->orderBy('id','desc')->published()->limit(10)->get();
+       $feed_query = Feed::query();
+
+       if(Auth::user()){
+           $blocked_to_show_in_category = Auth::user()->showCategory_action->pluck('blocked_id');
+           $blocked_users = Auth::user()->block_action->pluck('block_id');
+           $feed_query = $feed_query->whereNotIn('user_id', $blocked_to_show_in_category);
+           $feed_query = $feed_query->whereNotIn('user_id', $blocked_users);
+       }
+
+       $feeds['world'] = $feed_query->where('category_id', 2)->orderBy('id','desc')->published()->limit(10)->get();
+       $feeds['business_money'] = $feed_query->where('category_id', 3)->orderBy('id','desc')->published()->limit(10)->get();
+       $feeds['entertainment'] = $feed_query->where('category_id', 4)->orderBy('id','desc')->published()->limit(10)->get();
+       $feeds['tech'] = $feed_query->where('category_id', 6)->orderBy('id','desc')->published()->limit(10)->get();
+       $feeds['health'] = $feed_query->where('category_id', 7)->orderBy('id','desc')->published()->limit(10)->get();
 
        return $feeds;
    }
