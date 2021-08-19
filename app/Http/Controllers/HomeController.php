@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlackList;
 use App\Models\Category;
 use App\Models\Feed;
 use App\Models\RssFeed;
@@ -47,7 +48,7 @@ class HomeController extends Controller
         $results = $results->paginate(25);
         $my_channels  = User::where('parent_id', $user->id)->get();
 
-        $blocked = FunctionController::checkBlock($id);
+        $blocked = FunctionController::checkBlockRevert($id);
 
         if($blocked){
             return view('blocked');
@@ -141,8 +142,11 @@ class HomeController extends Controller
     {
 
         $comments = null;
+        $blocked_users = [];
+        $me_in_block = [];
 
-        $feed = Feed::published()->find($id);
+        $feed = Feed::published()->findOrFail($id);
+
 
         if(Auth::id()){
             $blocked = FunctionController::checkBlock($feed->user_id);
@@ -151,13 +155,23 @@ class HomeController extends Controller
             }
         }
 
+        if(Auth::user()){
+            $blocked_u = Auth::user()->block_action()->count() > 0 ? Auth::user()->block_action()->pluck('block_id')->toArray() : [];
+            $me_in_block = BlackList::where('block_id', Auth::id())->get()->count() > 0 ? BlackList::where('block_id', Auth::id())->get()->pluck('user_id')->toArray() : [] ;
+
+            $blocked_users = array_merge($blocked_u, $me_in_block);
+            $blocked_users = array_diff($blocked_users, [Auth::id()]);
+
+        }
+
+
         $percent = FunctionController::LikePercent($id);
 
         if($feed){
             $comments = $feed->comments()->paginate(25);
         }
 
-        return view('feed', compact('feed','comments','percent'));
+        return view('feed', compact('feed','comments','percent','blocked_users'));
     }
 
 

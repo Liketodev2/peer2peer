@@ -96,7 +96,7 @@
                 @if($feed->comment_access == 1)
                     @if($comments)
                         @foreach($comments as $comment)
-                            <div class="comment-block" data-id="{{$comment->id}}" data-type="comment">
+                            <div class="comment-block" data-user="{{$comment->user_id}}" data-id="{{$comment->id}}" data-type="comment">
                                 <div class="d-flex my-3 align-items-start border-bottom py-4 ">
                                     <a href="{{route('profile', $comment->user->id)}}"><img src="{{$comment->user->avatar ? asset('images').'/'.$comment->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>
                                     <div class="pt-3">
@@ -151,7 +151,7 @@
                                         </div>
                                     @endif
                                     @foreach($comment->replies as $replay)
-                                        <div class="comment-block" data-id="{{$replay->id}}" data-type="reply">
+                                        <div class="comment-block" data-user="{{$replay->user_id}}" data-id="{{$replay->id}}" data-type="reply">
                                             <div class="d-flex my-3 align-items-start border-bottom py-4 " >
                                                 <a href="{{route('profile',$replay->user->id)}}"><img src="{{$replay->user->avatar ? asset('images').'/'.$replay->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>
                                                 <div class="pt-3">
@@ -198,3 +198,15 @@
         @include('areas.feed-right-side')
     </div>
 @endsection
+@push('scripts')
+    <script>
+
+        let blocked =  JSON.parse("{{ json_encode($blocked_users) }}");
+
+        jQuery.each(blocked, function(index,value){
+            $('.comment-block[data-user="'+value+'"]').remove();
+        });
+
+
+    </script>
+@endpush

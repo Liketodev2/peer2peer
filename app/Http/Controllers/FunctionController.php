@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlackList;
 use App\Models\Conversation;
 use App\Models\Feed;
 use App\Models\Notify;
@@ -111,5 +112,21 @@ class FunctionController extends Controller
         }
 
         return $blocked;
+    }
+
+    public static function checkBlockRevert($id){
+
+        $blocked = false;
+
+        $check_1 = BlackList::where(['block_id' => Auth::id(), 'user_id' => (int)$id])->first();
+        $check_2 = BlackList::where(['block_id' => (int)$id , 'user_id' => Auth::id()])->first();
+
+        if($check_1 || $check_2){
+            $blocked = true;
+        }
+
+        return $blocked;
+
+
     }
 }
