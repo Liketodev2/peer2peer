@@ -181,11 +181,6 @@ class HomeController extends Controller
         return view('select-plan');
     }
 
-    public function test(){
-        User::where('type', 20)->update([
-            'main' => 0
-        ]);
-    }
 
 
 }

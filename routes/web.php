@@ -19,7 +19,6 @@ Auth::routes();
 Route::get('login', [App\Http\Controllers\HomeController::class, 'redirectToHome'])->name('login');
 Route::get('register', [App\Http\Controllers\HomeController::class, 'redirectToHome'])->name('register');
 
-Route::get('/asdadqwdqwdq', [App\Http\Controllers\HomeController::class, 'test'])->name('test');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
