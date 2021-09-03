@@ -6,6 +6,7 @@
                @foreach($channels as $channel)
                    <div class="cursor-pointer"><a href="{{route('my-feeds',['id' => $channel->id])}}">{{$channel->company_name}}</a></div>
                @endforeach
+                   <div><a style="text-decoration: underline" href="{{route('my-channels')}}">Edit</a></div>
             </div>
             <hr>
             <div class="title px-3">Followed Feeds</div>

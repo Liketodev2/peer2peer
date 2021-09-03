@@ -25,7 +25,8 @@ class User extends Authenticatable
         'company_name',
         'avatar',
         'parent_id',
-        'main'
+        'main',
+        'account'
     ];
 
     /**
@@ -103,4 +104,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\ShowFeed');
     }
 
+    public function isPro() {
+        return $this->account == true;
+    }
+
+    public function isMain() {
+        return $this->main == true;
+    }
 }

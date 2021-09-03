@@ -168,15 +168,13 @@ class FeedController extends Controller
     }
 
     public function store(Request $request){
-
-
-
+        
 
         $request->validate([
             'url' => 'required|url',
             'description' => 'required|max:600',
             'article_name' => 'required|max:120',
-            'user_name' => 'required|max:60',
+            'user_name' => 'nullable|max:60',
             'category_id' => 'required',
             'discussion_count' => 'required',
         ]);
@@ -206,7 +204,7 @@ class FeedController extends Controller
             'category_id' => $request['category_id'],
             'discussion_count' => $request['discussion_count'],
             'comment_access' => 1,
-            'user_id' => Auth::id(),
+            'user_id' => isset($request->channel_id) && Auth::user()->type == 10 ? $request->channel_id  : Auth::id(),
             'status' => $check_parsing == true ? 1 : 0
         ]);
 

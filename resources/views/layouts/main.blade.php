@@ -86,10 +86,13 @@
                         <a class="nav-link text-nowrap" href="{{route('my-feeds')}}">My Feeds</a>
                     </li>
                     <li class="dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link text-center" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="main-avatar" src="{{Auth::user()->avatar ? asset('images').'/'.Auth::user()->avatar : asset('img/profile-user.svg') }}" alt="login">
                         </a>
                         <div class="dropdown-menu px-3" aria-labelledby="navbarDropdown">
+                            @if(\Auth::user()->isPro())
+                                <span class="text-info float-right position-relative"><img class="pro-img" src="{{asset('img/pro.png')}}" alt=""></span>
+                            @endif
                             <a class="dropdown-item" href="{{route('my-profile', \Auth::id())}}">Profile</a>
                             <a class="dropdown-item" href="{{route('black-list-show')}}">Black list</a>
                             <hr>
@@ -160,116 +163,118 @@
     </div>
 </header>
 @yield('content')
+
+@guest
 <div class="modal fade logReg" id="signUp" tabindex="-1" role="dialog" aria-labelledby="signUpTitle" aria-hidden="true" >
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content login-content">
-            <div class="d-none d-md-block">
-                <div class="d-flex flex-column align-items-center" style="width: 345px">
-                    <img src="{{asset('img/logo-transparent.png')}}" alt="" width="166" height="60" class="mt-5">
-                    <div class="mt-5 mb-4 pt-5 text-white text-center">
-                        Do you already have <br> an account?
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content login-content">
+                <div class="d-none d-md-block">
+                    <div class="d-flex flex-column align-items-center" style="width: 345px">
+                        <img src="{{asset('img/logo-transparent.png')}}" alt="" width="166" height="60" class="mt-5">
+                        <div class="mt-5 mb-4 pt-5 text-white text-center">
+                            Do you already have <br> an account?
+                        </div>
+                        <button type="submit" class="btn-red py-2 remove-auth-validation"  data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#logIn">Sign In</button>
                     </div>
-                    <button type="submit" class="btn-red py-2 remove-auth-validation"  data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#logIn">Sign In</button>
                 </div>
-            </div>
-            <div class="flex-1  d-flex flex-column align-items-center">
-                <div class="mb-md-2 ml-auto py-md-2 px-2">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body px-4 py-0 w-100">
-                    <form action="{{ route('register') }}" method="POST">
-                        @csrf
-                        <div class="d-block d-md-none my-2 text-center">
-                            <img src="img/Peer2Peer-red.png" alt="">
-                        </div>
-                        <ul class="list-unstyled p-0 m-0 d-flex justify-content-center align-items-center">
-                            <li class="mx-2"><a href="{{ url('auth/facebook') }}"><img src="{{asset('img/facebook%20(4).svg')}}" alt=""></a></li>
-                            <li class="mx-2"><a href="{{ url('auth/google') }}"><img src="{{asset('img/Group%20101.svg')}}" alt=""></a></li>
-                        </ul>
-                        <div class="position-relative mt-2">
-                            <div class="or">or</div>
-                        </div>
-                        <div  class="w-100">
-                            <div class="form-group">
-                                <label for="Email_reg">Email</label>
-                                <input type="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" id="Email_reg" name="email" aria-describedby="emailHelp">
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
+                <div class="flex-1  d-flex flex-column align-items-center">
+                    <div class="mb-md-2 ml-auto py-md-2 px-2">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body px-4 py-0 w-100">
+                        <form action="{{ route('register') }}" method="POST">
+                            @csrf
+                            <div class="d-block d-md-none my-2 text-center">
+                                <img src="img/Peer2Peer-red.png" alt="">
+                            </div>
+                            <ul class="list-unstyled p-0 m-0 d-flex justify-content-center align-items-center">
+                                <li class="mx-2"><a href="{{ url('auth/facebook') }}"><img src="{{asset('img/facebook%20(4).svg')}}" alt=""></a></li>
+                                <li class="mx-2"><a href="{{ url('auth/google') }}"><img src="{{asset('img/Group%20101.svg')}}" alt=""></a></li>
+                            </ul>
+                            <div class="position-relative mt-2">
+                                <div class="or">or</div>
+                            </div>
+                            <div  class="w-100">
+                                <div class="form-group">
+                                    <label for="Email_reg">Email</label>
+                                    <input type="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" id="Email_reg" name="email" aria-describedby="emailHelp">
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label>First name</label>
-                                    <input type="text" name="first_name" value="{{old('first_name')}}" class="form-control @error('first_name') is-invalid @enderror">
+                                    @enderror
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label>First name</label>
+                                        <input type="text" name="first_name" value="{{old('first_name')}}" class="form-control @error('first_name') is-invalid @enderror">
                                         @error('first_name')
-                                            <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                                <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                </div>
-                                <div class="col">
-                                    <label>Last name</label>
-                                    <input type="text" name="last_name" value="{{old('last_name')}}" class="form-control @error('last_name') is-invalid @enderror">
+                                    </div>
+                                    <div class="col">
+                                        <label>Last name</label>
+                                        <input type="text" name="last_name" value="{{old('last_name')}}" class="form-control @error('last_name') is-invalid @enderror">
                                         @error('last_name')
-                                            <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                                    <strong>{{ $message }}</strong>
                                              </span>
                                         @enderror
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="Password_reg">Password</label>
-                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="Password_reg">
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="re_password_reg">Confirm password</label>
-                                        <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" id="re_password_reg">
-                                        @error('password_confirmation')
-                                        <span class="invalid-feedback" role="alert">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="Password_reg">Password</label>
+                                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="Password_reg">
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                        @enderror
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="re_password_reg">Confirm password</label>
+                                            <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" id="re_password_reg">
+                                            @error('password_confirmation')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input @error('agreement') is-invalid @enderror" id="exampleCheck1" name="agreement">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    I agree to the
-                                    <a href="#" class="modal_link"> Privacy Policy</a>
-                                    and
-                                    <a href="#" class="modal_link"> Terms of Service</a>
-                                </label>
-                                @error('agreement')
-                                <span class="invalid-feedback" role="alert">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input @error('agreement') is-invalid @enderror" id="exampleCheck1" name="agreement">
+                                    <label class="form-check-label" for="exampleCheck1">
+                                        I agree to the
+                                        <a href="#" class="modal_link"> Privacy Policy</a>
+                                        and
+                                        <a href="#" class="modal_link"> Terms of Service</a>
+                                    </label>
+                                    @error('agreement')
+                                    <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                @enderror
+                                    @enderror
+                                </div>
+                                <div class="mt-4">
+                                    <button type="submit" class="btn-bordered py-2 mx-auto sign-up-submit">Sign Up</button>
+                                    <button type="submit" class="btn-red my-3 d-block d-md-none mx-auto"  data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#logIn">Sign In</button>
+                                </div>
                             </div>
-                            <div class="mt-4">
-                                <button type="submit" class="btn-bordered py-2 mx-auto sign-up-submit">Sign Up</button>
-                                <button type="submit" class="btn-red my-3 d-block d-md-none mx-auto"  data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#logIn">Sign In</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <div class="modal fade logReg" id="logIn"  tabindex="-1" role="dialog" aria-labelledby="logInTitle" aria-hidden="true" >
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content login-content">
@@ -372,8 +377,8 @@
                             </div>
                             <div class="mt-4">
                                 <button type="submit" class="btn-bordered py-2 mx-auto reset-submit"
-                                        {{--data-toggle="modal"
-                                        data-target="#resetPassword" data-dismiss="modal" aria-label="Close"--}}
+                                    {{--data-toggle="modal"
+                                    data-target="#resetPassword" data-dismiss="modal" aria-label="Close"--}}
                                 >Reset Password</button>
                             </div>
                         </div>
@@ -428,6 +433,8 @@
         </div>
     </div>
 </div>
+@endguest
+
 
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
 <script src="{{asset('js/bootstrap/bootstrap.bundle.min.js')}}"></script>

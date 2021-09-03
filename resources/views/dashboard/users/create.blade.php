@@ -30,6 +30,13 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
+                                                <label >Account type</label>
+                                                <select class="form-control" name="account">
+                                                    <option value="0" >Basic</option>
+                                                    <option value="1"  >Pro</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Email</label>
                                                 <input type="email" class="form-control"  name="email" value="{{old('email')}}">
                                             </div>

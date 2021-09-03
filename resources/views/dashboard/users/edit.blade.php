@@ -31,6 +31,13 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label >Account type</label>
+                                            <select class="form-control" name="account">
+                                                <option value="0" {{$user->account == 0 ? 'selected' : ''}}>Basic</option>
+                                                <option value="1" {{$user->account == 1 ? 'selected' : ''}}>Pro</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Email</label>
                                             <input type="email" class="form-control"  name="email" value="{{$user->email}}">
                                         </div>

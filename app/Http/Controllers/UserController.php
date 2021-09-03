@@ -457,9 +457,12 @@ class UserController extends Controller
             'confirm_password' => ['required', 'same:password', 'min:8'],
         ]);
 
-        if(User::where('parent_id', Auth::id())->count() + 1 > 3){
-            return redirect()->back()->with('error', 'Channels limit is 3');
+        if(!Auth::user()->isPro()){
+            if(User::where('parent_id', Auth::id())->count() + 1 > 3){
+                return redirect()->back()->with('error', 'Channels limit is 3');
+            }
         }
+
 
         User::create([
             'first_name' => $request['first_name'],
@@ -484,6 +487,9 @@ class UserController extends Controller
 
     public function myChannels(){
 
+        if(Auth::user()->type == 20){
+            return redirect()->route('home');
+        }
         $my_channels  = User::where('parent_id', Auth::id())->get();
 
         return view('my-channels', compact('my_channels'));

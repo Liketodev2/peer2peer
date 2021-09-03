@@ -40,11 +40,25 @@
                         <div class="form-group">
                             <label for="post_text">Post as</label>
                             <div class="d-flex">
-                                <input type="text" required class="form-control mr-2 @error('user_name') is-invalid @enderror" id="post_text" value="{{old('user_name')}}" name="user_name" placeholder="Username">
-                                @error('user_name')
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
-                                <select required class="category_select @error('category_id') is-invalid @enderror" name="category_id" id="category">
+                                @if(\Auth::user()->main == 1 && \Auth::user()->parent_id == null)
+                                    <select required class="category_select mr-2 flex-1  @error('channel_id') is-invalid @enderror" name="channel_id" id="channel_select">
+                                        {{--  <option value="1" selected disabled>Category</option>--}}
+                                        <option value="{{\Auth::id()}}">{{\App\Http\Controllers\FunctionController::userTypeName(\Auth::id())}}</option>
+                                        @foreach($channels as $channel)
+                                            <option value="{{$channel->id}}">{{\App\Http\Controllers\FunctionController::userTypeName($channel->id)}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('channel_id')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                @else
+                                    <input type="text" required class="form-control mr-2 @error('user_name') is-invalid @enderror" id="post_text" value="{{old('user_name')}}" name="user_name" placeholder="Username">
+                                    @error('user_name')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                @endif
+
+                                <select required class="category_select flex-1 @error('category_id') is-invalid @enderror" name="category_id" id="category">
                                     {{--  <option value="1" selected disabled>Category</option>--}}
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>

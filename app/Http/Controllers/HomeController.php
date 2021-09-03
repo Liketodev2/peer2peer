@@ -105,12 +105,14 @@ class HomeController extends Controller
     {
         $feeds = [];
         $feed_query = Feed::query();
+        $channels = [];
 
         if(Auth::user()){
             $blocked_to_show_in_category = Auth::user()->showCategory_action->pluck('blocked_id');
             $blocked_users = Auth::user()->block_action->pluck('block_id');
             $feed_query = $feed_query->whereNotIn('user_id', $blocked_to_show_in_category);
             $feed_query = $feed_query->whereNotIn('user_id', $blocked_users);
+            $channels = User::where('parent_id', Auth::id())->get();
         }
 
         $feeds[Carbon::now()->format('D, M d')] = $feed_query->published()->whereDate('created_at', Carbon::now())->orderBy('id','desc')->take(10)->get();
@@ -118,7 +120,7 @@ class HomeController extends Controller
         $feeds[Carbon::now()->subDays(2)->format('D, M d')] = $feed_query->published()->whereDate('created_at', Carbon::now()->subDays(2))->orderBy('id','desc')->take(10)->get();
 
 
-        return view('welcome', compact('feeds'));
+        return view('welcome', compact('feeds','channels'));
     }
 
     public function category($id)
@@ -172,6 +174,11 @@ class HomeController extends Controller
         }
 
         return view('feed', compact('feed','comments','percent','blocked_users'));
+    }
+
+    public function selectPlan(){
+
+        return view('select-plan');
     }
 
 

@@ -60,6 +60,7 @@ class UserController extends Controller
                 'type' => 'required',
                 'email' => 'required|unique:users',
                 'password' => 'required|min:8',
+                'account' => 'required'
             ]);
         }else{
             $this->validate($request, [
@@ -68,6 +69,7 @@ class UserController extends Controller
                 'type' => 'required',
                 'email' => 'required|unique:users',
                 'password' => 'required|min:8',
+                'account' => 'required'
             ]);
         }
 
@@ -78,6 +80,7 @@ class UserController extends Controller
             'type' => $request->type,
             'category_id' => $request->category_id,
             'email' => $request->email,
+            'account' => $request->account,
             'password' => (new BcryptHasher())->make($request->get('password')),
         ]);
 
@@ -124,6 +127,7 @@ class UserController extends Controller
                 'company_name' => 'required|max:60',
                 'type' => 'required',
                 'password' => 'nullable|min:8',
+                'account' => 'required'
             ]);
         }else{
             $this->validate($request, [
@@ -131,6 +135,7 @@ class UserController extends Controller
                 'last_name' => 'required|max:60',
                 'type' => 'required',
                 'password' => 'nullable|min:8',
+                'account' => 'required'
             ]);
         }
 
@@ -148,7 +153,8 @@ class UserController extends Controller
             'company_name' => $request->company_name,
             'type' => $request->type,
             'category_id' => $request->category_id,
-            'email' => $request->email
+            'email' => $request->email,
+            'account' => $request->account,
         ]);
 
         if($request->password){

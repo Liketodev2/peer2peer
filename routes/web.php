@@ -37,6 +37,8 @@ Route::get('/my-channels', [App\Http\Controllers\UserController::class, 'myChann
 
 Route::get('/followed-feeds/{id}', [App\Http\Controllers\UserController::class, 'followedFeeds'])->name('followed-feeds');
 
+Route::get('/select-plan', [App\Http\Controllers\HomeController::class, 'selectPlan'])->name('select-plan');
+
 
 Route::get('/my-feeds', [App\Http\Controllers\FeedController::class, 'myFeeds'])->name('my-feeds');
 Route::post('/like', [App\Http\Controllers\FeedController::class, 'likeFeed'])->name('like');

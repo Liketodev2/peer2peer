@@ -826,3 +826,10 @@ footer .social-icon-style a {
 .back-page-btn{
     display: block;
 }
+.pro-img{
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: -15px;
+    right: -24px;
+}
