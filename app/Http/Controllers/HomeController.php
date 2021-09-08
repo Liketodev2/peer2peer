@@ -104,7 +104,7 @@ class HomeController extends Controller
     public function home()
     {
         $feeds = [];
-        $feed_query = Feed::query();
+        $feed_query = new Feed();
         $channels = [];
 
         if(Auth::user()){
@@ -115,10 +115,9 @@ class HomeController extends Controller
             $channels = User::where('parent_id', Auth::id())->get();
         }
 
-        $feeds[Carbon::now()->format('D, M d')] = $feed_query->published()->whereDate('created_at', Carbon::now())->orderBy('id','desc')->take(10)->get();
-        $feeds[Carbon::now()->subDays(1)->format('D, M d')] = $feed_query->published()->whereDate('created_at', Carbon::now()->subDays(1))->orderBy('id','desc')->take(10)->get();
-        $feeds[Carbon::now()->subDays(2)->format('D, M d')] = $feed_query->published()->whereDate('created_at', Carbon::now()->subDays(2))->orderBy('id','desc')->take(10)->get();
-
+        $feeds[Carbon::now()->format('D, M d')] = $feed_query->published()->whereDate('created_at', Carbon::now()->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
+        $feeds[Carbon::now()->subDays(1)->format('D, M d')] = $feed_query->published()->whereDate('created_at', Carbon::now()->subDays(1)->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
+        $feeds[Carbon::now()->subDays(2)->format('D, M d')] = $feed_query->published()->whereDate('created_at', Carbon::now()->subDays(2)->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
 
         return view('welcome', compact('feeds','channels'));
     }
