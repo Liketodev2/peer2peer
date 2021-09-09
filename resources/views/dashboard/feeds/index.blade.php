@@ -30,6 +30,7 @@
                                             <th>Description</th>
                                             <th>Category</th>
                                             <th>Creator</th>
+                                            <th>Date</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
@@ -41,6 +42,7 @@
                                                 <td>{{$item->description}}</td>
                                                 <td>{{$item->category->name}}</td>
                                                 <td>{{$item->user->company_name ? $item->user->company_name : $item->user->first_name .' '. $item->user->last_name}}</td>
+                                                <td>{{$item->created_at}}</td>
                                                 <td>
                                                   <div>
                                                       <a href="{{route('dashboard.feeds.edit', $item->id)}}"><button class="btn btn-light btn-sm w-60"><i class="fas fa-edit"></i></button></a>
