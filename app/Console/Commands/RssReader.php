@@ -52,7 +52,14 @@ class RssReader extends Command
             $items = $f->get_items();
 
             foreach (array_reverse($items) as $item){
+
                 $date = $item->get_date('Y-m-d H:i:s');
+
+                if(!$date){
+                    $date = Carbon::now()->subMinutes(rand(1, 55))->format('Y-m-d H:i:s');
+                }
+
+
                 $title = $item->get_title();
                 $content = $item->get_content();
                 $content = strip_tags($content);
