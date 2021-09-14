@@ -111,13 +111,13 @@ class HomeController extends Controller
             $blocked_users = Auth::user()->block_action->pluck('block_id');
             $channels = User::where('parent_id', Auth::id())->get();
 
-            $feeds[Carbon::now()->format('D, M d')] = Feed::whereNotIn('user_id', $blocked_to_show_in_category)->whereNotIn('user_id', $blocked_users)->published()->whereDate('created_at', Carbon::now()->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
-            $feeds[Carbon::now()->subDays(1)->format('D, M d')] = Feed::whereNotIn('user_id', $blocked_to_show_in_category)->whereNotIn('user_id', $blocked_users)->published()->whereDate('created_at', Carbon::now()->subDays(1)->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
-            $feeds[Carbon::now()->subDays(2)->format('D, M d')] = Feed::whereNotIn('user_id', $blocked_to_show_in_category)->whereNotIn('user_id', $blocked_users)->published()->whereDate('created_at', Carbon::now()->subDays(2)->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
+            $feeds[Carbon::now()->format('D, M d')] = Feed::whereNotIn('user_id', $blocked_to_show_in_category)->whereNotIn('user_id', $blocked_users)->published()->whereDate('created_at', Carbon::now()->format('Y-m-d'))->orderBy('created_at','desc')->take(10)->get();
+            $feeds[Carbon::now()->subDays(1)->format('D, M d')] = Feed::whereNotIn('user_id', $blocked_to_show_in_category)->whereNotIn('user_id', $blocked_users)->published()->whereDate('created_at', Carbon::now()->subDays(1)->format('Y-m-d'))->orderBy('created_at','desc')->take(10)->get();
+            $feeds[Carbon::now()->subDays(2)->format('D, M d')] = Feed::whereNotIn('user_id', $blocked_to_show_in_category)->whereNotIn('user_id', $blocked_users)->published()->whereDate('created_at', Carbon::now()->subDays(2)->format('Y-m-d'))->orderBy('created_at','desc')->take(10)->get();
         }else{
-            $feeds[Carbon::now()->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now()->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
-            $feeds[Carbon::now()->subDays(1)->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now()->subDays(1)->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
-            $feeds[Carbon::now()->subDays(2)->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now()->subDays(2)->format('Y-m-d'))->orderBy('id','desc')->take(10)->get();
+            $feeds[Carbon::now()->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now()->format('Y-m-d'))->orderBy('created_at','desc')->take(10)->get();
+            $feeds[Carbon::now()->subDays(1)->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now()->subDays(1)->format('Y-m-d'))->orderBy('created_at','desc')->take(10)->get();
+            $feeds[Carbon::now()->subDays(2)->format('D, M d')] = Feed::published()->whereDate('created_at', Carbon::now()->subDays(2)->format('Y-m-d'))->orderBy('created_at','desc')->take(10)->get();
         }
 
 
