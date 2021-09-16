@@ -119,7 +119,7 @@
         <div class="d-flex align-items-center w-100">
             <div class="d-flex justify-content-between  py-lg-0 py-3 bg-dark border-top w-100 position-relative flex-wrap">
                 <ul class="list-unstyled m-0 d-flex flex-wrap">
-                    <li class="nav-item {{\Request::route()->getName() == 'category' && \Request::route()->getName() == "home" ? 'active' : ''}}">
+                    <li class="nav-item {{\Request::route()->getName() == "home" ? 'active' : ''}}">
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     @foreach($categories as $category)
