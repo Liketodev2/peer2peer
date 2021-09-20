@@ -59,36 +59,39 @@ class RssReader extends Command
                     $date = Carbon::now()->subMinutes(rand(1, 55))->format('Y-m-d H:i:s');
                 }
 
-
                 $title = $item->get_title();
-                $content = $item->get_content();
-                $content = strip_tags($content);
-                $link = $item->get_link();
 
-                $check_unique = Feed::where('category_id', $rss_link->category_id)->where('user_id', $rss_link->user_id)->orderBy('id','desc')->take(500)->get();
+                if($title){
+                    $content = $item->get_content();
+                    $content = strip_tags($content);
+                    $link = $item->get_link();
 
-                $to_search = $title;
-                $res_search = $check_unique->filter(function ($item) use ($to_search) {
+                    $check_unique = Feed::where('category_id', $rss_link->category_id)->where('user_id', $rss_link->user_id)->orderBy('id','desc')->take(500)->get();
 
-                    if(!$item->title || !$to_search){
-                        return false;
+                    $to_search = $title;
+                    $res_search = $check_unique->filter(function ($item) use ($to_search) {
+
+                        if(!$item->title || !$to_search){
+                            return false;
+                        }
+                        return false !== stristr($item->title, $to_search);
+                    });
+
+                    if($res_search && $res_search->count() == 0){
+                        Feed::create([
+                            'category_id' => $rss_link->category_id,
+                            'user_id' => $rss_link->user_id,
+                            'title' => $title,
+                            'description' => $content,
+                            'status' => 1,
+                            'comment_access' => 1,
+                            'author_name' => '',
+                            'url' => $link,
+                            'created_at' => $date ? $date : Carbon::now(),
+                        ]);
                     }
-                    return false !== stristr($item->title, $to_search);
-                });
-
-                if($res_search && $res_search->count() == 0){
-                    Feed::create([
-                        'category_id' => $rss_link->category_id,
-                        'user_id' => $rss_link->user_id,
-                        'title' => $title,
-                        'description' => $content,
-                        'status' => 1,
-                        'comment_access' => 1,
-                        'author_name' => '',
-                        'url' => $link,
-                        'created_at' => $date ? $date : Carbon::now(),
-                    ]);
                 }
+
             }
         }
     }
