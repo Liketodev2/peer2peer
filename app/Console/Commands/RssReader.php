@@ -71,9 +71,6 @@ class RssReader extends Command
                     $to_search = $title;
                     $res_search = $check_unique->filter(function ($item) use ($to_search) {
 
-                        if(!$item->title || !$to_search){
-                            return false;
-                        }
                         return false !== stristr($item->title, $to_search);
                     });
 
