@@ -117,6 +117,7 @@
             @endauth
             <div class="accordion p-lg-5" id="accordionExample">
                 @foreach($feeds as $key => $feed)
+                    @if(count($feed) > 0)
                         <div class="card alert alert-dismissible fade show">
                             <div class="card-header" id="heading{{$loop->index}}">
                                 <button class="btn btn-link" type="button">
@@ -134,21 +135,18 @@
                             </div>
                             <div id="collapse{{$loop->index}}" class="collapse show" aria-labelledby="heading{{$loop->index}}" data-parent="#accordionExample">
                                 <div class="card-body">
-                                    @if(count($feed) > 0)
-                                        @foreach($feed as $feed_item)
-                                                <div class="d-flex row-news">
-                                                    <div class="w-40"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->title}}</a></div>
-                                                    <div class="flex-1">{{$feed_item->user->company_name ? $feed_item->user->company_name : $feed_item->user->first_name.' '. $feed_item->user->last_name}}</div>
-                                                    <div class="flex-1">{{$feed_item->category->name}}</div>
-                                                    <div class="flex-1">{{\Carbon\Carbon::parse($feed_item->created_at)->format('H:i')}}</div>
-                                                </div>
-                                        @endforeach
-                                    @else
-                                        Feeds are empty
-                                    @endif
+                                    @foreach($feed as $feed_item)
+                                            <div class="d-flex row-news">
+                                                <div class="w-40"><a href="{{route('feed',$feed_item->id)}}">{{$feed_item->title}}</a></div>
+                                                <div class="flex-1">{{$feed_item->user->company_name ? $feed_item->user->company_name : $feed_item->user->first_name.' '. $feed_item->user->last_name}}</div>
+                                                <div class="flex-1">{{$feed_item->category->name}}</div>
+                                                <div class="flex-1">{{\Carbon\Carbon::parse($feed_item->created_at)->format('H:i')}}</div>
+                                            </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
+                    @endif
                 @endforeach
             </div>
         </main>
