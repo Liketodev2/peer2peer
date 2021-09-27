@@ -504,4 +504,9 @@ class UserController extends Controller
         return view('edit-channel', compact('user','rss_feeds','categories'));
     }
 
+    public function commented(){
+        $articles = Auth::user()->commented_feed()->distinct()->paginate(20);
+        return view('commented', compact('articles'));
+    }
+
 }

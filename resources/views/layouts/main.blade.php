@@ -95,6 +95,7 @@
                                 <span class="text-info float-right position-relative"><img class="pro-img" src="{{asset('img/pro.png')}}" alt=""></span>
                             @endif
                             <a class="dropdown-item" href="{{route('my-profile', \Auth::id())}}">Profile</a>
+                                <a class="dropdown-item" href="{{route('commented')}}">Commented</a>
                             <a class="dropdown-item" href="{{route('black-list-show')}}">Black list</a>
                             <hr>
                             <a class="dropdown-item" href="#"

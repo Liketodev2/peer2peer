@@ -67,6 +67,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\CommentLike');
     }
 
+    public function commented_feed(){
+        return $this->belongsToMany(Feed::class,'comments');
+    }
+
     public function isAdmin() {
         if($this->is_admin == 1){
             return true;

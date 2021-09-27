@@ -96,6 +96,7 @@
                 @if($feed->comment_access == 1)
                     @if($comments)
                         @foreach($comments as $comment)
+                            @if($comment->user)
                             <div class="comment-block" data-user="{{$comment->user_id}}" data-id="{{$comment->id}}" data-type="comment">
                                 <div class="d-flex my-3 align-items-start border-bottom py-4 ">
                                     <a href="{{route('profile', $comment->user->id)}}"><img src="{{$comment->user->avatar ? asset('images').'/'.$comment->user->avatar : asset('img').'/profile-user-gray.svg'}}" alt="" class="mr-3 img-user"></a>
@@ -178,6 +179,7 @@
                                     @endforeach
                                 </div>
                             </div>
+                            @endif
                         @endforeach
                            {{-- <div class="d-flex justify-content-end">
                                 <div role="button" class="color-red btn-link">Show more comments >></div>

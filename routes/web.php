@@ -61,6 +61,7 @@ Route::get('/peers', [App\Http\Controllers\UserController::class, 'peers'])->nam
 Route::post('/follow', [App\Http\Controllers\UserController::class, 'follow'])->name('follow');
 Route::post('/black-list', [App\Http\Controllers\UserController::class, 'blackList'])->name('black-list');
 Route::get('/black-list', [App\Http\Controllers\UserController::class, 'blackListShow'])->name('black-list-show');
+Route::get('/commented', [App\Http\Controllers\UserController::class, 'commented'])->name('commented');
 Route::post('/remove-from-black/{id}', [App\Http\Controllers\UserController::class, 'removeFromBlock'])->name('remove-from-black');
 
 Route::post('/show-category', [App\Http\Controllers\UserController::class, 'showCategory'])->name('show-category');
