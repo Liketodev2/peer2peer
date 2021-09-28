@@ -15,7 +15,15 @@
                 @if($notifications->count() > 0)
                     @foreach($notifications as $notify)
                         <div class="alert bg-light-gray  d-flex align-items-center position-relative mb-3" role="alert">
-                            <p class="m-0">{{$notify->text}}.</p>
+                            <p class="m-0">
+                                @if($notify->feed_id)
+                                <a href="{{route('feed', $notify->feed_id)}}">
+                                    {{$notify->text}}.
+                                </a>
+                                @else
+                                    {{$notify->text}}.
+                                @endif
+                            </p>
                             <div class="abs"><i class="far fa-clock mr-1"></i>{{\Carbon\Carbon::parse($notify->created_at)->diffForHumans(\Illuminate\Support\Carbon::now())}}</div>
                         </div>
 

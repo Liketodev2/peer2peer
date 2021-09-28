@@ -168,7 +168,7 @@ class FeedController extends Controller
     }
 
     public function store(Request $request){
-        
+
 
         $request->validate([
             'url' => 'required|url',
@@ -261,15 +261,25 @@ class FeedController extends Controller
             }
         }
 
-        $text = FunctionController::userTypeName(Auth::id()) .' '. ( $reply ? 'replied to the comment on feed ' : 'commented on your feed ') .' "'. ( Str::limit($feed->title, 60) ) .' "';
+        $new_comment = Comment::create($input);
 
-        Comment::create($input);
+        if($reply){
+            $feed_parent = Comment::find($input['parent_id']);
+            $text = FunctionController::userTypeName(Auth::id()) .' '. ( 'commented on your comment' ) .' "'. ( Str::limit($feed->title, 60) ) .' "';
+            $notify_user = $feed_parent->user_id;
+        }else{
+            $notify_user = $feed->user_id;
+            $text = FunctionController::userTypeName(Auth::id()) .' '. ('commented on ') .' "'. ( Str::limit($feed->title, 60) ) .' "';
+        }
 
-        Notify::create([
-            'user_id' => $feed->user_id,
-            'text' => $text
-        ]);
-
+        if($notify_user != Auth::id()){
+            Notify::create([
+                'user_id' =>$notify_user,
+                'text' => $text,
+                'feed_id' => $feed->id,
+                'comment_id' => $new_comment->id
+            ]);
+        }
 
         return back();
     }
