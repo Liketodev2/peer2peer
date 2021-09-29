@@ -122,6 +122,8 @@
                                                                 <option value="{{$i}}" {{$comment->discussion_size == $i ? 'selected' : ''}}>{{$i}}</option>
                                                             @endfor
                                                         </select>
+                                                        <i class="fas fa-info-circle ml-2" data-toggle="tooltip" data-placement="top"  title="Select discussion size"></i>
+                                                    <i></i>
                                                 @endif
                                             </div>
                                             <div class="edit-comment-block" data-id="{{$comment->id}}">
