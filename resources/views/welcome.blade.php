@@ -69,19 +69,6 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="post_text">Discussion size</label>
-                            <div class="d-flex">
-                                <select required class="form-control discussion_count @error('discussion_count') is-invalid @enderror" name="discussion_count" id="discussion_count">
-                                    @for($i = 6; $i < 13; $i++)
-                                        <option value="{{$i}}">{{$i}}</option>
-                                    @endfor
-                                </select>
-                                @error('discussion_count')
-                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
-                        </div>
 {{--                        <div class="form-group d-flex">--}}
 {{--                            <label class="mr-4">Comment</label>--}}
 {{--                            <div class="d-flex">--}}

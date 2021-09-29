@@ -175,8 +175,7 @@ class FeedController extends Controller
             'description' => 'required|max:600',
             'article_name' => 'required|max:120',
             'user_name' => 'nullable|max:60',
-            'category_id' => 'required',
-            'discussion_count' => 'required',
+            'category_id' => 'required'
         ]);
 
         $req_url_parse =  str_ireplace('www.', '', parse_url($request['url'], PHP_URL_HOST));
@@ -202,7 +201,6 @@ class FeedController extends Controller
             'title' => $request['article_name'],
             'description' => $request['description'],
             'category_id' => $request['category_id'],
-            'discussion_count' => $request['discussion_count'],
             'comment_access' => 1,
             'user_id' => isset($request->channel_id) && Auth::user()->type == 10 ? $request->channel_id  : Auth::id(),
             'status' => $check_parsing == true ? 1 : 0
@@ -252,12 +250,15 @@ class FeedController extends Controller
             $plucked_ids = array_keys($parent->toArray());
             $parent = $parent->count();
 
+            $parent_item = Comment::find($input['parent_id']);
+
             if(!in_array($auth_id, $plucked_ids)){
                 $parent +=1;
             }
 
-            if($parent > (int)$feed->discussion_count ){
-                throw ValidationException::withMessages(['limit' => 'Discussion people limit is '.$feed->discussion_count ]);
+
+            if($parent > (int)$parent_item->discussion_size ){
+                throw ValidationException::withMessages(['limit' => 'Discussion people limit is '.$parent_item->discussion_size  ]);
             }
         }
 
@@ -281,7 +282,7 @@ class FeedController extends Controller
             ]);
         }
 
-        return back();
+        return redirect()->route('feed', $request->feed_id);
     }
     public function myFeeds(Request $request)
     {
@@ -331,7 +332,6 @@ class FeedController extends Controller
             'article_name' => 'required|max:120',
             'user_name' => 'required|max:60',
             'category_id' => 'required',
-            'discussion_count' => 'required',
         ]);
 
         $feed =   Feed::where('id',$id)->where('user_id', Auth::id());
@@ -343,7 +343,6 @@ class FeedController extends Controller
                 'title' => $request['article_name'],
                 'description' => $request['description'],
                 'category_id' => $request['category_id'],
-                'discussion_count' => $request['discussion_count'],
                 'comment_access' => 1,
                 'user_id' => Auth::id(),
                 'status' => 0
@@ -395,6 +394,14 @@ class FeedController extends Controller
 
 
         return view('my-channels-feeds', compact('feeds'));
+
+    }
+
+    public function discussionSize(Request $request){
+
+        Comment::find($request->id)->update([
+            'discussion_size' => $request->value
+        ]);
 
     }
 

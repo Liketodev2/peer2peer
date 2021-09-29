@@ -17,7 +17,7 @@
                         <div class="alert bg-light-gray  d-flex align-items-center position-relative mb-3" role="alert">
                             <p class="m-0">
                                 @if($notify->feed_id)
-                                <a href="{{route('feed', $notify->feed_id)}}">
+                                <a href="{{route('feed', ['id' => $notify->feed_id, 'feed_id' => $notify->feed_id, 'comment_id' => $notify->comment_id])}}">
                                     {{$notify->text}}.
                                 </a>
                                 @else

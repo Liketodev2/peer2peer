@@ -142,12 +142,14 @@ class HomeController extends Controller
 
         return view('category', compact('id', 'feeds'));
     }
-    public function feed($id)
+    public function feed(Request $request, $id)
     {
 
         $comments = null;
         $blocked_users = [];
         $me_in_block = [];
+        $notify_feed_id = isset($request->feed_id) ? $request->feed_id :  0;
+        $notify_comment_id = isset($request->comment_id) ? $request->comment_id : 0;
 
         $feed = Feed::published()->findOrFail($id);
 
@@ -175,7 +177,7 @@ class HomeController extends Controller
             $comments = $feed->comments()->paginate(25);
         }
 
-        return view('feed', compact('feed','comments','percent','blocked_users'));
+        return view('feed', compact('feed','comments','percent','blocked_users','notify_feed_id','notify_comment_id'));
     }
 
     public function selectPlan(){

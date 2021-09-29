@@ -333,6 +333,25 @@ $('.edit-comment-btn').click(function () {
 
 });
 
+$(document).on('change','.discussion_size_comment',function () {
+    let id = $(this).data('id');
+    let value = $(this).val();
+
+    $.ajax({
+        type: "POST",
+        url: "/discussion-size",
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            id : id,
+            value : value,
+        },
+        success: function(data){
+            console.log(done);
+        }
+    });
+
+});
+
 function checkMessages() {
     $.ajax({
         type: "POST",

@@ -117,6 +117,11 @@
                                                 @if(\Auth::id() == $comment->user_id)
                                                     <div class="mr-2 mt-1 edit-comment" data-id="{{$comment->id}}"> <i class="fas fa-edit"></i></div>
                                                     <div class="delete-comment" data-type="comment" data-id="{{$comment->id}}" data-parent="{{$comment->id}}"><i class="fa fa-trash text-danger mt-1" aria-hidden="true"></i></div>
+                                                        <select name="discussion_size_comment" class="ml-2 discussion_size_comment" data-id="{{$comment->id}}">
+                                                            @for($i = 6; $i < 13; $i++)
+                                                                <option value="{{$i}}" {{$comment->discussion_size == $i ? 'selected' : ''}}>{{$i}}</option>
+                                                            @endfor
+                                                        </select>
                                                 @endif
                                             </div>
                                             <div class="edit-comment-block" data-id="{{$comment->id}}">
@@ -203,12 +208,21 @@
 @push('scripts')
     <script>
 
+        let feed_id = {{$notify_feed_id}};
+        let comment_id = {{$notify_comment_id}};
+
         let blocked =  JSON.parse("{{ json_encode($blocked_users) }}");
 
         jQuery.each(blocked, function(index,value){
             $('.comment-block[data-user="'+value+'"]').remove();
         });
 
+        if(feed_id && comment_id){
+            setTimeout(function () {
+                $(".comment-block[data-id='"+comment_id+"'][data-type='reply']").parent().parent().find('.replay ').click();
+                $(window).scrollTop($(".comment-block[data-id='"+comment_id+"']").offset().top);
+            }, 1000);
+        }
 
     </script>
 @endpush

@@ -16,6 +16,11 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function feed()
+    {
+        return $this->hasOne(Feed::class,'id','feed_id');
+    }
+
     public function replies()
     {
         return $this->hasMany(Comment::class, 'parent_id');

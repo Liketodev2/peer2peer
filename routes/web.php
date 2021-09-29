@@ -50,6 +50,7 @@ Route::post('feed/store', [App\Http\Controllers\FeedController::class, 'store'])
 Route::post('feed/get-url-title', [App\Http\Controllers\FeedController::class, 'getUrlTitle'])->name('feed.getUrlTitle');
 Route::post('feed/comment', [App\Http\Controllers\FeedController::class, 'comment'])->name('feed.comment');
 Route::post('comment/delete', [App\Http\Controllers\FeedController::class, 'commentDelete'])->name('feed.comment.delete');
+Route::post('discussion-size', [App\Http\Controllers\FeedController::class, 'discussionSize'])->name('feed.comment.discussion-size');
 
 Route::get('feed/edit/{id}', [App\Http\Controllers\FeedController::class, 'feedEdit'])->name('feed.edit');
 Route::get('my-channels/feeds/{id}', [App\Http\Controllers\FeedController::class, 'myChannelsFeed'])->name('my-channels.feeds');
