@@ -73,6 +73,11 @@ class FeedController extends Controller
         return response()->json($percent);
     }
 
+    public function return_response_agree($feed_id){
+        $percent = FunctionController::agreePercent($feed_id);
+        return response()->json($percent);
+    }
+
     public function likeFeed(Request $request){
 
         $feed_id = $request->feed_id;
@@ -131,7 +136,7 @@ class FeedController extends Controller
 
             if($already_agree == $is_agree){
                 $agree->delete();
-                return null;
+                return $this->return_response_agree($feed_id);
             }
         }else{
             $agree = new Agree();
@@ -146,7 +151,7 @@ class FeedController extends Controller
             $agree->save();
         }
 
-        return null;
+        return $this->return_response_agree($feed_id);
 
     }
 

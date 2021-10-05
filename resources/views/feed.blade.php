@@ -39,6 +39,10 @@
         .title{
             width: 95%;
         }
+       .comment-type-like{
+           position: relative;
+           bottom: 1px;
+       }
     </style>
 @endpush
 @section('content')
@@ -70,13 +74,13 @@
                         <ul class="list-unstyled m-0 d-flex pl-lg-4 flex-wrap">
                             <li data-toggle="tooltip" data-placement="top"  title="Likes {{$percent['like']}} %" class="mr-3 {{\Auth::user()->likes()->where('feed_id', $feed->id)->first() && \Auth::user()->likes()->where('feed_id', $feed->id)->first()->like == 1 ? 'active' : ''}} like-trigger like" data-is_like="1" data-feed="{{$feed->id}}"><a href="javascript:void(0)"><i class="fas fa-thumbs-up mr-1"></i>Like</a></li>
                             <li data-toggle="tooltip" data-placement="top"  title="Dislikes {{$percent['disslike']}} %" class="mr-3 {{\Auth::user()->likes()->where('feed_id', $feed->id)->first() && \Auth::user()->likes()->where('feed_id', $feed->id)->first()->like == 0 ? 'active' : ''}} like-trigger like" data-is_like="0" data-feed="{{$feed->id}}"><a href="javascript:void(0)"><i class="fas fa-thumbs-down mr-1"></i>Dislike</a></li>
-                            <li class="mr-3 {{\Auth::user()->agrees()->where('feed_id', $feed->id)->first() && \Auth::user()->agrees()->where('feed_id', $feed->id)->first()->agree == 1 ? 'active' : ''}} agree-trigger agree " data-is_agree="1" data-feed="{{$feed->id}}"><a href="javascript:void(0)"><i class="far fa-check-circle mr-1"></i>Agree</a></li>
-                            <li class="mr-3 {{\Auth::user()->agrees()->where('feed_id', $feed->id)->first() && \Auth::user()->agrees()->where('feed_id', $feed->id)->first()->agree == 0 ? 'active' : ''}} agree-trigger agree" data-is_agree="0" data-feed="{{$feed->id}}"><a href="javascript:void(0)"><i class="far fa-times-circle mr-1"></i>Disagree</a></li>
+                            <li data-toggle="tooltip" data-placement="top"  title="Agree {{$agrees['agree']}} %"  class="mr-3 {{\Auth::user()->agrees()->where('feed_id', $feed->id)->first() && \Auth::user()->agrees()->where('feed_id', $feed->id)->first()->agree == 1 ? 'active' : ''}} agree-trigger agree " data-is_agree="1" data-feed="{{$feed->id}}"><a href="javascript:void(0)"><i class="far fa-check-circle mr-1"></i>Agree</a></li>
+                            <li data-toggle="tooltip" data-placement="top"  title="Disagree {{$agrees['disagree']}} %"  class="mr-3 {{\Auth::user()->agrees()->where('feed_id', $feed->id)->first() && \Auth::user()->agrees()->where('feed_id', $feed->id)->first()->agree == 0 ? 'active' : ''}} agree-trigger agree" data-is_agree="0" data-feed="{{$feed->id}}"><a href="javascript:void(0)"><i class="far fa-times-circle mr-1"></i>Disagree</a></li>
                             @if($feed->user_id != \Auth::id())
                             <li class="mr-3 {{\Auth::user()->reposts()->where('feed_id', $feed->id)->first() ? 'active' : ''}} repost-trigger repost" data-feed="{{$feed->id}}"><a href="javascript:void(0)"><i class="fas fa-retweet mr-1"></i>Repost</a></li>
                             @endif
                         </ul>
-                        <button class="btn-red px-5" role="button">Send</button>
+                        <button class="btn-red px-5" role="button">Post</button>
                     </div>
                 </form>
                 @if( count($errors) > 0)
@@ -112,10 +116,10 @@
                                                 @auth
                                                     <div class="color-blue replay " data-id="{{$comment->id}}">Reply ({{$comment->replies->count()}})</div>
                                                 @endauth
-                                                <div style="{{!\Auth::user() ? 'pointer-events:none' : ''}}" class="mx-2 comment-type-like comment-like comment-like-trigger {{\Auth::user() &&\Auth::user()->comment_like()->where('comment_id', $comment->id)->first() && \Auth::user()->comment_like()->where('comment_id', $comment->id)->first()->like == 1 ? 'active-comment' : ''}}" data-comment="{{$comment->id}}" data-is_like="1"><i class="fas fa-thumbs-up mr-1"></i><span class="count-area">{{$comment->comment_like() ? $comment->comment_like()->where('like', 1)->count() : 0}}</span></div>
-                                                <div style="{{!\Auth::user() ? 'pointer-events:none' : ''}}" class="mx-2 comment-type-diss comment-like comment-like-trigger {{\Auth::user() &&\Auth::user()->comment_like()->where('comment_id', $comment->id)->first() && \Auth::user()->comment_like()->where('comment_id', $comment->id)->first()->like == 0 ? 'active-comment' : ''}}" data-comment="{{$comment->id}}" data-is_like="0"><i class="fas fa-thumbs-down mr-1"></i><span class="count-area">{{$comment->comment_like() ? $comment->comment_like()->where('like', 0)->count() : 0}}</span></div>
+                                                <div style="{{!\Auth::user() ? 'pointer-events:none' : ''}}" class="ml-3 mx-1 comment-type-like comment-like comment-like-trigger {{\Auth::user() &&\Auth::user()->comment_like()->where('comment_id', $comment->id)->first() && \Auth::user()->comment_like()->where('comment_id', $comment->id)->first()->like == 1 ? 'active-comment' : ''}}" data-comment="{{$comment->id}}" data-is_like="1"><i class="fas fa-thumbs-up mr-1"></i><span class="count-area">{{$comment->comment_like() ? $comment->comment_like()->where('like', 1)->count() : 0}}</span></div>
+                                                <div style="{{!\Auth::user() ? 'pointer-events:none' : ''}}" class="mx-1 comment-type-diss comment-like comment-like-trigger {{\Auth::user() &&\Auth::user()->comment_like()->where('comment_id', $comment->id)->first() && \Auth::user()->comment_like()->where('comment_id', $comment->id)->first()->like == 0 ? 'active-comment' : ''}}" data-comment="{{$comment->id}}" data-is_like="0"><i class="fas fa-thumbs-down mr-1"></i><span class="count-area">{{$comment->comment_like() ? $comment->comment_like()->where('like', 0)->count() : 0}}</span></div>
                                                 @if(\Auth::id() == $comment->user_id)
-                                                    <div class="mr-2 mt-1 edit-comment" data-id="{{$comment->id}}"> <i class="fas fa-edit"></i></div>
+                                                    <div class="mr-2 edit-comment" data-id="{{$comment->id}}"> <i class="fas fa-edit"></i></div>
                                                     <div class="delete-comment" data-type="comment" data-id="{{$comment->id}}" data-parent="{{$comment->id}}"><i class="fa fa-trash text-danger mt-1" aria-hidden="true"></i></div>
                                                         <select name="discussion_size_comment" class="ml-2 discussion_size_comment" data-id="{{$comment->id}}">
                                                             @for($i = 6; $i < 13; $i++)
@@ -145,7 +149,7 @@
                                             <textarea required name="message"  class="p-3 bg-white w-100"  rows="2" placeholder=""></textarea>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between pl-lg-5 my-3">
-                                            <button class="btn-red btn-sm px-5" role="button">Send</button>
+                                            <button class="btn-red btn-sm px-5" role="button">Post</button>
                                         </div>
                                     </form>
                                     @endauth

@@ -172,12 +172,13 @@ class HomeController extends Controller
 
 
         $percent = FunctionController::LikePercent($id);
+        $agrees = FunctionController::agreePercent($id);
 
         if($feed){
             $comments = $feed->comments()->paginate(25);
         }
 
-        return view('feed', compact('feed','comments','percent','blocked_users','notify_feed_id','notify_comment_id'));
+        return view('feed', compact('feed','comments','percent','blocked_users','notify_feed_id','notify_comment_id','agrees'));
     }
 
     public function selectPlan(){

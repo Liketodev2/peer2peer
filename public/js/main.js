@@ -110,6 +110,7 @@ $(document).ready(function() {
 
         let feed_id = $(this).data('feed');
         let is_agree = $(this).data('is_agree');
+        let root = $(this);
 
         $.ajax({
             type: "POST",
@@ -120,7 +121,11 @@ $(document).ready(function() {
                 is_agree : is_agree,
             },
             success: function(data){
-                console.log(data);
+                if(data){
+                    $('.agree-trigger[data-is_agree="1"]').attr('data-original-title', 'Agree ' + data.agree +' %').tooltip('hide');
+                    $('.agree-trigger[data-is_agree="0"]').attr('data-original-title', 'Disagree '+ data.disagree +' %').tooltip('hide');
+                    $(root).tooltip('show');
+                }
             }
         });
     });

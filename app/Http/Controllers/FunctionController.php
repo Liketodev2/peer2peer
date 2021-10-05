@@ -51,6 +51,19 @@ class FunctionController extends Controller
        return $percent;
    }
 
+    public static function agreePercent($id){
+        $feed = Feed::published()->find($id);
+        $agrees = $feed->agrees_pivot()->where('agree', 1)->count();
+        $disagrees = $feed->agrees_pivot()->where('agree', 0)->count();
+
+        $total = $agrees + $disagrees;
+
+        $percent['agree'] =  $total != 0 ? round(($agrees / $total) * 100) : 0;
+        $percent['disagree'] = $total != 0 ? round(($disagrees / $total) * 100) : 0;
+
+        return $percent;
+    }
+
     public static function userTypeName($id){
 
        $user = User::find($id);
