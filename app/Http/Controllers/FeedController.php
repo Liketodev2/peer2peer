@@ -242,6 +242,7 @@ class FeedController extends Controller
 
 
         $input = $request->all();
+
         $input['user_id'] = auth()->user()->id;
         $reply = isset($input['reply']) ? 1 : 0;
         if($reply){
@@ -402,13 +403,13 @@ class FeedController extends Controller
 
     }
 
-    public function discussionSize(Request $request){
+/*    public function discussionSize(Request $request){
 
         Comment::find($request->id)->update([
             'discussion_size' => $request->value
         ]);
 
-    }
+    }*/
 
 
 }

@@ -338,7 +338,7 @@ $('.edit-comment-btn').click(function () {
 
 });
 
-$(document).on('change','.discussion_size_comment',function () {
+/*$(document).on('change','.discussion_size_comment',function () {
     let id = $(this).data('id');
     let value = $(this).val();
 
@@ -355,7 +355,7 @@ $(document).on('change','.discussion_size_comment',function () {
         }
     });
 
-});
+});*/
 
 function checkMessages() {
     $.ajax({

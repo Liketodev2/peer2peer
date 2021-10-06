@@ -79,6 +79,12 @@
                             @if($feed->user_id != \Auth::id())
                             <li class="mr-3 {{\Auth::user()->reposts()->where('feed_id', $feed->id)->first() ? 'active' : ''}} repost-trigger repost" data-feed="{{$feed->id}}"><a href="javascript:void(0)"><i class="fas fa-retweet mr-1"></i>Repost</a></li>
                             @endif
+                            <select name="discussion_size" class="ml-2 discussion_size">
+                                @for($i = 6; $i < 13; $i++)
+                                    <option value="{{$i}}" {{6 == $i ? 'selected' : ''}}>{{$i}}</option>
+                                @endfor
+                            </select>
+                            <i class="fas fa-info-circle ml-2 mt-1" data-toggle="tooltip" data-placement="top"  title="Select discussion size"></i>
                         </ul>
                         <button class="btn-red px-5" role="button">Post</button>
                     </div>
@@ -121,13 +127,7 @@
                                                 @if(\Auth::id() == $comment->user_id)
                                                     <div class="mr-2 edit-comment" data-id="{{$comment->id}}"> <i class="fas fa-edit"></i></div>
                                                     <div class="delete-comment" data-type="comment" data-id="{{$comment->id}}" data-parent="{{$comment->id}}"><i class="fa fa-trash text-danger mt-1" aria-hidden="true"></i></div>
-                                                        <select name="discussion_size_comment" class="ml-2 discussion_size_comment" data-id="{{$comment->id}}">
-                                                            @for($i = 6; $i < 13; $i++)
-                                                                <option value="{{$i}}" {{$comment->discussion_size == $i ? 'selected' : ''}}>{{$i}}</option>
-                                                            @endfor
-                                                        </select>
-                                                        <i class="fas fa-info-circle ml-2" data-toggle="tooltip" data-placement="top"  title="Select discussion size"></i>
-                                                    <i></i>
+
                                                 @endif
                                             </div>
                                             <div class="edit-comment-block" data-id="{{$comment->id}}">
