@@ -29,7 +29,7 @@
 
                 </div>
                 <div class="d-flex justify-content-end">
-                    {{$results->links('pagination::bootstrap-4')}}
+                    {{$results->appends(['search' => \Request::get('search')])->links('pagination::bootstrap-4')}}
                 </div>
             </div>
         </div>
