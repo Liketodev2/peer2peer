@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlackList;
+use App\Models\Category;
 use App\Models\Conversation;
 use App\Models\Feed;
 use App\Models\Notify;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -146,5 +148,46 @@ class FunctionController extends Controller
         return $blocked;
 
 
+    }
+
+    public static function getTrending($id){
+
+        $trending_feeds = [];
+
+        $trending_feeds = Feed::where('created_at', '>=', Carbon::now()->subDay()->toDateTimeString());
+        $trending_feeds = $trending_feeds->where('category_id', $id);
+
+        $trending_feeds = $trending_feeds
+            ->withCount('comments')
+            ->having('comments_count', '>', 0)
+            ->orderBy('comments_count','desc')
+            ->published()
+            ->limit(6)
+            ->get();
+
+        if($trending_feeds->count() < 5 && $trending_feeds->count() > 0){
+
+            $average = 5 - $trending_feeds->count();
+            $trending_feeds_part = Feed::where('category_id', $id)
+                ->published()
+                ->inRandomOrder()
+                ->limit($average)
+                ->get();
+
+            if($trending_feeds_part){
+                $trending_feeds = $trending_feeds->merge($trending_feeds_part);
+            }
+        }else{
+            $trending_feeds_part = Feed::where('category_id', $id)
+                ->withCount('comments')
+                ->orderBy('comments_count','desc')
+                ->published()
+                ->inRandomOrder()
+                ->limit(5)
+                ->get();
+            $trending_feeds = $trending_feeds_part;
+        }
+
+        return $trending_feeds;
     }
 }

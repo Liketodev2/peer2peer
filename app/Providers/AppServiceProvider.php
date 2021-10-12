@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
 
         if(Schema::hasTable('feeds')) {
 
+
                 $trending_feeds = [];
                 $category = Category::where('name', 'like', '%' . 'Local' . '%')->first();
                 $trending_feeds = Feed::where('created_at', '>=', Carbon::now()->subDay()->toDateTimeString());

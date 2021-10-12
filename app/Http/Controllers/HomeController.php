@@ -129,6 +129,9 @@ class HomeController extends Controller
     {
         $auth = Auth::user();
         $feeds = Feed::where('category_id', $id);
+        $category = Category::find($id);
+        $trending_feeds_by_category = FunctionController::getTrending($id);
+
         if($auth){
 
             $blocked_to_show_in_category = Auth::user()->showCategory_action->pluck('blocked_id');
@@ -140,7 +143,7 @@ class HomeController extends Controller
         }
         $feeds = $feeds->orderBy('created_at','desc')->published()->paginate(20);
 
-        return view('category', compact('id', 'feeds'));
+        return view('category', compact('id', 'feeds','trending_feeds_by_category','category'));
     }
     public function feed(Request $request, $id)
     {
