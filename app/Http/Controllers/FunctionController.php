@@ -66,6 +66,17 @@ class FunctionController extends Controller
         return $percent;
     }
 
+    public static function trendingNameSelect($category, $route_name){
+       $name = 'Trending Home';
+
+        if(isset($category)){
+            if($category->name != 'Locale' && $route_name == 'category'){
+                $name = 'Trending of '. $category->name;
+            }
+        }
+        return $name;
+    }
+
     public static function userTypeName($id){
 
        $user = User::find($id);

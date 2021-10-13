@@ -6,7 +6,7 @@
         <div class="btn btn-red w-100 d-flex justify-content-between align-items-center">
 
             <a class="d-flex justify-content-between align-items-center w-100" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                <div class="title text-left">{{isset($category) ? 'Trending of '. $category->name : 'Trending'}}</div>
+                <div class="title text-left">{{\App\Http\Controllers\FunctionController::trendingNameSelect(isset($category) ? $category : null, Route::currentRouteName())}}</div>
                 <img class="toggle_triangle" src="{{asset('img/Polygon%204.png')}}" width="21" height="12">
             </a>
             <img src="{{asset('img/x%20(5).svg')}}" alt="" class="ml-3" data-dismiss="alert" aria-label="Close">
