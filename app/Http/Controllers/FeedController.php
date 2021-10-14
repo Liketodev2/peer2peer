@@ -227,7 +227,7 @@ class FeedController extends Controller
 
         }catch(\Exception $exception){
 
-            return response()->json('',404);
+            return response()->json($exception->getMessage(),404);
         }
 
 
