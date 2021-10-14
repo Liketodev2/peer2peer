@@ -833,3 +833,8 @@ footer .social-icon-style a {
     top: -15px;
     right: -24px;
 }
+@media (min-width: 1200px) and (max-width: 1850px) {
+    .navbar-expand-xl .navbar-nav .dropdown-menu {
+        left: -150px !important;
+    }
+}
