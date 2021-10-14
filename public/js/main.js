@@ -234,7 +234,7 @@ $('.show-category').on('change', function(){
 });
 
 $('input[id="url"]').on('change', function () {
-
+    $('.url-error-w').remove();
     $('input[name="article_name"]').css('border','1px solid #CFCBCB');
     let url = $('input[name="url"]').val();
 
@@ -252,6 +252,7 @@ $('input[id="url"]').on('change', function () {
         error: function () {
             $('input[name="article_name"]').val('');
             $('input[name="article_name"]').css('border','1px solid red');
+            $('input[name="article_name"]').parent().append('<span style="display: block" class="invalid-feedback url-error-w" role="alert"><strong>Access denied, please use another link</strong></span>');
         }
     });
 })
