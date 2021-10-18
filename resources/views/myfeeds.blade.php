@@ -11,9 +11,10 @@
                     <div class="form-title mb-4">
                         Click on an article to start or join a discussion
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="position:relative;">
                         <label for="url">URL link of news article</label>
                         <input type="url" required class="form-control @error('url') is-invalid @enderror" value="{{old('url')}}" name="url" id="url" aria-describedby="emailHelp" >
+                        <img class="feed-loader" style="position: absolute;right: 0px;top: 0px;display: none" width="20px" src="{{asset('img/loader.gif')}}" alt="">
                         @error('url')
                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror

@@ -237,7 +237,7 @@ $('input[id="url"]').on('change', function () {
     $('.url-error-w').remove();
     $('input[name="article_name"]').css('border','1px solid #CFCBCB');
     let url = $('input[name="url"]').val();
-
+    $('.feed-loader').show();
     $.ajax({
         type: "POST",
         url: "/feed/get-url-title",
@@ -248,11 +248,13 @@ $('input[id="url"]').on('change', function () {
         success: function(data){
             $('input[name="article_name"]').val(data);
             $('input[name="article_name"]').css('border','1px solid #31a232');
+            $('.feed-loader').hide();
         },
         error: function () {
             $('input[name="article_name"]').val('');
             $('input[name="article_name"]').css('border','1px solid red');
             $('input[name="article_name"]').parent().append('<span style="display: block" class="invalid-feedback url-error-w" role="alert"><strong>Something wrong</strong></span>');
+            $('.feed-loader').hide();
         }
     });
 })
