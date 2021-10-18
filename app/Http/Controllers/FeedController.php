@@ -243,6 +243,10 @@ class FeedController extends Controller
             $title = $nodes->item(0)->nodeValue;
             $title = htmlspecialchars_decode($title, ENT_QUOTES);
 
+            if($title == "Access to this page has been denied."){
+                return response()->json("Access to this page has been denied.",404);
+            }
+
             return response()->json($title);
 
         }catch(\Exception $exception){
