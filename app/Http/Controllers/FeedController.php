@@ -220,19 +220,24 @@ class FeedController extends Controller
 
         function file_get_contents_curl($url)
         {
-            $ch = curl_init();
-            $agent= 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36';
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            $curl = curl_init();
 
-            curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Cookie: machine_cookie=5402220380104; machine_cookie_ts=1634554848'
+                ),
+            ));
 
-            $data = curl_exec($ch);
-            curl_close($ch);
+            $data = curl_exec($curl);
+            curl_close($curl);
 
             return $data;
         }
