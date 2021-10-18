@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label for="post_text">Post as</label>
                         <div class="d-flex">
-                            @if(\Auth::user()->main == 1 && \Auth::user()->parent_id == null && \Auth::user()->type == 20)
+                            @if(\Auth::user()->main == 1 && \Auth::user()->parent_id == null && \Auth::user()->type == 10)
                                 <select required class="category_select mr-2 flex-1  @error('channel_id') is-invalid @enderror" name="channel_id" id="channel_select">
                                     {{--  <option value="1" selected disabled>Category</option>--}}
                                     <option value="{{\Auth::id()}}">{{\App\Http\Controllers\FunctionController::userTypeName(\Auth::id())}}</option>
