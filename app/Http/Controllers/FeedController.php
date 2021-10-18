@@ -218,20 +218,38 @@ class FeedController extends Controller
 
     public function getUrlTitle(Request $request){
 
-        $url = $request->url;
+        function file_get_contents_curl($url)
+        {
+            $ch = curl_init();
 
-        try{
-            $page = file_get_contents($url);
-            $title = preg_match('/<title[^>]*>(.*?)<\/title>/ims', $page, $match) ? $match[1] : null;
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0');
+
+            $data = curl_exec($ch);
+            curl_close($ch);
+
+            return $data;
+        }
+
+        try {
+            $html = file_get_contents_curl($request->url);
+            $doc = new \DOMDocument();
+            @$doc->loadHTML($html);
+            $nodes = $doc->getElementsByTagName('title');
+            $title = $nodes->item(0)->nodeValue;
             $title = htmlspecialchars_decode($title, ENT_QUOTES);
+
+            return response()->json($title);
 
         }catch(\Exception $exception){
 
             return response()->json($exception->getMessage(),404);
         }
 
-
-           return response()->json($title);
     }
 
     public function comment(Request $request)

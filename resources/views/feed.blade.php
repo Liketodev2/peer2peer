@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', $feed->title)
 @push('scripts')
     <style>
         .comment-replay{
