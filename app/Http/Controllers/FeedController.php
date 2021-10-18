@@ -230,7 +230,9 @@ class FeedController extends Controller
                 CURLOPT_TIMEOUT => 0,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
                 CURLOPT_HTTPHEADER => array(
                     'Cookie: machine_cookie=5402220380104; machine_cookie_ts=1634554848'
                 ),
