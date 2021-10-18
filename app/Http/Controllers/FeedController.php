@@ -231,6 +231,9 @@ class FeedController extends Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Cookie: machine_cookie=5402220380104; machine_cookie_ts=1634554848'
+                ),
             ));
 
             $data = curl_exec($curl);
