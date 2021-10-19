@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', $feed->title)
+@section('title', $feed->title . ' - Peer2Peer')
 @push('scripts')
     <style>
         .comment-replay{
