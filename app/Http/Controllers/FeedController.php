@@ -11,10 +11,12 @@ use App\Models\Like;
 use App\Models\Notify;
 use App\Models\Repost;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use GuzzleHttp\Cookie\CookieJar;
 
 class FeedController extends Controller
 {
@@ -219,10 +221,18 @@ class FeedController extends Controller
     public function getUrlTitle(Request $request){
 
         try {
-            $httpClient = new \GuzzleHttp\Client();
-            $response = $httpClient->request('GET', $request->url, ['headers' => ['user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36',
-                'accept'=>'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9']]);
 
+
+            $url= $request->url;
+
+            $client = new Client([
+                'base_url' => $url,
+                'cookies' => CookieJar::fromArray(['mos_id' => 'CllGx1yOW5nBYizxkxtbAgA='], '.mos.ru'),
+                'allow_redirects' => true,
+                'decode_content' => true
+            ]);
+
+            $response = $client->request('get', $url);
             $htmlString = (string)$response->getBody();
 
             $doc = new \DOMDocument();
