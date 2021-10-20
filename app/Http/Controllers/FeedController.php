@@ -226,11 +226,17 @@ class FeedController extends Controller
             $url= $request->url;
 
             $client = new Client([
+                'headers' => [
+                    'User-Agent' => 'Name of your tool/v1.0',
+                    'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+                    'Accept-Encoding' => 'gzip, deflate, br',
+                ],
                 'base_url' => $url,
                 'cookies' => CookieJar::fromArray(['mos_id' => 'CllGx1yOW5nBYizxkxtbAgA='], '.mos.ru'),
                 'allow_redirects' => true,
                 'decode_content' => true,
-                'http_errors' => false
+                'http_errors' => false,
+                'track_redirects' => false,
             ]);
 
             $response = $client->request('get', $url);
