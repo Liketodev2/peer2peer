@@ -232,7 +232,7 @@ class FeedController extends Controller
                     'Accept-Encoding' => 'gzip, deflate, br',
                 ],
                 'base_url' => $url,
-                'cookies' => CookieJar::fromArray(['mos_id' => 'CllGx1yOW5nBYizxkxtbAgA='], '.mos.ru'),
+                'cookies' =>  new \GuzzleHttp\Cookie\CookieJar(true),
                 'allow_redirects' => true,
                 'decode_content' => true,
                 'http_errors' => false,
