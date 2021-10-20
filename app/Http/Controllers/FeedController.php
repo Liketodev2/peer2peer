@@ -218,6 +218,7 @@ class FeedController extends Controller
 
     public function getUrlTitle(Request $request){
 
+
         function file_get_contents_curl($url)
         {
             $curl = curl_init();
@@ -251,7 +252,7 @@ class FeedController extends Controller
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_CONNECTTIMEOUT => 0,
-                CURLOPT_USERAGENT => $agents[array_rand($agents)]
+                CURLOPT_USERAGENT => 'User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
             ));
 
             $data = curl_exec($curl);
