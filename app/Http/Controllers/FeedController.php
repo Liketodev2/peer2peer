@@ -229,7 +229,8 @@ class FeedController extends Controller
                 'base_url' => $url,
                 'cookies' => CookieJar::fromArray(['mos_id' => 'CllGx1yOW5nBYizxkxtbAgA='], '.mos.ru'),
                 'allow_redirects' => true,
-                'decode_content' => true
+                'decode_content' => true,
+                'http_errors' => false
             ]);
 
             $response = $client->request('get', $url);
