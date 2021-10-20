@@ -220,7 +220,7 @@ class FeedController extends Controller
 
         try {
             $httpClient = new \GuzzleHttp\Client();
-            $response = $httpClient->get('https://seekingalpha.com/article/4460533-wall-street-breakfast-btc-etf');
+            $response = $httpClient->get($request->url);
             $htmlString = (string)$response->getBody();
 
             $doc = new \DOMDocument();
