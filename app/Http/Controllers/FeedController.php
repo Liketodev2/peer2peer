@@ -224,7 +224,7 @@ class FeedController extends Controller
 
 
             $url= $request->url;
-
+            header("Location:".$url);
             $client = new Client([
                 'headers' => [
                     'User-Agent' => 'Name of your tool/v1.0',
@@ -242,6 +242,7 @@ class FeedController extends Controller
             ]);
 
             $response = $client->request('get', $url);
+
             $htmlString = (string)$response->getBody();
 
             $doc = new \DOMDocument();
