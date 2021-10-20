@@ -224,7 +224,7 @@ class FeedController extends Controller
 
 
             $url= $request->url;
-            header("Location:".$url);
+
             $client = new Client([
                 'headers' => [
                     'User-Agent' => 'Name of your tool/v1.0',
@@ -232,7 +232,7 @@ class FeedController extends Controller
                     'Accept-Encoding' => 'gzip, deflate, br',
                 ],
                 'base_url' => $url,
-                'cookies' =>  new \GuzzleHttp\Cookie\CookieJar(true),
+                'cookies' => CookieJar::fromArray(['mos_id' => 'CllGx1yOW5nBYizxkxtbAgA='], '.mos.ru'),
                 'allow_redirects' => true,
                 'decode_content' => true,
                 'http_errors' => false,
@@ -242,7 +242,6 @@ class FeedController extends Controller
             ]);
 
             $response = $client->request('get', $url);
-
             $htmlString = (string)$response->getBody();
 
             $doc = new \DOMDocument();
