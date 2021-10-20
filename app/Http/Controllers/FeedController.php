@@ -237,6 +237,9 @@ class FeedController extends Controller
                 'decode_content' => true,
                 'http_errors' => false,
                 'track_redirects' => false,
+                'exceptions' => false,
+                'CURLOPT_SSL_VERIFYPEER' => false,
+
             ]);
 
             $response = $client->request('get', $url);
