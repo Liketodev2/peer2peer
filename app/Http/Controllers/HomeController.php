@@ -74,6 +74,8 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
+        $results_count = 0;
+        $results = collect();
 
         if(Str::length($request->search) > 2){
 
@@ -92,8 +94,6 @@ class HomeController extends Controller
             });
             $results_count = $results->count();
             $results = $results->paginate(25);
-        }else{
-            return redirect()->back();
         }
 
 

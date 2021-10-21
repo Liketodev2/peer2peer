@@ -28,9 +28,11 @@
                     </div>--}}
 
                 </div>
-                <div class="d-flex justify-content-end">
-                    {{$results->appends(['search' => \Request::get('search')])->links('pagination::bootstrap-4')}}
-                </div>
+                @if($results->count() > 0)
+                    <div class="d-flex justify-content-end">
+                        {{$results->appends(['search' => \Request::get('search')])->links('pagination::bootstrap-4')}}
+                    </div>
+                @endif
             </div>
         </div>
         @include('areas.feed-right-side')
