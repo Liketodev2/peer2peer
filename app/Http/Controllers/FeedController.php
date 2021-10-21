@@ -225,11 +225,16 @@ class FeedController extends Controller
 
             $url= $request->url;
 
+            $parse = parse_url($url);
+            $parsed = $parse['scheme'].'://'.$parse['host'];
+
+
             $client = new Client([
                 'headers' => [
-                    'User-Agent' => 'Name of your tool/v1.0',
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
                     'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
                     'Accept-Encoding' => 'gzip, deflate, br',
+                    'Origin' => $parsed,
                 ],
                 'base_url' => $url,
                 'cookies' => CookieJar::fromArray(['mos_id' => 'CllGx1yOW5nBYizxkxtbAgA='], '.mos.ru'),
