@@ -24,7 +24,7 @@
                                         @csrf
                                         <div class="form-group">
                                             <label for="exampleInputLink"><b>Link</b></label>
-                                            <input type="url" class="form-control" id="exampleInputLink" aria-describedby="emailHelp" name="url" placeholder="Enter link">
+                                            <input type="url" class="form-control" id="exampleInputLink" aria-describedby="emailHelp" name="url" placeholder="Enter link" value="{{Request::get('url')}}">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">Create</button>

@@ -1,3 +1,4 @@
+@inject('feeds_inject', 'App\Models\Feed')
 <!DOCTYPE html>
 <html class="no-js css-menubar" lang="en">
 <head>
@@ -191,6 +192,9 @@
                         <a class="animsition-link"  href="javascript:void(0)">
                             <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
                             <span class="site-menu-title">Articles</span>
+                            @if($feeds_inject->inactive() > 0)
+                                <i class="fas text-danger fa-circle mr-2 float-right position-relative" style="top:12px;right: 10px"></i>
+                            @endif
                             <span class="site-menu-arrow"></span>
                         </a>
                         <ul class="site-menu-sub">
@@ -200,10 +204,14 @@
                                     <span class="site-menu-title">All</span>
                                 </a>
                             </li>
+
                             <li class="site-menu-item {{(\Request::route()->getName() == 'dashboard.inactiveFeeds') ? 'active' : ''}}" >
                                 <a class="animsition-link" href="{{route('dashboard.inactiveFeeds')}}">
                                     <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
                                     <span class="site-menu-title">Inactive</span>
+                                    @if($feeds_inject->inactive() > 0)
+                                        <i class="fas text-danger fa-circle mr-2 float-right position-relative" style="top:12px;right: 10px"></i>
+                                    @endif
                                 </a>
                             </li>
                         </ul>

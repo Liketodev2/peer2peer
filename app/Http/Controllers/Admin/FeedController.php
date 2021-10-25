@@ -162,4 +162,13 @@ class FeedController extends Controller
         return view('dashboard.feeds.inactive', compact('items'));
 
     }
+
+    public function approve(Request $request){
+        $feed = Feed::find($request->id);
+        $feed->update([
+            'status' => 1
+        ]);
+
+        return redirect()->back();
+    }
 }

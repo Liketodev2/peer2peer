@@ -43,9 +43,12 @@ class WhiteListController extends Controller
         $this->validate($request, [
             'url' => 'required|url',
         ]);
-        ChannelWhiteList::create([
-            'url' => $request->url,
-        ]);
+        if(!ChannelWhiteList::where('url', $request->url)->first()){
+            ChannelWhiteList::create([
+                'url' => $request->url,
+            ]);
+        }
+
 
         return redirect()->back();
     }

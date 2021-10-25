@@ -18,6 +18,13 @@ class Feed extends Model
             ->where('status', 1);
     }
 
+    public function scopeInactive($query)
+    {
+        return $query
+            ->where('status', 0)
+            ->where('seen', 0)->count();
+    }
+
     public function user(){
         return $this->belongsTo('App\Models\User');
     }

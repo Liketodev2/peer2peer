@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label for="post_text">Post as</label>
                             <div class="d-flex">
-                                <input type="text" required class="form-control mr-2 @error('user_name') is-invalid @enderror" id="post_text" name="user_name" value="{{$feed->author_name}}" placeholder="Username">
+                                <input type="text"  class="form-control mr-2 @error('user_name') is-invalid @enderror" id="post_text" name="user_name" value="{{$feed->author_name}}" placeholder="Username">
                                 @error('user_name')
                                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                                 @enderror

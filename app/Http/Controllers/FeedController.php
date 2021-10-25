@@ -185,6 +185,7 @@ class FeedController extends Controller
             'category_id' => 'required'
         ]);
 
+        $response_message = 'Article is created';
         $req_url_parse =  str_ireplace('www.', '', parse_url($request['url'], PHP_URL_HOST));
         $white_list = ChannelWhiteList::all();
         $check_parsing = false;
@@ -201,6 +202,10 @@ class FeedController extends Controller
             $check_parsing = false;
         }
 
+        if(!$check_parsing){
+            $response_message = 'Current URL is not whitelisted by the admin. Sent for consideration to the admin';
+        }
+
 
         Feed::create([
             'url' => $request['url'],
@@ -214,7 +219,7 @@ class FeedController extends Controller
         ]);
 
 
-        return redirect()->back()->with('success', 'Article is created');
+        return redirect()->back()->with('success', $response_message);
 
     }
 
@@ -371,11 +376,35 @@ class FeedController extends Controller
             'url' => 'required|url',
             'description' => 'required|max:600',
             'article_name' => 'required|max:120',
-            'user_name' => 'required|max:60',
+            'user_name' => 'nullable|max:60',
             'category_id' => 'required',
         ]);
 
         $feed =   Feed::where('id',$id)->where('user_id', Auth::id());
+
+        $response_message = 'Article is updated';
+        $req_url_parse =  str_ireplace('www.', '', parse_url($request['url'], PHP_URL_HOST));
+
+        if($req_url_parse != str_ireplace('www.', '', parse_url($feed->first()['url'], PHP_URL_HOST))){
+            $white_list = ChannelWhiteList::all();
+            $check_parsing = false;
+
+            if($white_list->count() > 0) {
+                foreach ($white_list as $list) {
+                    $list_url_parse = str_ireplace('www.', '', parse_url($list->url, PHP_URL_HOST));
+
+                    if ($req_url_parse == $list_url_parse) {
+                        $check_parsing = true;
+                    }
+                }
+            }else{
+                $check_parsing = false;
+            }
+
+            if(!$check_parsing){
+                $response_message = 'Current URL is not whitelisted by the admin. Sent for consideration to the admin';
+            }
+        }
 
         if($feed){
             $feed->update([
@@ -390,7 +419,7 @@ class FeedController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Article is updated');
+        return redirect()->back()->with('success', $response_message);
 
     }
 

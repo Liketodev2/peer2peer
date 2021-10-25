@@ -93,6 +93,7 @@ Route::get('auth/google/callback', [App\Http\Controllers\Auth\GoogleController::
 Route::prefix('dashboard')->middleware(['dashboard','auth'])->group(function(){
 
         Route::get('/index', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard.index');
+        Route::post('/feeds/approve', [App\Http\Controllers\Admin\FeedController::class, 'approve'])->name('dashboard.feeds.approve');
         Route::resource('users', '\App\Http\Controllers\Admin\UserController', ['as' => 'dashboard']);
         Route::resource('rss', '\App\Http\Controllers\Admin\RssController', ['as' => 'dashboard']);
         Route::resource('feeds', '\App\Http\Controllers\Admin\FeedController', ['as' => 'dashboard']);

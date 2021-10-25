@@ -28,6 +28,7 @@
                                             <th>ID</th>
                                             <th>Title</th>
                                             <th>Description</th>
+                                            <th>Url</th>
                                             <th>Category</th>
                                             <th>Creator</th>
                                             <th>Actions</th>
@@ -39,10 +40,16 @@
                                                 <td>{{$item->id}}</td>
                                                 <td>{!!$item->seen == 0 ? '<i class="fas text-danger fa-circle mr-2"></i>' : ''!!}{{$item->title}}</td>
                                                 <td>{{$item->description}}</td>
+                                                <td><a class="mr-2" href="{{route('dashboard.white-list.index', ['url' => 'https://'. str_ireplace('www.', '', parse_url($item->url, PHP_URL_HOST) )])}}"><i class="fas fa-plus"></i></a>{{$item->url}}</td>
                                                 <td>{{$item->category->name}}</td>
                                                 <td>{{$item->user->company_name ? $item->user->company_name : $item->user->first_name .' '. $item->user->last_name}}</td>
                                                 <td>
                                                     <div>
+                                                        <form action="{{route('dashboard.feeds.approve')}}" method="POST" class=" admin-remove-form">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{$item->id}}">
+                                                            <button class="btn btn-success btn-sm d-block mb-2 w-60"><i class="fas fa-check"></i></button>
+                                                        </form>
                                                         <a href="{{route('dashboard.feeds.edit', $item->id)}}"><button class="btn btn-light btn-sm w-60"><i class="fas fa-edit"></i></button></a>
                                                         <button class="btn btn-light btn-sm admin-remove-btn w-60"><i class="fas fa-trash text-danger"></i></button>
                                                         <form action="{{route('dashboard.feeds.destroy',$item->id)}}" method="POST" class="d-none admin-remove-form">
