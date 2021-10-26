@@ -193,7 +193,7 @@
                             <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
                             <span class="site-menu-title">Articles</span>
                             @if($feeds_inject->inactive() > 0)
-                                <i class="fas text-danger fa-circle mr-2 float-right position-relative" style="top:12px;right: 10px"></i>
+                                <i class="fas text-danger fa-circle mr-2 float-right position-relative" style="top:15px;right: 8px"></i>
                             @endif
                             <span class="site-menu-arrow"></span>
                         </a>
@@ -210,7 +210,7 @@
                                     <i class="site-menu-icon md-view-list" aria-hidden="true"></i>
                                     <span class="site-menu-title">Inactive</span>
                                     @if($feeds_inject->inactive() > 0)
-                                        <i class="fas text-danger fa-circle mr-2 float-right position-relative" style="top:12px;right: 10px"></i>
+                                        <i class="fas text-danger fa-circle mr-2 float-right position-relative" style="top:15px;right: 8px"></i>
                                     @endif
                                 </a>
                             </li>
