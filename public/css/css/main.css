@@ -847,9 +847,8 @@ footer .social-icon-style a {
 .url_whitelist_box button{
     height: 50px;
     position: relative;
-    bottom: 2px;
-    width: 45px;
-    margin-left: 5px;
+    bottom: 0px;
+    width: 65px;
     background: #4975a5;
     border: #4975a5;
 }
