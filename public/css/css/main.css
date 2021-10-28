@@ -841,6 +841,9 @@ footer .social-icon-style a {
 .url_whitelist_box{
     font-size: 14px;
 }
+.url_whitelist_form{
+    display: flex;
+}
 .url_whitelist_box button{
     height: 50px;
     position: relative;
