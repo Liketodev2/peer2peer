@@ -36,7 +36,7 @@
         <div class="text-center pt-4 pb-4 url_whitelist_box">
             <form action="{{route('rss.to-whitelist')}}" method="POST" class="url_whitelist_form">
                 @csrf
-                <input type="text" name="url_whitelist" class="url_whitelist" placeholder="Send source to whitelist">
+                <input type="text" name="url_whitelist" class="url_whitelist ml-1" placeholder="Send source to whitelist">
                 <button class="btn btn-sm btn-success"><i class="far fa-envelope"></i></button>
                 @error('url_whitelist')
                 <span class="invalid-feedback url_whitelist_error" style="display: block" role="alert"><strong>{{ $message }}</strong></span>
