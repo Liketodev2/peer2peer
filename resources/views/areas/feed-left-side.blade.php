@@ -38,13 +38,13 @@
                 @csrf
                 <input type="text" name="url_whitelist" class="url_whitelist ml-1" placeholder="Send source to whitelist">
                 <button class="btn btn-sm btn-success"><i class="far fa-envelope"></i></button>
-                @error('url_whitelist')
-                <span class="invalid-feedback url_whitelist_error" style="display: block" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
-                @if ($message = Session::get('success'))
-                    <span class="invalid-feedback  url_whitelist_error" style="display: block" role="alert"><strong>{{ $message }}</strong></span>
-                @endif
             </form>
+            @error('url_whitelist')
+            <span class="invalid-feedback url_whitelist_error" style="display: block" role="alert"><strong>{{ $message }}</strong></span>
+            @enderror
+            @if ($message = Session::get('success'))
+                <span class="invalid-feedback  url_whitelist_error" style="display: block" role="alert"><strong>{{ $message }}</strong></span>
+            @endif
         </div>
     @endauth
 </aside>
