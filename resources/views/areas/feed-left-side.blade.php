@@ -42,7 +42,7 @@
             @error('url_whitelist')
             <span class="invalid-feedback url_whitelist_error" style="display: block" role="alert"><strong>{{ $message }}</strong></span>
             @enderror
-            @if ($message = Session::get('success'))
+            @if ($message = Session::get('success-whitelist'))
                 <span class="invalid-feedback  url_whitelist_error" style="display: block" role="alert"><strong>{{ $message }}</strong></span>
             @endif
         </div>

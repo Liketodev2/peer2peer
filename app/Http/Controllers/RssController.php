@@ -26,9 +26,9 @@ class RssController extends Controller
                 'user_id' => Auth::id(),
                 'status' => 0
             ]);
-            return redirect()->back()->with('success', 'Source is sended');
+            return redirect()->back()->with('success-whitelist', 'Source is sended');
         }else{
-            return redirect()->back()->with('success', 'Source is already sended');
+            return redirect()->back()->with('success-whitelist', 'Source is already sended');
         }
     }
 
