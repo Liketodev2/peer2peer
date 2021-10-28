@@ -853,7 +853,7 @@ footer .social-icon-style a {
 .url_whitelist{
     border-radius: 0;
     height: 50px;
-    background-color: rgba(255, 255, 255, 0.12);
+    background: aliceblue;
     width: 74%;
     padding:5px;
     color: black;
