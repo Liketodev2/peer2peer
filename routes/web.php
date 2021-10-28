@@ -77,6 +77,8 @@ Route::get('/channel/edit/{id}', [App\Http\Controllers\UserController::class, 'e
 Route::post('/rss/store/{id}', [App\Http\Controllers\RssController::class, 'store'])->name('rss.store');
 Route::post('/rss/delete/{id}', [App\Http\Controllers\RssController::class, 'delete'])->name('rss.delete');
 
+Route::post('/rss/to-whitelist', [App\Http\Controllers\RssController::class, 'toWhitelist'])->name('rss.to-whitelist');
+
 
 
 Route::post('/message', [App\Http\Controllers\UserController::class, 'sendMessage'])->name('send-message');
@@ -94,6 +96,7 @@ Route::prefix('dashboard')->middleware(['dashboard','auth'])->group(function(){
 
         Route::get('/index', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard.index');
         Route::post('/feeds/approve', [App\Http\Controllers\Admin\FeedController::class, 'approve'])->name('dashboard.feeds.approve');
+        Route::post('/rss/approve', [App\Http\Controllers\Admin\RssController::class, 'approve'])->name('dashboard.rss.approve');
         Route::resource('users', '\App\Http\Controllers\Admin\UserController', ['as' => 'dashboard']);
         Route::resource('rss', '\App\Http\Controllers\Admin\RssController', ['as' => 'dashboard']);
         Route::resource('feeds', '\App\Http\Controllers\Admin\FeedController', ['as' => 'dashboard']);

@@ -52,6 +52,13 @@
                                                         @method('DELETE')
                                                         @csrf
                                                     </form>
+                                                    @if($item->status == 0)
+                                                        <form action="{{route('dashboard.rss.approve')}}" method="POST" class="ml-2 admin-remove-form" style="display: inline-block">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{$item->id}}">
+                                                            <button class="btn btn-success btn-sm d-block mb-2 w-60"><i class="fas fa-check"></i></button>
+                                                        </form>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

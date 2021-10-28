@@ -11,6 +11,6 @@ class ChannelWhiteList extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['url'];
+    protected $fillable = ['url','status','user_id'];
 
 }

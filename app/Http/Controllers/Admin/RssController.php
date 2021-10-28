@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\ChannelWhiteList;
 use App\Models\RssFeed;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -107,6 +108,15 @@ class RssController extends Controller
     {
         $item = RssFeed::find($id);
         $item->delete();
+
+        return redirect()->back();
+    }
+
+    public function approve(Request $request){
+        $channel = ChannelWhiteList::find($request->id);
+        $channel->update([
+            'status' => 1
+        ]);
 
         return redirect()->back();
     }
