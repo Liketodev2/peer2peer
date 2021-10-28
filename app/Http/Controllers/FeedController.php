@@ -187,7 +187,7 @@ class FeedController extends Controller
 
         $response_message = 'Article is created';
         $req_url_parse =  str_ireplace('www.', '', parse_url($request['url'], PHP_URL_HOST));
-        $white_list = ChannelWhiteList::all();
+        $white_list = ChannelWhiteList::where('status', 1)->get();
         $check_parsing = false;
 
         if($white_list->count() > 0) {
@@ -386,7 +386,7 @@ class FeedController extends Controller
         $req_url_parse =  str_ireplace('www.', '', parse_url($request['url'], PHP_URL_HOST));
 
         if($req_url_parse != str_ireplace('www.', '', parse_url($feed->first()['url'], PHP_URL_HOST))){
-            $white_list = ChannelWhiteList::all();
+            $white_list = ChannelWhiteList::where('status', 1)->get();
             $check_parsing = false;
 
             if($white_list->count() > 0) {
